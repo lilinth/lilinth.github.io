@@ -115,9 +115,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -204,6 +208,374 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.lilinth.com/2021/02/20/insecurestarttlsssltls-ce-shi-you-xiang-da-jian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's site">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/02/20/insecurestarttlsssltls-ce-shi-you-xiang-da-jian/" class="post-title-link" itemprop="url">Insecure/STARTTLS/SSLTLS 测试邮箱搭建</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-02-20 14:03:45 / Modified: 06:30:16" itemprop="dateCreated datePublished" datetime="2021-02-20T14:03:45+08:00">2021-02-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ol>
+<li>安装Hmailserver(<a target="_blank" rel="noopener" href="https://www.hmailserver.com/">https://www.hmailserver.com/</a>), 需要提前安装.netformwork；</li>
+<li>按照提示设置密码；</li>
+<li>使用hMailServer Administrator连接到hmailserver, 密码是安装的时候设置的；</li>
+<li>首先添加一个domain；</li>
+<li>接着添加几个账号，设置好密码；</li>
+<li>生成测试证书，可以去<a target="_blank" rel="noopener" href="https://myssl.com/create_test_cert.html">https://myssl.com/create_test_cert.html</a></li>
+<li>可以看到以下三个文件：<br>cert.pem对应服务器证书<br>full_chain.pem对应CA证书<br>private.key对应私钥</li>
+<li>回到hMailServer Administrator, 打开Settings-&gt;Advanced-&gt;SSL certificates；</li>
+<li>点Add 新加一个证书；</li>
+<li>给证书起一个名字，Certificate file 对应cert.pem，Private key file对应private.key；</li>
+<li>然后保存即可；</li>
+<li>切换到Settings-&gt;Advanced-&gt;TCP ports;</li>
+<li>这里可以按照需要进行设置相应的端口:<br>一般对应如下:<br>SMTP: 25(Insecure)/587(STARTTLS)/465(SSLTLS).<br>POP3: 110<br>IMAP:143</li>
+<li>对于测试部分，这里只是用到了SMTP的发送功能，收件功能没有特殊要求。</li>
+<li>选中0.0.0.0/587/SMTP, Connection security 选择 STARTTLS(Required), SSL Certificate选择步骤10里面的证书， 然后保存，这样就配置好了STARTTLS;</li>
+<li>同样，选中0.0.0.0/465/SMTP(如果没有参考PORT 25来配置一个就好)，Connection security 选择SSL/TLS, SSL Certificate选择步骤10里面的证书然后保存，这样就配置好了SSL/TLS；</li>
+<li>到此，邮件服务器就已经配置完成；</li>
+<li>使用邮件客户端进行测试，可以用thunderbird 或者foxmail;</li>
+<li>分别指定不同的SMTP发送服务器设置；</li>
+<li>确保可以收到邮件；</li>
+<li>检查hMailSever的log，可以看到对应的加密log:<br>`”TCPIP”            916      “2021-02-18 13:44:22.844”     “TCP - 10.245.17.234 connected to 10.245.47.36:588.”<br>“DEBUG”          916      “2021-02-18 13:44:22.844”     “TCP connection started for session 163”<br>“SMTPD”          916      163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “SENT: 220 DCG-L3-C2–09-L ESMTP”<br>“SMTPD”          6528    163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “RECEIVED: EHLO BMC”<br>“SMTPD”          6528    163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “SENT: 250-DCG-L3-C2–09-L[nl]250-SIZE 20480000[nl]250-STARTTLS[nl]250-AUTH LOGIN PLAIN[nl]250 HELP”<br>“SMTPD”          916      163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “RECEIVED: STARTTLS”<br>“SMTPD”          916      163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “SENT: 220 Ready to start TLS”<br>“DEBUG”          4348    “2021-02-18 13:44:22.860”     “Performing SSL/TLS handshake for session 163. Verify certificate: False”<br>“TCPIP”            4348    “2021-02-18 13:44:23.391”     “TCPConnection - TLS/SSL handshake completed. Session Id: 163, Remote IP: 10.245.17.234, Version: TLSv1.2, Cipher: ECDHE-RSA-AES256-GCM-SHA384, Bits: 256”</li>
+</ol>
+<p>“TCPIP”            2300    “2021-02-18 13:36:26.688”     “TCP - 10.245.17.234 connected to 10.245.47.36:466.”<br>“DEBUG”          2300    “2021-02-18 13:36:26.688”     “TCP connection started for session 90”<br>“DEBUG”          2300    “2021-02-18 13:36:26.688”     “Performing SSL/TLS handshake for session 90. Verify certificate: False”<br>“TCPIP”            2300    “2021-02-18 13:36:26.969”     “TCPConnection - TLS/SSL handshake completed. Session Id: 90, Remote IP: 10.245.17.234, Version: TLSv1.2, Cipher: ECDHE-RSA-AES256-GCM-SHA384, Bits: 256”`</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.lilinth.com/2020/11/25/zhi-xing-iptraf-ng-ti-shi-warning-unable-to-tag-this-process/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's site">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/11/25/zhi-xing-iptraf-ng-ti-shi-warning-unable-to-tag-this-process/" class="post-title-link" itemprop="url">执行iptraf-ng 提示Warning: unable to tag this process</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-11-25 13:04:18 / Modified: 05:04:52" itemprop="dateCreated datePublished" datetime="2020-11-25T13:04:18+08:00">2020-11-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>mkdir /var/run/iptraf 即可</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.lilinth.com/2020/10/20/jie-jue-could-not-create-ssltls-secure-channel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's site">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/10/20/jie-jue-could-not-create-ssltls-secure-channel/" class="post-title-link" itemprop="url">解决Could not create SSL/TLS secure channel</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-10-20 11:58:37 / Modified: 04:02:44" itemprop="dateCreated datePublished" datetime="2020-10-20T11:58:37+08:00">2020-10-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>System.Net.WebException: The request was aborted: Could not create<br>SSL/TLS secure channel.</p>
+<p>在我们的案例中，我们在使用软件供应商，因此我们无权修改.NET代码。除非有更改，否则.NET 4显然不会使用TLS v 1.2。</p>
+<p>我们的解决方法是将SchUseStrongCrypto密钥添加到注册表中。您可以将以下代码复制/粘贴到扩展名为.reg的文本文件中并执行它。它充当了我们解决该问题的”补丁”</p>
+<p>Windows Registry Editor Version 5.00</p>
+<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft.NETFramework\v4.0.30319]<br>“SchUseStrongCrypto”=dword:00000001</p>
+<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft.NETFramework\v4.0.30319]<br>“SchUseStrongCrypto”=dword:00000001</p>
+<p>Reference:<br><a target="_blank" rel="noopener" href="https://www.codenong.com/2859790/">https://www.codenong.com/2859790/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.lilinth.com/2020/10/14/conemu64-pei-he-wsl-shi-yong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's site">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/10/14/conemu64-pei-he-wsl-shi-yong/" class="post-title-link" itemprop="url">ConEmu64 配合WSL使用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-10-14 14:08:34 / Modified: 06:12:16" itemprop="dateCreated datePublished" datetime="2020-10-14T14:08:34+08:00">2020-10-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>set PATH=”%ConEmuBaseDirShort%\wsl”;%PATH% &amp; wsl -d ubuntu</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.lilinth.com/2020/10/14/gt-ac5300-koolshare-guan-gai-an-zhuang-entware/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's site">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/10/14/gt-ac5300-koolshare-guan-gai-an-zhuang-entware/" class="post-title-link" itemprop="url">GT-AC5300 Koolshare 官改安装Entware</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-10-14 12:21:59 / Modified: 04:59:30" itemprop="dateCreated datePublished" datetime="2020-10-14T12:21:59+08:00">2020-10-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ol>
+<li>首先插入ex3/ex4 usb disk一枚。</li>
+<li>创建对应的Entware文件夹:<pre><code>mkdir /mnt/sda1/entware</code></pre></li>
+<li>连接路由器的ssh，输入以下命令：<pre><code>cat << EOF > /tmp/script_usbmount.tmp
+ln -nsf /mnt/sda1/entware /tmp/opt
+EOF
+nvram set script_usbmount="`cat /tmp/script_usbmount.tmp`"</li>
+</ol>
+<p>cat &lt;&lt; EOF &gt; /tmp/script_usbumount.tmp<br>EOF<br>nvram set script_usbumount=”<code>cat /tmp/script_usbumount.tmp</code>“</p>
+<p>nvram commit </code></pre><br>4. 重启路由器<br>5. 重启之后查看文件夹/tmp/opt是否存在以及是否可以打开。<br>6. 在ssh里面执行下面的命令：</p>
+<pre><code>wget -O - http://bin.entware.net/aarch64-k3.10/installer/generic.sh | sh</code></pre>
+<ol start="7">
+<li>完成后输入opkg update检查是否有有效输出。<br>END</li>
+</ol>
+<p>Reference:<br><a target="_blank" rel="noopener" href="https://koolshare.cn/thread-154594-1-1.html">https://koolshare.cn/thread-154594-1-1.html</a><br><a target="_blank" rel="noopener" href="https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware">https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware</a></p>
 
       
     </div>

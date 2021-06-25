@@ -20,27 +20,27 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;blog.lilinth.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;Searching...&quot;,&quot;empty&quot;:&quot;We didn&#39;t find any results for the search: ${query}&quot;,&quot;hits_time&quot;:&quot;${hits} results found in ${time} ms&quot;,&quot;hits&quot;:&quot;${hits} results found&quot;}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="安装Hmailserver(https:&#x2F;&#x2F;www.hmailserver.com&#x2F;), 需要提前安装.netformwork； 按照提示设置密码； 使用hMailServer Administrator连接到hmailserver, 密码是安装的时候设置的； 首先添加一个domain； 接着添加几个账号，设置好密码； 生成测试证书，可以去https:&#x2F;&#x2F;myssl.com&#x2F;create_tes">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://blog.lilinth.com/2021/06/25/hello-world/index.html">
+<meta property="og:title" content="Insecure&#x2F;STARTTLS&#x2F;SSLTLS 测试邮箱搭建">
+<meta property="og:url" content="https://blog.lilinth.com/2021/02/20/insecurestarttlsssltls-ce-shi-you-xiang-da-jian/index.html">
 <meta property="og:site_name" content="Frank&#39;s site">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="安装Hmailserver(https:&#x2F;&#x2F;www.hmailserver.com&#x2F;), 需要提前安装.netformwork； 按照提示设置密码； 使用hMailServer Administrator连接到hmailserver, 密码是安装的时候设置的； 首先添加一个domain； 接着添加几个账号，设置好密码； 生成测试证书，可以去https:&#x2F;&#x2F;myssl.com&#x2F;create_tes">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-06-25T06:12:16.034Z">
-<meta property="article:modified_time" content="2021-06-25T06:12:16.035Z">
+<meta property="article:published_time" content="2021-02-20T06:03:45.000Z">
+<meta property="article:modified_time" content="2021-02-19T22:30:16.000Z">
 <meta property="article:author" content="Frank">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://blog.lilinth.com/2021/06/25/hello-world/">
+<link rel="canonical" href="https://blog.lilinth.com/2021/02/20/insecurestarttlsssltls-ce-shi-you-xiang-da-jian/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;blog.lilinth.com&#x2F;2021&#x2F;06&#x2F;25&#x2F;hello-world&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;06&#x2F;25&#x2F;hello-world&#x2F;&quot;,&quot;title&quot;:&quot;Hello World&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;en&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;blog.lilinth.com&#x2F;2021&#x2F;02&#x2F;20&#x2F;insecurestarttlsssltls-ce-shi-you-xiang-da-jian&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;02&#x2F;20&#x2F;insecurestarttlsssltls-ce-shi-you-xiang-da-jian&#x2F;&quot;,&quot;title&quot;:&quot;Insecure&#x2F;STARTTLS&#x2F;SSLTLS 测试邮箱搭建&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>Hello World | Frank's site</title>
+<title>Insecure/STARTTLS/SSLTLS 测试邮箱搭建 | Frank's site</title>
   
 
 
@@ -94,7 +94,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -107,7 +107,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -164,7 +163,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://blog.lilinth.com/2021/06/25/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://blog.lilinth.com/2021/02/20/insecurestarttlsssltls-ce-shi-you-xiang-da-jian/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -177,7 +176,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          Insecure/STARTTLS/SSLTLS 测试邮箱搭建
         </h1>
 
         <div class="post-meta-container">
@@ -187,8 +186,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2021-06-25 14:12:16" itemprop="dateCreated datePublished" datetime="2021-06-25T14:12:16+08:00">2021-06-25</time>
+      <time title="Created: 2021-02-20 14:03:45 / Modified: 06:30:16" itemprop="dateCreated datePublished" datetime="2021-02-20T14:03:45+08:00">2021-02-20</time>
     </span>
 
   
@@ -201,19 +201,30 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <ol>
+<li>安装Hmailserver(<a target="_blank" rel="noopener" href="https://www.hmailserver.com/">https://www.hmailserver.com/</a>), 需要提前安装.netformwork；</li>
+<li>按照提示设置密码；</li>
+<li>使用hMailServer Administrator连接到hmailserver, 密码是安装的时候设置的；</li>
+<li>首先添加一个domain；</li>
+<li>接着添加几个账号，设置好密码；</li>
+<li>生成测试证书，可以去<a target="_blank" rel="noopener" href="https://myssl.com/create_test_cert.html">https://myssl.com/create_test_cert.html</a></li>
+<li>可以看到以下三个文件：<br>cert.pem对应服务器证书<br>full_chain.pem对应CA证书<br>private.key对应私钥</li>
+<li>回到hMailServer Administrator, 打开Settings-&gt;Advanced-&gt;SSL certificates；</li>
+<li>点Add 新加一个证书；</li>
+<li>给证书起一个名字，Certificate file 对应cert.pem，Private key file对应private.key；</li>
+<li>然后保存即可；</li>
+<li>切换到Settings-&gt;Advanced-&gt;TCP ports;</li>
+<li>这里可以按照需要进行设置相应的端口:<br>一般对应如下:<br>SMTP: 25(Insecure)/587(STARTTLS)/465(SSLTLS).<br>POP3: 110<br>IMAP:143</li>
+<li>对于测试部分，这里只是用到了SMTP的发送功能，收件功能没有特殊要求。</li>
+<li>选中0.0.0.0/587/SMTP, Connection security 选择 STARTTLS(Required), SSL Certificate选择步骤10里面的证书， 然后保存，这样就配置好了STARTTLS;</li>
+<li>同样，选中0.0.0.0/465/SMTP(如果没有参考PORT 25来配置一个就好)，Connection security 选择SSL/TLS, SSL Certificate选择步骤10里面的证书然后保存，这样就配置好了SSL/TLS；</li>
+<li>到此，邮件服务器就已经配置完成；</li>
+<li>使用邮件客户端进行测试，可以用thunderbird 或者foxmail;</li>
+<li>分别指定不同的SMTP发送服务器设置；</li>
+<li>确保可以收到邮件；</li>
+<li>检查hMailSever的log，可以看到对应的加密log:<br>`”TCPIP”            916      “2021-02-18 13:44:22.844”     “TCP - 10.245.17.234 connected to 10.245.47.36:588.”<br>“DEBUG”          916      “2021-02-18 13:44:22.844”     “TCP connection started for session 163”<br>“SMTPD”          916      163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “SENT: 220 DCG-L3-C2–09-L ESMTP”<br>“SMTPD”          6528    163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “RECEIVED: EHLO BMC”<br>“SMTPD”          6528    163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “SENT: 250-DCG-L3-C2–09-L[nl]250-SIZE 20480000[nl]250-STARTTLS[nl]250-AUTH LOGIN PLAIN[nl]250 HELP”<br>“SMTPD”          916      163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “RECEIVED: STARTTLS”<br>“SMTPD”          916      163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “SENT: 220 Ready to start TLS”<br>“DEBUG”          4348    “2021-02-18 13:44:22.860”     “Performing SSL/TLS handshake for session 163. Verify certificate: False”<br>“TCPIP”            4348    “2021-02-18 13:44:23.391”     “TCPConnection - TLS/SSL handshake completed. Session Id: 163, Remote IP: 10.245.17.234, Version: TLSv1.2, Cipher: ECDHE-RSA-AES256-GCM-SHA384, Bits: 256”</li>
+</ol>
+<p>“TCPIP”            2300    “2021-02-18 13:36:26.688”     “TCP - 10.245.17.234 connected to 10.245.47.36:466.”<br>“DEBUG”          2300    “2021-02-18 13:36:26.688”     “TCP connection started for session 90”<br>“DEBUG”          2300    “2021-02-18 13:36:26.688”     “Performing SSL/TLS handshake for session 90. Verify certificate: False”<br>“TCPIP”            2300    “2021-02-18 13:36:26.969”     “TCPConnection - TLS/SSL handshake completed. Session Id: 90, Remote IP: 10.245.17.234, Version: TLSv1.2, Cipher: ECDHE-RSA-AES256-GCM-SHA384, Bits: 256”`</p>
 
     </div>
 
@@ -227,11 +238,14 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/02/20/insecurestarttlsssltls-ce-shi-you-xiang-da-jian/" rel="prev" title="Insecure/STARTTLS/SSLTLS 测试邮箱搭建">
-                  <i class="fa fa-chevron-left"></i> Insecure/STARTTLS/SSLTLS 测试邮箱搭建
+                <a href="/2020/11/25/zhi-xing-iptraf-ng-ti-shi-warning-unable-to-tag-this-process/" rel="prev" title="执行iptraf-ng 提示Warning: unable to tag this process">
+                  <i class="fa fa-chevron-left"></i> 执行iptraf-ng 提示Warning: unable to tag this process
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2021/06/25/hello-world/" rel="next" title="Hello World">
+                  Hello World <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
