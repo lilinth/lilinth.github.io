@@ -3,12 +3,12 @@
   <entry>
     <title>ConEmu64 配合WSL使用</title>
     <url>/2020/10/14/conemu64-pei-he-wsl-shi-yong/</url>
-    <content><![CDATA[<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> PATH=<span class="string">&quot;%ConEmuBaseDirShort%\wsl&quot;</span>;%PATH% &amp; wsl -d ubuntu</span><br></pre></td></tr></table></figure>]]></content>
+    <content><![CDATA[<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> PATH=<span class="string">&quot;%ConEmuBaseDirShort%\wsl&quot;</span>;%PATH% &amp; wsl -d ubuntu</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>GT-AC5300 Koolshare 官改安装Entware</title>
     <url>/2020/10/14/gt-ac5300-koolshare-guan-gai-an-zhuang-entware/</url>
-    <content><![CDATA[<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><ol>
+    <content><![CDATA[<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
 <li><p>首先插入ex3/ex4 usb disk一枚。</p>
 </li>
 <li><p>创建对应的Entware文件夹:</p>
@@ -23,9 +23,9 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O - http://bin.entware.net/aarch64-k3.10/installer/generic.sh | sh</span><br></pre></td></tr></table></figure></li>
 <li><p>完成后输入opkg update检查是否有有效输出。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">opkg update</span><br></pre></td></tr></table></figure>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h1><p><a href="https://koolshare.cn/thread-154594-1-1.html">https://koolshare.cn/thread-154594-1-1.html</a><br><a href="https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware">https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware</a></p>
-</li>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2></li>
 </ol>
+<p><a href="https://koolshare.cn/thread-154594-1-1.html">https://koolshare.cn/thread-154594-1-1.html</a><br><a href="https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware">https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware</a></p>
 ]]></content>
       <tags>
         <tag>router</tag>
@@ -52,7 +52,7 @@
   <entry>
     <title>Insecure/STARTTLS/SSLTLS 测试邮箱搭建</title>
     <url>/2021/02/20/insecurestarttlsssltls-ce-shi-you-xiang-da-jian/</url>
-    <content><![CDATA[<h1 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h1><ol>
+    <content><![CDATA[<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><ol>
 <li>安装<a href="https://www.hmailserver.com/">Hmailserver</a>, 需要提前安装.netformwork；</li>
 <li>按照提示设置密码；</li>
 <li>使用hMailServer Administrator连接到hmailserver, 密码是安装的时候设置的；</li>
@@ -70,7 +70,7 @@
 <li>对于测试部分，这里只是用到了SMTP的发送功能，收件功能没有特殊要求。</li>
 <li>选中0.0.0.0/587/SMTP, Connection security 选择 STARTTLS(Required), SSL Certificate选择步骤10里面的证书, 然后保存，这样就配置好了STARTTLS;</li>
 <li>同样，选中0.0.0.0/465/SMTP(如果没有参考PORT 25来配置一个就好)，Connection security 选择SSL/TLS, SSL Certificate选择步骤10里面的证书然后保存，这样就配置好了SSL/TLS；</li>
-<li>到此，邮件服务器就已经配置完成.<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1></li>
+<li>到此，邮件服务器就已经配置完成.<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2></li>
 <li>使用邮件客户端进行测试，可以用thunderbird 或者foxmail;</li>
 <li>分别指定不同的SMTP发送服务器设置；</li>
 <li>确保可以收到邮件；</li>
@@ -81,17 +81,17 @@
   <entry>
     <title>解决Could not create SSL/TLS secure channel</title>
     <url>/2020/10/20/jie-jue-could-not-create-ssltls-secure-channel/</url>
-    <content><![CDATA[<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><ol>
+    <content><![CDATA[<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
 <li>错误内容<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">System.Net.WebException: The request was aborted: Could not create</span><br><span class="line">SSL/TLS secure channel.</span><br></pre></td></tr></table></figure></li>
 <li>在我们的案例中，我们在使用软件供应商，因此我们无权修改.NET代码。除非有更改，否则.NET 4显然不会使用TLS v 1.2。 * 我们的解决方法是将SchUseStrongCrypto密钥添加到注册表中。您可以将以下代码复制/粘贴到扩展名为.reg的文本文件中并执行它。它充当了我们解决该问题的”补丁”<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319]</span><br><span class="line"><span class="string">&quot;SchUseStrongCrypto&quot;</span>=dword:00000001</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319]</span><br><span class="line"><span class="string">&quot;SchUseStrongCrypto&quot;</span>=dword:00000001</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p><a href="https://www.codenong.com/2859790/">https://www.codenong.com/2859790/</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><p><a href="https://www.codenong.com/2859790/">https://www.codenong.com/2859790/</a></p>
 ]]></content>
   </entry>
   <entry>
     <title>执行iptraf-ng 提示Warning: unable to tag this process</title>
     <url>/2020/11/25/zhi-xing-iptraf-ng-ti-shi-warning-unable-to-tag-this-process/</url>
-    <content><![CDATA[<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><ol>
+    <content><![CDATA[<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
 <li>遇到如下错误之后<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Warning: unable to tag this process</span><br></pre></td></tr></table></figure></li>
 <li>执行如下命令<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir /var/run/iptraf</span><br></pre></td></tr></table></figure></li>
 </ol>
