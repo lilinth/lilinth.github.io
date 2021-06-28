@@ -289,10 +289,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-02-20 14:03:45 / 修改时间：06:30:16" itemprop="dateCreated datePublished" datetime="2021-02-20T14:03:45+08:00">2021-02-20</time>
+      <time title="创建时间：2021-02-20 14:03:45" itemprop="dateCreated datePublished" datetime="2021-02-20T14:03:45+08:00">2021-02-20</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-28 10:54:09" itemprop="dateModified" datetime="2021-06-28T10:54:09+08:00">2021-06-28</time>
+      </span>
 
   
 </div>
@@ -304,31 +310,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <ol>
-<li>安装Hmailserver(<a target="_blank" rel="noopener" href="https://www.hmailserver.com/">https://www.hmailserver.com/</a>), 需要提前安装.netformwork；</li>
-<li>按照提示设置密码；</li>
-<li>使用hMailServer Administrator连接到hmailserver, 密码是安装的时候设置的；</li>
-<li>首先添加一个domain；</li>
-<li>接着添加几个账号，设置好密码；</li>
-<li>生成测试证书，可以去<a target="_blank" rel="noopener" href="https://myssl.com/create_test_cert.html">https://myssl.com/create_test_cert.html</a></li>
-<li>可以看到以下三个文件：<br>cert.pem对应服务器证书<br>full_chain.pem对应CA证书<br>private.key对应私钥</li>
-<li>回到hMailServer Administrator, 打开Settings-&gt;Advanced-&gt;SSL certificates；</li>
-<li>点Add 新加一个证书；</li>
-<li>给证书起一个名字，Certificate file 对应cert.pem，Private key file对应private.key；</li>
-<li>然后保存即可；</li>
-<li>切换到Settings-&gt;Advanced-&gt;TCP ports;</li>
-<li>这里可以按照需要进行设置相应的端口:<br>一般对应如下:<br>SMTP: 25(Insecure)/587(STARTTLS)/465(SSLTLS).<br>POP3: 110<br>IMAP:143</li>
-<li>对于测试部分，这里只是用到了SMTP的发送功能，收件功能没有特殊要求。</li>
-<li>选中0.0.0.0/587/SMTP, Connection security 选择 STARTTLS(Required), SSL Certificate选择步骤10里面的证书， 然后保存，这样就配置好了STARTTLS;</li>
-<li>同样，选中0.0.0.0/465/SMTP(如果没有参考PORT 25来配置一个就好)，Connection security 选择SSL/TLS, SSL Certificate选择步骤10里面的证书然后保存，这样就配置好了SSL/TLS；</li>
-<li>到此，邮件服务器就已经配置完成；</li>
-<li>使用邮件客户端进行测试，可以用thunderbird 或者foxmail;</li>
-<li>分别指定不同的SMTP发送服务器设置；</li>
-<li>确保可以收到邮件；</li>
-<li>检查hMailSever的log，可以看到对应的加密log:<br>`”TCPIP”            916      “2021-02-18 13:44:22.844”     “TCP - 10.245.17.234 connected to 10.245.47.36:588.”<br>“DEBUG”          916      “2021-02-18 13:44:22.844”     “TCP connection started for session 163”<br>“SMTPD”          916      163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “SENT: 220 DCG-L3-C2–09-L ESMTP”<br>“SMTPD”          6528    163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “RECEIVED: EHLO BMC”<br>“SMTPD”          6528    163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “SENT: 250-DCG-L3-C2–09-L[nl]250-SIZE 20480000[nl]250-STARTTLS[nl]250-AUTH LOGIN PLAIN[nl]250 HELP”<br>“SMTPD”          916      163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “RECEIVED: STARTTLS”<br>“SMTPD”          916      163      “2021-02-18 13:44:22.860”     “10.245.17.234”           “SENT: 220 Ready to start TLS”<br>“DEBUG”          4348    “2021-02-18 13:44:22.860”     “Performing SSL/TLS handshake for session 163. Verify certificate: False”<br>“TCPIP”            4348    “2021-02-18 13:44:23.391”     “TCPConnection - TLS/SSL handshake completed. Session Id: 163, Remote IP: 10.245.17.234, Version: TLSv1.2, Cipher: ECDHE-RSA-AES256-GCM-SHA384, Bits: 256”</li>
-</ol>
-<p>“TCPIP”            2300    “2021-02-18 13:36:26.688”     “TCP - 10.245.17.234 connected to 10.245.47.36:466.”<br>“DEBUG”          2300    “2021-02-18 13:36:26.688”     “TCP connection started for session 90”<br>“DEBUG”          2300    “2021-02-18 13:36:26.688”     “Performing SSL/TLS handshake for session 90. Verify certificate: False”<br>“TCPIP”            2300    “2021-02-18 13:36:26.969”     “TCPConnection - TLS/SSL handshake completed. Session Id: 90, Remote IP: 10.245.17.234, Version: TLSv1.2, Cipher: ECDHE-RSA-AES256-GCM-SHA384, Bits: 256”`</p>
-
+          <h3 id="安装Hmailserver-https-www-hmailserver-com-需要提前安装-netformwork；"><a href="#安装Hmailserver-https-www-hmailserver-com-需要提前安装-netformwork；" class="headerlink" title="安装Hmailserver(https://www.hmailserver.com/), 需要提前安装.netformwork；"></a>安装Hmailserver(<a target="_blank" rel="noopener" href="https://www.hmailserver.com/">https://www.hmailserver.com/</a>), 需要提前安装.netformwork；</h3><h3 id="按照提示设置密码；"><a href="#按照提示设置密码；" class="headerlink" title="按照提示设置密码；"></a>按照提示设置密码；</h3><h3 id="使用hMailServer-Administrator连接到hmailserver-密码是安装的时候设置的；"><a href="#使用hMailServer-Administrator连接到hmailserver-密码是安装的时候设置的；" class="headerlink" title="使用hMailServer Administrator连接到hmailserver, 密码是安装的时候设置的；"></a>使用hMailServer Administrator连接到hmailserver, 密码是安装的时候设置的；</h3><h3 id="首先添加一个domain；"><a href="#首先添加一个domain；" class="headerlink" title="首先添加一个domain；"></a>首先添加一个domain；</h3><h3 id="接着添加几个账号，设置好密码；"><a href="#接着添加几个账号，设置好密码；" class="headerlink" title="接着添加几个账号，设置好密码；"></a>接着添加几个账号，设置好密码；</h3><h3 id="生成测试证书，可以去https-myssl-com-create-test-cert-html"><a href="#生成测试证书，可以去https-myssl-com-create-test-cert-html" class="headerlink" title="生成测试证书，可以去https://myssl.com/create_test_cert.html"></a>生成测试证书，可以去<a target="_blank" rel="noopener" href="https://myssl.com/create_test_cert.html">https://myssl.com/create_test_cert.html</a></h3><h3 id="可以看到以下三个文件："><a href="#可以看到以下三个文件：" class="headerlink" title="可以看到以下三个文件："></a>可以看到以下三个文件：</h3><p>cert.pem对应服务器证书<br>full_chain.pem对应CA证书<br>private.key对应私钥</p>
+<h3 id="回到hMailServer-Administrator-打开Settings-gt-Advanced-gt-SSL-certificates；"><a href="#回到hMailServer-Administrator-打开Settings-gt-Advanced-gt-SSL-certificates；" class="headerlink" title="回到hMailServer Administrator, 打开Settings-&gt;Advanced-&gt;SSL certificates；"></a>回到hMailServer Administrator, 打开Settings-&gt;Advanced-&gt;SSL certificates；</h3><h3 id="点Add-新加一个证书；"><a href="#点Add-新加一个证书；" class="headerlink" title="点Add 新加一个证书；"></a>点Add 新加一个证书；</h3><h3 id="给证书起一个名字，Certificate-file-对应cert-pem，Private-key-file对应private-key；"><a href="#给证书起一个名字，Certificate-file-对应cert-pem，Private-key-file对应private-key；" class="headerlink" title="给证书起一个名字，Certificate file 对应cert.pem，Private key file对应private.key；"></a>给证书起一个名字，Certificate file 对应cert.pem，Private key file对应private.key；</h3><h3 id="然后保存即可；"><a href="#然后保存即可；" class="headerlink" title="然后保存即可；"></a>然后保存即可；</h3><h3 id="切换到Settings-gt-Advanced-gt-TCP-ports"><a href="#切换到Settings-gt-Advanced-gt-TCP-ports" class="headerlink" title="切换到Settings-&gt;Advanced-&gt;TCP ports;"></a>切换到Settings-&gt;Advanced-&gt;TCP ports;</h3><h3 id="这里可以按照需要进行设置相应的端口"><a href="#这里可以按照需要进行设置相应的端口" class="headerlink" title="这里可以按照需要进行设置相应的端口:"></a>这里可以按照需要进行设置相应的端口:</h3><p>一般对应如下:<br>SMTP: 25(Insecure)/587(STARTTLS)/465(SSLTLS).<br>POP3: 110<br>IMAP:143</p>
+<h3 id="对于测试部分，这里只是用到了SMTP的发送功能，收件功能没有特殊要求。"><a href="#对于测试部分，这里只是用到了SMTP的发送功能，收件功能没有特殊要求。" class="headerlink" title="对于测试部分，这里只是用到了SMTP的发送功能，收件功能没有特殊要求。"></a>对于测试部分，这里只是用到了SMTP的发送功能，收件功能没有特殊要求。</h3><h3 id="选中0-0-0-0-587-SMTP-Connection-security-选择-STARTTLS-Required-SSL-Certificate选择步骤10里面的证书，-然后保存，这样就配置好了STARTTLS"><a href="#选中0-0-0-0-587-SMTP-Connection-security-选择-STARTTLS-Required-SSL-Certificate选择步骤10里面的证书，-然后保存，这样就配置好了STARTTLS" class="headerlink" title="选中0.0.0.0/587/SMTP, Connection security 选择 STARTTLS(Required), SSL Certificate选择步骤10里面的证书， 然后保存，这样就配置好了STARTTLS;"></a>选中0.0.0.0/587/SMTP, Connection security 选择 STARTTLS(Required), SSL Certificate选择步骤10里面的证书， 然后保存，这样就配置好了STARTTLS;</h3><h3 id="同样，选中0-0-0-0-465-SMTP-如果没有参考PORT-25来配置一个就好-，Connection-security-选择SSL-TLS-SSL-Certificate选择步骤10里面的证书然后保存，这样就配置好了SSL-TLS；"><a href="#同样，选中0-0-0-0-465-SMTP-如果没有参考PORT-25来配置一个就好-，Connection-security-选择SSL-TLS-SSL-Certificate选择步骤10里面的证书然后保存，这样就配置好了SSL-TLS；" class="headerlink" title="同样，选中0.0.0.0/465/SMTP(如果没有参考PORT 25来配置一个就好)，Connection security 选择SSL/TLS, SSL Certificate选择步骤10里面的证书然后保存，这样就配置好了SSL/TLS；"></a>同样，选中0.0.0.0/465/SMTP(如果没有参考PORT 25来配置一个就好)，Connection security 选择SSL/TLS, SSL Certificate选择步骤10里面的证书然后保存，这样就配置好了SSL/TLS；</h3><h3 id="到此，邮件服务器就已经配置完成；"><a href="#到此，邮件服务器就已经配置完成；" class="headerlink" title="到此，邮件服务器就已经配置完成；"></a>到此，邮件服务器就已经配置完成；</h3><h3 id="使用邮件客户端进行测试，可以用thunderbird-或者foxmail"><a href="#使用邮件客户端进行测试，可以用thunderbird-或者foxmail" class="headerlink" title="使用邮件客户端进行测试，可以用thunderbird 或者foxmail;"></a>使用邮件客户端进行测试，可以用thunderbird 或者foxmail;</h3><h3 id="分别指定不同的SMTP发送服务器设置；"><a href="#分别指定不同的SMTP发送服务器设置；" class="headerlink" title="分别指定不同的SMTP发送服务器设置；"></a>分别指定不同的SMTP发送服务器设置；</h3><h3 id="确保可以收到邮件；"><a href="#确保可以收到邮件；" class="headerlink" title="确保可以收到邮件；"></a>确保可以收到邮件；</h3><h3 id="检查hMailSever的log，可以看到对应的加密log"><a href="#检查hMailSever的log，可以看到对应的加密log" class="headerlink" title="检查hMailSever的log，可以看到对应的加密log:"></a>检查hMailSever的log，可以看到对应的加密log:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">`<span class="string">&quot;TCPIP&quot;</span>            916      <span class="string">&quot;2021-02-18 13:44:22.844&quot;</span>     <span class="string">&quot;TCP - 10.245.17.234 connected to 10.245.47.36:588.&quot;</span></span><br><span class="line"><span class="string">&quot;DEBUG&quot;</span>          916      <span class="string">&quot;2021-02-18 13:44:22.844&quot;</span>     <span class="string">&quot;TCP connection started for session 163&quot;</span></span><br><span class="line"><span class="string">&quot;SMTPD&quot;</span>          916      163      <span class="string">&quot;2021-02-18 13:44:22.860&quot;</span>     <span class="string">&quot;10.245.17.234&quot;</span>           <span class="string">&quot;SENT: 220 DCG-L3-C2--09-L ESMTP&quot;</span></span><br><span class="line"><span class="string">&quot;SMTPD&quot;</span>          6528    163      <span class="string">&quot;2021-02-18 13:44:22.860&quot;</span>     <span class="string">&quot;10.245.17.234&quot;</span>           <span class="string">&quot;RECEIVED: EHLO BMC&quot;</span></span><br><span class="line"><span class="string">&quot;SMTPD&quot;</span>          6528    163      <span class="string">&quot;2021-02-18 13:44:22.860&quot;</span>     <span class="string">&quot;10.245.17.234&quot;</span>           <span class="string">&quot;SENT: 250-DCG-L3-C2--09-L[nl]250-SIZE 20480000[nl]250-STARTTLS[nl]250-AUTH LOGIN PLAIN[nl]250 HELP&quot;</span></span><br><span class="line"><span class="string">&quot;SMTPD&quot;</span>          916      163      <span class="string">&quot;2021-02-18 13:44:22.860&quot;</span>     <span class="string">&quot;10.245.17.234&quot;</span>           <span class="string">&quot;RECEIVED: STARTTLS&quot;</span></span><br><span class="line"><span class="string">&quot;SMTPD&quot;</span>          916      163      <span class="string">&quot;2021-02-18 13:44:22.860&quot;</span>     <span class="string">&quot;10.245.17.234&quot;</span>           <span class="string">&quot;SENT: 220 Ready to start TLS&quot;</span></span><br><span class="line"><span class="string">&quot;DEBUG&quot;</span>          4348    <span class="string">&quot;2021-02-18 13:44:22.860&quot;</span>     <span class="string">&quot;Performing SSL/TLS handshake for session 163. Verify certificate: False&quot;</span></span><br><span class="line"><span class="string">&quot;TCPIP&quot;</span>            4348    <span class="string">&quot;2021-02-18 13:44:23.391&quot;</span>     <span class="string">&quot;TCPConnection - TLS/SSL handshake completed. Session Id: 163, Remote IP: 10.245.17.234, Version: TLSv1.2, Cipher: ECDHE-RSA-AES256-GCM-SHA384, Bits: 256&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;TCPIP&quot;</span>            2300    <span class="string">&quot;2021-02-18 13:36:26.688&quot;</span>     <span class="string">&quot;TCP - 10.245.17.234 connected to 10.245.47.36:466.&quot;</span></span><br><span class="line"><span class="string">&quot;DEBUG&quot;</span>          2300    <span class="string">&quot;2021-02-18 13:36:26.688&quot;</span>     <span class="string">&quot;TCP connection started for session 90&quot;</span></span><br><span class="line"><span class="string">&quot;DEBUG&quot;</span>          2300    <span class="string">&quot;2021-02-18 13:36:26.688&quot;</span>     <span class="string">&quot;Performing SSL/TLS handshake for session 90. Verify certificate: False&quot;</span></span><br><span class="line"><span class="string">&quot;TCPIP&quot;</span>            2300    <span class="string">&quot;2021-02-18 13:36:26.969&quot;</span>     <span class="string">&quot;TCPConnection - TLS/SSL handshake completed. Session Id: 90, Remote IP: 10.245.17.234, Version: TLSv1.2, Cipher: ECDHE-RSA-AES256-GCM-SHA384, Bits: 256&quot;</span>`</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -377,10 +361,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-11-25 13:04:18 / 修改时间：05:04:52" itemprop="dateCreated datePublished" datetime="2020-11-25T13:04:18+08:00">2020-11-25</time>
+      <time title="创建时间：2020-11-25 13:04:18" itemprop="dateCreated datePublished" datetime="2020-11-25T13:04:18+08:00">2020-11-25</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-28 10:55:43" itemprop="dateModified" datetime="2021-06-28T10:55:43+08:00">2021-06-28</time>
+      </span>
 
   
 </div>
@@ -392,8 +382,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>mkdir /var/run/iptraf 即可</p>
-
+          <h3 id="执行如下命令"><a href="#执行如下命令" class="headerlink" title="执行如下命令"></a>执行如下命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/run/iptraf</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -442,10 +431,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-10-20 11:58:37 / 修改时间：04:02:44" itemprop="dateCreated datePublished" datetime="2020-10-20T11:58:37+08:00">2020-10-20</time>
+      <time title="创建时间：2020-10-20 11:58:37" itemprop="dateCreated datePublished" datetime="2020-10-20T11:58:37+08:00">2020-10-20</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-28 10:55:11" itemprop="dateModified" datetime="2021-06-28T10:55:11+08:00">2021-06-28</time>
+      </span>
 
   
 </div>
@@ -457,13 +452,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>System.Net.WebException: The request was aborted: Could not create<br>SSL/TLS secure channel.</p>
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.Net.WebException: The request was aborted: Could not create</span><br><span class="line">SSL/TLS secure channel.</span><br></pre></td></tr></table></figure>
 <p>在我们的案例中，我们在使用软件供应商，因此我们无权修改.NET代码。除非有更改，否则.NET 4显然不会使用TLS v 1.2。</p>
 <p>我们的解决方法是将SchUseStrongCrypto密钥添加到注册表中。您可以将以下代码复制/粘贴到扩展名为.reg的文本文件中并执行它。它充当了我们解决该问题的”补丁”</p>
-<p>Windows Registry Editor Version 5.00</p>
-<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft.NETFramework\v4.0.30319]<br>“SchUseStrongCrypto”=dword:00000001</p>
-<p>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft.NETFramework\v4.0.30319]<br>“SchUseStrongCrypto”=dword:00000001</p>
-<p>Reference:<br><a target="_blank" rel="noopener" href="https://www.codenong.com/2859790/">https://www.codenong.com/2859790/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319]</span><br><span class="line"><span class="string">&quot;SchUseStrongCrypto&quot;</span>=dword:00000001</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319]</span><br><span class="line"><span class="string">&quot;SchUseStrongCrypto&quot;</span>=dword:00000001</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p><a target="_blank" rel="noopener" href="https://www.codenong.com/2859790/">https://www.codenong.com/2859790/</a></p>
 
       
     </div>
@@ -513,10 +507,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-10-14 14:08:34 / 修改时间：06:12:16" itemprop="dateCreated datePublished" datetime="2020-10-14T14:08:34+08:00">2020-10-14</time>
+      <time title="创建时间：2020-10-14 14:08:34" itemprop="dateCreated datePublished" datetime="2020-10-14T14:08:34+08:00">2020-10-14</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-28 10:50:37" itemprop="dateModified" datetime="2021-06-28T10:50:37+08:00">2021-06-28</time>
+      </span>
 
   
 </div>
@@ -528,8 +528,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>set PATH=”%ConEmuBaseDirShort%\wsl”;%PATH% &amp; wsl -d ubuntu</p>
-
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> PATH=<span class="string">&quot;%ConEmuBaseDirShort%\wsl&quot;</span>;%PATH% &amp; wsl -d ubuntu</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -578,10 +577,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-10-14 12:21:59 / 修改时间：04:59:30" itemprop="dateCreated datePublished" datetime="2020-10-14T12:21:59+08:00">2020-10-14</time>
+      <time title="创建时间：2020-10-14 12:21:59" itemprop="dateCreated datePublished" datetime="2020-10-14T12:21:59+08:00">2020-10-14</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-28 10:53:02" itemprop="dateModified" datetime="2021-06-28T10:53:02+08:00">2021-06-28</time>
+      </span>
 
   
 </div>
@@ -593,21 +598,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <ol>
-<li>首先插入ex3/ex4 usb disk一枚。</li>
-<li>创建对应的Entware文件夹:<pre><code>mkdir /mnt/sda1/entware</code></pre></li>
-<li>连接路由器的ssh，输入以下命令：<pre><code>cat << EOF > /tmp/script_usbmount.tmp
-ln -nsf /mnt/sda1/entware /tmp/opt
-EOF
-nvram set script_usbmount="`cat /tmp/script_usbmount.tmp`"</li>
-</ol>
-<p>cat &lt;&lt; EOF &gt; /tmp/script_usbumount.tmp<br>EOF<br>nvram set script_usbumount=”<code>cat /tmp/script_usbumount.tmp</code>“</p>
-<p>nvram commit </code></pre><br>4. 重启路由器<br>5. 重启之后查看文件夹/tmp/opt是否存在以及是否可以打开。<br>6. 在ssh里面执行下面的命令：</p>
-<pre><code>wget -O - http://bin.entware.net/aarch64-k3.10/installer/generic.sh | sh</code></pre>
-<ol start="7">
-<li>完成后输入opkg update检查是否有有效输出。<br>END</li>
-</ol>
-<p>Reference:<br><a target="_blank" rel="noopener" href="https://koolshare.cn/thread-154594-1-1.html">https://koolshare.cn/thread-154594-1-1.html</a><br><a target="_blank" rel="noopener" href="https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware">https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware</a></p>
+          <h3 id="首先插入ex3-ex4-usb-disk一枚。"><a href="#首先插入ex3-ex4-usb-disk一枚。" class="headerlink" title="首先插入ex3/ex4 usb disk一枚。"></a>首先插入ex3/ex4 usb disk一枚。</h3><h3 id="创建对应的Entware文件夹"><a href="#创建对应的Entware文件夹" class="headerlink" title="创建对应的Entware文件夹:"></a>创建对应的Entware文件夹:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/sda1/entware</span><br></pre></td></tr></table></figure>
+<h3 id="连接路由器的ssh，输入以下命令："><a href="#连接路由器的ssh，输入以下命令：" class="headerlink" title="连接路由器的ssh，输入以下命令："></a>连接路由器的ssh，输入以下命令：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt; <span class="string">EOF &gt; /tmp/script_usbmount.tmp</span></span><br><span class="line"><span class="string">ln -nsf /mnt/sda1/entware /tmp/opt</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line">nvram <span class="built_in">set</span> script_usbmount=<span class="string">&quot;`cat /tmp/script_usbmount.tmp`&quot;</span></span><br><span class="line"></span><br><span class="line">cat &lt;&lt; <span class="string">EOF &gt; /tmp/script_usbumount.tmp</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line">nvram <span class="built_in">set</span> script_usbumount=<span class="string">&quot;`cat /tmp/script_usbumount.tmp`&quot;</span></span><br><span class="line"></span><br><span class="line">nvram commit </span><br></pre></td></tr></table></figure>
+<h3 id="重启路由器"><a href="#重启路由器" class="headerlink" title="重启路由器"></a>重启路由器</h3><h3 id="重启之后查看文件夹-tmp-opt是否存在以及是否可以打开。"><a href="#重启之后查看文件夹-tmp-opt是否存在以及是否可以打开。" class="headerlink" title="重启之后查看文件夹/tmp/opt是否存在以及是否可以打开。"></a>重启之后查看文件夹/tmp/opt是否存在以及是否可以打开。</h3><h3 id="在ssh里面执行下面的命令："><a href="#在ssh里面执行下面的命令：" class="headerlink" title="在ssh里面执行下面的命令："></a>在ssh里面执行下面的命令：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O - http://bin.entware.net/aarch64-k3.10/installer/generic.sh | sh</span><br></pre></td></tr></table></figure>
+<h3 id="完成后输入opkg-update检查是否有有效输出。"><a href="#完成后输入opkg-update检查是否有有效输出。" class="headerlink" title="完成后输入opkg update检查是否有有效输出。"></a>完成后输入opkg update检查是否有有效输出。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br></pre></td></tr></table></figure>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p><a target="_blank" rel="noopener" href="https://koolshare.cn/thread-154594-1-1.html">https://koolshare.cn/thread-154594-1-1.html</a><br><a target="_blank" rel="noopener" href="https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware">https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware</a></p>
 
       
     </div>
