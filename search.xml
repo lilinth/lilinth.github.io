@@ -89,6 +89,19 @@
 ]]></content>
   </entry>
   <entry>
+    <title>new server</title>
+    <url>/2021/06/30/new-server/</url>
+    <content><![CDATA[<h2 id="安装BT"><a href="#安装BT" class="headerlink" title="安装BT"></a>安装BT</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装BBR"><a href="#安装BBR" class="headerlink" title="安装BBR"></a>安装BBR</h2><p>卸载内核版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O tcp.sh <span class="string">&quot;https://git.io/coolspeeda&quot;</span> &amp;&amp; chmod +x tcp.sh &amp;&amp; ./tcp.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-x-ui"><a href="#安装-x-ui" class="headerlink" title="安装 x-ui"></a>安装 x-ui</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(curl -Ls https://raw.githubusercontent.com/sprov065/x-ui/master/install.sh) 0.2.0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Cloudflare WARP</span></span><br><span class="line">bash &lt;(curl -fsSL git.io/warp.sh) menu</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
     <title>执行iptraf-ng 提示Warning: unable to tag this process</title>
     <url>/2020/11/25/zhi-xing-iptraf-ng-ti-shi-warning-unable-to-tag-this-process/</url>
     <content><![CDATA[<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
