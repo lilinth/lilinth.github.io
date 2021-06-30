@@ -98,7 +98,8 @@
 
 <h2 id="安装-x-ui"><a href="#安装-x-ui" class="headerlink" title="安装 x-ui"></a>安装 x-ui</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(curl -Ls https://raw.githubusercontent.com/sprov065/x-ui/master/install.sh) 0.2.0</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Cloudflare WARP</span></span><br><span class="line">bash &lt;(curl -fsSL git.io/warp.sh) menu</span><br></pre></td></tr></table></figure>
+
+<h2 id="Cloudflare-WARP"><a href="#Cloudflare-WARP" class="headerlink" title="Cloudflare WARP"></a>Cloudflare WARP</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(curl -fsSL git.io/warp.sh) menu</span><br></pre></td></tr></table></figure>
 ]]></content>
   </entry>
   <entry>
