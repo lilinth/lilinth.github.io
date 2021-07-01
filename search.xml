@@ -1,35 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>ConEmu64 配合WSL使用</title>
-    <url>/2020/10/14/conemu64-pei-he-wsl-shi-yong/</url>
-    <content><![CDATA[<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> PATH=<span class="string">&quot;%ConEmuBaseDirShort%\wsl&quot;</span>;%PATH% &amp; wsl -d ubuntu</span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
-    <title>GT-AC5300 Koolshare 官改安装Entware</title>
-    <url>/2020/10/14/gt-ac5300-koolshare-guan-gai-an-zhuang-entware/</url>
-    <content><![CDATA[<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
-<li><p>首先插入ex3/ex4 usb disk一枚。</p>
-</li>
-<li><p>创建对应的Entware文件夹:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir /mnt/sda1/entware</span><br></pre></td></tr></table></figure></li>
-<li><p>连接路由器的ssh，输入以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt; <span class="string">EOF &gt; /tmp/script_usbmount.tmp</span></span><br><span class="line"><span class="string">ln -nsf /mnt/sda1/entware /tmp/opt</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line">nvram <span class="built_in">set</span> script_usbmount=<span class="string">&quot;`cat /tmp/script_usbmount.tmp`&quot;</span></span><br><span class="line"></span><br><span class="line">cat &lt;&lt; <span class="string">EOF &gt; /tmp/script_usbumount.tmp</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line">nvram <span class="built_in">set</span> script_usbumount=<span class="string">&quot;`cat /tmp/script_usbumount.tmp`&quot;</span></span><br><span class="line"></span><br><span class="line">nvram commit </span><br></pre></td></tr></table></figure></li>
-<li><p>重启路由器</p>
-</li>
-<li><p>重启之后查看文件夹/tmp/opt是否存在以及是否可以打开。</p>
-</li>
-<li><p>在ssh里面执行下面的命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O - http://bin.entware.net/aarch64-k3.10/installer/generic.sh | sh</span><br></pre></td></tr></table></figure></li>
-<li><p>完成后输入opkg update检查是否有有效输出。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">opkg update</span><br></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2></li>
+    <title>How to enable auto login with Putty</title>
+    <url>/2021/07/01/How-to-enable-auto-login-with-Putty/</url>
+    <content><![CDATA[<h2 id="Enable-auto-login-with-Putty"><a href="#Enable-auto-login-with-Putty" class="headerlink" title="Enable auto login with Putty"></a>Enable auto login with Putty</h2><p>For those using Windows, you can simply create a shortcut and pass in these parameters.</p>
+<h3 id="For-example"><a href="#For-example" class="headerlink" title="For example:"></a>For example:</h3><ol>
+<li>Create a shortcut on the desktop to putty.exe</li>
+<li>Rename the shortcut to PuTTY - server.com</li>
+<li>Right-click shortcut and choose Properties</li>
+<li>Modify the target similar to: “C:\Program Files\PuTTY\putty.exe” <a href="mailto:&#117;&#115;&#101;&#x72;&#x40;&#x73;&#x65;&#114;&#x76;&#x65;&#114;&#x2e;&#99;&#x6f;&#x6d;">&#117;&#115;&#101;&#x72;&#x40;&#x73;&#x65;&#114;&#x76;&#x65;&#114;&#x2e;&#99;&#x6f;&#x6d;</a> -pw password</li>
+<li>Click OK</li>
+<li>Then double click on the shortcut, Putty will auto login with this account.</li>
 </ol>
-<p><a href="https://koolshare.cn/thread-154594-1-1.html">https://koolshare.cn/thread-154594-1-1.html</a><br><a href="https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware">https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="https://superuser.com/questions/44106/is-there-a-way-to-auto-login-in-putty-with-a-password">https://superuser.com/questions/44106/is-there-a-way-to-auto-login-in-putty-with-a-password</a></p>
 ]]></content>
-      <tags>
-        <tag>router</tag>
-      </tags>
   </entry>
   <entry>
     <title>Hello World</title>
@@ -79,16 +63,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>解决Could not create SSL/TLS secure channel</title>
-    <url>/2020/10/20/jie-jue-could-not-create-ssltls-secure-channel/</url>
-    <content><![CDATA[<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
-<li>错误内容<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">System.Net.WebException: The request was aborted: Could not create</span><br><span class="line">SSL/TLS secure channel.</span><br></pre></td></tr></table></figure></li>
-<li>在我们的案例中，我们在使用软件供应商，因此我们无权修改.NET代码。除非有更改，否则.NET 4显然不会使用TLS v 1.2。 * 我们的解决方法是将SchUseStrongCrypto密钥添加到注册表中。您可以将以下代码复制/粘贴到扩展名为.reg的文本文件中并执行它。它充当了我们解决该问题的”补丁”<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319]</span><br><span class="line"><span class="string">&quot;SchUseStrongCrypto&quot;</span>=dword:00000001</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319]</span><br><span class="line"><span class="string">&quot;SchUseStrongCrypto&quot;</span>=dword:00000001</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><p><a href="https://www.codenong.com/2859790/">https://www.codenong.com/2859790/</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>new server</title>
     <url>/2021/06/30/new-server/</url>
     <content><![CDATA[<h2 id="安装BT"><a href="#安装BT" class="headerlink" title="安装BT"></a>安装BT</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
@@ -100,6 +74,47 @@
 
 
 <h2 id="Cloudflare-WARP"><a href="#Cloudflare-WARP" class="headerlink" title="Cloudflare WARP"></a>Cloudflare WARP</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(curl -fsSL git.io/warp.sh) menu</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
+    <title>GT-AC5300 Koolshare 官改安装Entware</title>
+    <url>/2020/10/14/gt-ac5300-koolshare-guan-gai-an-zhuang-entware/</url>
+    <content><![CDATA[<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li><p>首先插入ex3/ex4 usb disk一枚。</p>
+</li>
+<li><p>创建对应的Entware文件夹:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir /mnt/sda1/entware</span><br></pre></td></tr></table></figure></li>
+<li><p>连接路由器的ssh，输入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt; <span class="string">EOF &gt; /tmp/script_usbmount.tmp</span></span><br><span class="line"><span class="string">ln -nsf /mnt/sda1/entware /tmp/opt</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line">nvram <span class="built_in">set</span> script_usbmount=<span class="string">&quot;`cat /tmp/script_usbmount.tmp`&quot;</span></span><br><span class="line"></span><br><span class="line">cat &lt;&lt; <span class="string">EOF &gt; /tmp/script_usbumount.tmp</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line">nvram <span class="built_in">set</span> script_usbumount=<span class="string">&quot;`cat /tmp/script_usbumount.tmp`&quot;</span></span><br><span class="line"></span><br><span class="line">nvram commit </span><br></pre></td></tr></table></figure></li>
+<li><p>重启路由器</p>
+</li>
+<li><p>重启之后查看文件夹/tmp/opt是否存在以及是否可以打开。</p>
+</li>
+<li><p>在ssh里面执行下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O - http://bin.entware.net/aarch64-k3.10/installer/generic.sh | sh</span><br></pre></td></tr></table></figure></li>
+<li><p>完成后输入opkg update检查是否有有效输出。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">opkg update</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2></li>
+</ol>
+<p><a href="https://koolshare.cn/thread-154594-1-1.html">https://koolshare.cn/thread-154594-1-1.html</a><br><a href="https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware">https://github.com/Entware/Entware/wiki/Install-on-Asus-stock-firmware</a></p>
+]]></content>
+      <tags>
+        <tag>router</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ConEmu64 配合WSL使用</title>
+    <url>/2020/10/14/conemu64-pei-he-wsl-shi-yong/</url>
+    <content><![CDATA[<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> PATH=<span class="string">&quot;%ConEmuBaseDirShort%\wsl&quot;</span>;%PATH% &amp; wsl -d ubuntu</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>解决Could not create SSL/TLS secure channel</title>
+    <url>/2020/10/20/jie-jue-could-not-create-ssltls-secure-channel/</url>
+    <content><![CDATA[<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<li>错误内容<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">System.Net.WebException: The request was aborted: Could not create</span><br><span class="line">SSL/TLS secure channel.</span><br></pre></td></tr></table></figure></li>
+<li>在我们的案例中，我们在使用软件供应商，因此我们无权修改.NET代码。除非有更改，否则.NET 4显然不会使用TLS v 1.2。 * 我们的解决方法是将SchUseStrongCrypto密钥添加到注册表中。您可以将以下代码复制/粘贴到扩展名为.reg的文本文件中并执行它。它充当了我们解决该问题的”补丁”<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319]</span><br><span class="line"><span class="string">&quot;SchUseStrongCrypto&quot;</span>=dword:00000001</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319]</span><br><span class="line"><span class="string">&quot;SchUseStrongCrypto&quot;</span>=dword:00000001</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><p><a href="https://www.codenong.com/2859790/">https://www.codenong.com/2859790/</a></p>
 ]]></content>
   </entry>
   <entry>
