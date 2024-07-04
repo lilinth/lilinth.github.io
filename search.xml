@@ -4,6 +4,93 @@
   
     
     <entry>
+      <title>ARM 平台FFTs 测试</title>
+      <link href="/2024/07/03/ARM_FFTs_test/"/>
+      <url>/2024/07/03/ARM_FFTs_test/</url>
+      
+        <content type="html"><![CDATA[<h1 id="ARM-平台FFTs-测试教程"><a href="#ARM-平台FFTs-测试教程" class="headerlink" title="ARM 平台FFTs 测试教程"></a>ARM 平台FFTs 测试教程</h1><p>在ARM平台上面，无法使用prime95&#x2F;mprime, 因为它们只支持x86平台。在这里，我们使用<a href="https://github.com/primesearch/Mlucas">Mlcaus</a>.<br>这里以Debian为例(不同的OS步骤会有不同)</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol><li><p><strong>安装相关依赖</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install build-essential libgmp-dev libhwloc-dev git clang</span><br></pre></td></tr></table></figure></li><li><p><strong>clone mlucas project 到本地</strong><br>(也可以直接去release下载source code package)</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/primesearch/Mlucas.git</span><br></pre></td></tr></table></figure></li><li><p><strong>编译</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Mlucas</span><br><span class="line">export CC=clang</span><br><span class="line">bash makemake.sh use_hwloc</span><br></pre></td></tr></table></figure></li><li><p><strong>执行</strong></p><p>在编译完成之后，编译好的文件位于obj*的目录里面，具体目录名称取决于编译的选项。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd obj</span><br><span class="line">./Mlucas</span><br></pre></td></tr></table></figure></li><li><p><strong>参数定义</strong><br>在编译好且确认文件Mlucas可以正常执行之后，我们就可以开始来定义要测试的参数, 具体可以参考<a href="https://www.mersenneforum.org/mayer/README.html">Mlucas help</a>.</p></li></ol><h2 id="执行FFTs-测试"><a href="#执行FFTs-测试" class="headerlink" title="执行FFTs 测试"></a>执行FFTs 测试</h2><ol><li><strong>获取测试机器CPU信息</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lscpu</span><br></pre></td></tr></table></figure>示例输出:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CPU(s):              32</span><br><span class="line">Thread(s) per core:  1</span><br><span class="line">NUMA node0 CPU(s):   0-15</span><br><span class="line">NUMA node1 CPU(s):   16-32</span><br></pre></td></tr></table></figure>从上面可以看到，CPU有2颗，每颗CPU有16个core，每个cord只有一个thread, NUMA分为2个node，每个node 16个core.</li><li><strong>指定测试参数</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">./Mlucas -s m -cpu 0:3</span><br><span class="line">./Mlucas -s m -cpu 4:7</span><br><span class="line">./Mlucas -s m -cpu 8:11</span><br><span class="line">./Mlucas -s m -cpu 12:15</span><br><span class="line">./Mlucas -s m -cpu 15:23</span><br><span class="line">./Mlucas -s m -cpu 24:27</span><br><span class="line">./Mlucas -s m -cpu 28:31</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> 测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Memtester 测试</title>
+      <link href="/2024/07/03/memtester_test/"/>
+      <url>/2024/07/03/memtester_test/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Memtester-测试"><a href="#Memtester-测试" class="headerlink" title="Memtester 测试"></a>Memtester 测试</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol><li><strong>apt 安装</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install memtester</span><br></pre></td></tr></table></figure></li></ol><h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><ol><li><strong>跑满当前可用内存</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">memtester $(grep MemAvail /proc/meminfo | awk &#x27;&#123;print $2/1024&#125;&#x27;)</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> 测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>stressapptest 测试</title>
+      <link href="/2024/07/03/stressapptest_test/"/>
+      <url>/2024/07/03/stressapptest_test/</url>
+      
+        <content type="html"><![CDATA[<h1 id="stressapptest-测试"><a href="#stressapptest-测试" class="headerlink" title="stressapptest 测试"></a>stressapptest 测试</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol><li><strong>apt 安装</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install stressapptest</span><br></pre></td></tr></table></figure></li><li><strong>编译安装</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt install build-essential</span><br><span class="line">git clone https://github.com/stressapptest/stressapptest.git</span><br><span class="line">cd stressapptest</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></li></ol><h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><ol><li><strong>查看帮忙信息</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stressapptest -h</span><br></pre></td></tr></table></figure></li><li><strong>执行内存测试300秒</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stressapptest -s 300</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> 测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux 基本命令操作</title>
       <link href="/2024/07/02/linux_common_commands/"/>
       <url>/2024/07/02/linux_common_commands/</url>
@@ -45,9 +132,9 @@
       
         <tags>
             
-            <tag> 虚拟机 </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> 虚拟机 </tag>
             
         </tags>
       
