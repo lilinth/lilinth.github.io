@@ -4,6 +4,64 @@
   
     
     <entry>
+      <title>RHEL9 网络配置</title>
+      <link href="/2024/07/29/RHEL9_network_config/"/>
+      <url>/2024/07/29/RHEL9_network_config/</url>
+      
+        <content type="html"><![CDATA[<h1 id="RHEL9-网络配置"><a href="#RHEL9-网络配置" class="headerlink" title="RHEL9 网络配置"></a>RHEL9 网络配置</h1><h2 id="开关interface和profile"><a href="#开关interface和profile" class="headerlink" title="开关interface和profile"></a>开关interface和profile</h2><ol><li><p><strong>获取网络状态</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nmcli connection</span><br><span class="line">NAME           UUID                                  TYPE      DEVICE</span><br><span class="line">Profile 2      21906cd8-c04d-45fd-9b7f-e6e85c43f891  ethernet  enP21p1s0f1np1</span><br><span class="line">enP21s17f1np1  f9ed821f-f3db-46ea-90fd-13dd74dc5587  ethernet  --</span><br></pre></td></tr></table></figure></li><li><p><strong>ifdown profile</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ifdown &quot;Profile 2&quot;</span><br><span class="line">Connection &#x27;Profile 2&#x27; successfully deactivated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/7)</span><br></pre></td></tr></table></figure></li><li><p><strong>link down interface</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ip link set enP21p1s0f1np1 down</span><br></pre></td></tr></table></figure></li><li><p><strong>link up interface</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ip link set enP21p1s0f1np1 up</span><br></pre></td></tr></table></figure></li><li><p><strong>ifup interface</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ifup &quot;Profile 2&quot;</span><br><span class="line">Connection successfully activated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/8)</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> 测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>/etc/fstab 文件配置教程</title>
+      <link href="/2024/07/28/fstab_config/"/>
+      <url>/2024/07/28/fstab_config/</url>
+      
+        <content type="html"><![CDATA[<h1 id="etc-fstab-文件配置教程"><a href="#etc-fstab-文件配置教程" class="headerlink" title="/etc/fstab 文件配置教程"></a><code>/etc/fstab</code> 文件配置教程</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>/etc/fstab</code> 文件用于定义系统在启动时如何自动挂载各种文件系统。这个文件在 Linux 系统中非常重要，它决定了系统启动时哪些设备将被挂载到哪些挂载点。</p><h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><p><code>/etc/fstab</code> 文件的每一行代表一个文件系统的挂载配置，每行包含六个字段：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;文件系统&gt; &lt;挂载点&gt; &lt;类型&gt; &lt;选项&gt; &lt;转储&gt; &lt;自检&gt;</span><br></pre></td></tr></table></figure><h3 id="字段解释"><a href="#字段解释" class="headerlink" title="字段解释"></a>字段解释</h3><ol><li><p><strong>文件系统（File System）：</strong></p><ul><li>设备文件或分区。例如：<code>/dev/sda1</code>，<code>UUID=xxxx-xxxx</code>，<code>LABEL=home</code>。</li></ul></li><li><p><strong>挂载点（Mount Point）：</strong></p><ul><li>文件系统挂载到的目录。例如：<code>/</code>，<code>/home</code>，<code>/mnt/backup</code>。</li></ul></li><li><p><strong>文件系统类型（Filesystem Type）：</strong></p><ul><li>指定文件系统类型。例如：<code>ext4</code>，<code>ntfs</code>，<code>vfat</code>。</li></ul></li><li><p><strong>挂载选项（Mount Options）：</strong></p><ul><li>挂载时的选项，多个选项使用逗号分隔。例如：<code>defaults</code>，<code>ro</code>（只读），<code>noexec</code>（不可执行）。</li></ul></li><li><p><strong>转储频率（Dump Frequency）：</strong></p><ul><li>数字，表示是否需要备份。通常为 <code>0</code>（不备份）或 <code>1</code>（备份）。</li></ul></li><li><p><strong>自检顺序（Fsck Order）：</strong></p><ul><li>数字，表示启动时文件系统检查的顺序。根文件系统通常为 <code>1</code>，其他为 <code>2</code>，不检查则为 <code>0</code>。</li></ul></li></ol><h2 id="示例配置"><a href="#示例配置" class="headerlink" title="示例配置"></a>示例配置</h2><p>以下是一个典型的 <code>/etc/fstab</code> 文件示例：</p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># &lt;文件系统&gt;  &lt;挂载点&gt;    &lt;类型&gt; &lt;选项&gt;     &lt;转储&gt; &lt;自检&gt;</span></span><br><span class="line">/dev/sda1     /           ext4   defaults    1      1</span><br><span class="line">/dev/sda2     /home       ext4   defaults    1      2</span><br><span class="line">/dev/sdb1     /mnt/backup ntfs   defaults    0      0</span><br><span class="line">UUID=xxxx-xxxx /mnt/data  ext4   defaults    0      2</span><br><span class="line">LABEL=usbdrv  /mnt/usb    vfat   noauto,user 0      0</span><br></pre></td></tr></table></figure><h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><ul><li><code>/dev/sda1</code> 挂载到根目录 <code>/</code>，文件系统类型为 <code>ext4</code>，使用默认选项，转储频率为 <code>1</code>，自检顺序为 <code>1</code>。</li><li><code>/dev/sda2</code> 挂载到 <code>/home</code>，文件系统类型为 <code>ext4</code>，使用默认选项，转储频率为 <code>1</code>，自检顺序为 <code>2</code>。</li><li><code>/dev/sdb1</code> 挂载到 <code>/mnt/backup</code>，文件系统类型为 <code>ntfs</code>，使用默认选项，不进行转储和自检。</li><li>使用 <code>UUID=xxxx-xxxx</code> 指定的分区挂载到 <code>/mnt/data</code>，文件系统类型为 <code>ext4</code>，使用默认选项，不进行转储，自检顺序为 <code>2</code>。</li><li>使用 <code>LABEL=usbdrv</code> 指定的设备挂载到 <code>/mnt/usb</code>，文件系统类型为 <code>vfat</code>，不自动挂载，允许用户挂载，不进行转储和自检。</li></ul><h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><h3 id="步骤-1：备份现有的-etc-fstab"><a href="#步骤-1：备份现有的-etc-fstab" class="headerlink" title="步骤 1：备份现有的 /etc/fstab"></a>步骤 1：备份现有的 <code>/etc/fstab</code></h3><p>在修改之前，备份现有的 <code>/etc/fstab</code> 文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> /etc/fstab /etc/fstab.bak</span><br></pre></td></tr></table></figure><h3 id="步骤-2：编辑-etc-fstab"><a href="#步骤-2：编辑-etc-fstab" class="headerlink" title="步骤 2：编辑 /etc/fstab"></a>步骤 2：编辑 <code>/etc/fstab</code></h3><p>使用文本编辑器打开 <code>/etc/fstab</code> 文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/fstab</span><br></pre></td></tr></table></figure><h3 id="步骤-3：添加新的挂载条目"><a href="#步骤-3：添加新的挂载条目" class="headerlink" title="步骤 3：添加新的挂载条目"></a>步骤 3：添加新的挂载条目</h3><p>根据需要添加新的挂载条目。例如：</p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UUID=xxxx-xxxx /mnt/data  ext4   defaults    0      2</span><br></pre></td></tr></table></figure><h3 id="步骤-4：保存并退出"><a href="#步骤-4：保存并退出" class="headerlink" title="步骤 4：保存并退出"></a>步骤 4：保存并退出</h3><p>编辑完成后，保存文件并退出编辑器。对于 <code>nano</code> 编辑器，按 <code>Ctrl+O</code> 保存文件，然后按 <code>Ctrl+X</code> 退出。</p><h3 id="步骤-5：验证配置"><a href="#步骤-5：验证配置" class="headerlink" title="步骤 5：验证配置"></a>步骤 5：验证配置</h3><p>使用以下命令验证 <code>fstab</code> 文件的配置：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -a</span><br></pre></td></tr></table></figure><p>如果没有错误信息，说明配置正确。</p><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul><li>确保每个字段之间用空格或制表符分隔。</li><li>使用 <code>UUID</code> 或 <code>LABEL</code> 可以避免设备名称变化带来的问题。</li><li>错误的 <code>fstab</code> 配置可能导致系统无法启动，修改前务必备份。</li></ul><h2 id="常见挂载选项"><a href="#常见挂载选项" class="headerlink" title="常见挂载选项"></a>常见挂载选项</h2><ul><li><code>defaults</code>：使用默认挂载选项 <code>rw, suid, dev, exec, auto, nouser, async</code>。</li><li><code>ro</code>：只读挂载。</li><li><code>rw</code>：读写挂载。</li><li><code>noauto</code>：不自动挂载。</li><li><code>user</code>：允许普通用户挂载。</li><li><code>nouser</code>：只允许 root 用户挂载。</li><li><code>noexec</code>：禁止执行二进制文件。</li></ul><h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul><li><code>man fstab</code>：查看 <code>fstab</code> 的手册页。</li><li><code>man mount</code>：查看 <code>mount</code> 命令的手册页。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> 测试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>FIO 测试</title>
       <link href="/2024/07/21/fio_test/"/>
       <url>/2024/07/21/fio_test/</url>
