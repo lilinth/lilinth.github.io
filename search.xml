@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>如何在 Linux 系统中进入 S0、S1、S2、S3、S4 和 S5 模式</title>
+      <link href="/2024/08/06/linux_power_state_mode/"/>
+      <url>/2024/08/06/linux_power_state_mode/</url>
+      
+        <content type="html"><![CDATA[<h1 id="如何在-Linux-系统中进入-S0、S1、S2、S3、S4-和-S5-模式"><a href="#如何在-Linux-系统中进入-S0、S1、S2、S3、S4-和-S5-模式" class="headerlink" title="如何在 Linux 系统中进入 S0、S1、S2、S3、S4 和 S5 模式"></a>如何在 Linux 系统中进入 S0、S1、S2、S3、S4 和 S5 模式</h1><h2 id="检查系统支持的电源模式"><a href="#检查系统支持的电源模式" class="headerlink" title="检查系统支持的电源模式"></a>检查系统支持的电源模式</h2><p>在进入这些模式之前，可以使用以下命令来检查系统支持哪些电源状态：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /sys/power/state</span><br></pre></td></tr></table></figure><p>该命令的输出可能包括：</p><ul><li><code>freeze</code>：冻结当前任务，不关闭任何设备。</li><li><code>standby</code>：进入 S1 模式。</li><li><code>mem</code>：进入 S3 模式。</li><li><code>disk</code>：进入 S4 模式，即休眠，将内存内容保存到磁盘。</li></ul><h2 id="各电源模式简介"><a href="#各电源模式简介" class="headerlink" title="各电源模式简介"></a>各电源模式简介</h2><ul><li>S0（工作状态）：系统处于完全开机状态，所有部件都在运行。</li><li>S1（待机）：CPU 停止执行指令，但内存和其他关键部件保持供电。</li><li>S2（待机）：CPU 和系统缓存停止供电，但内存保持供电。</li><li>S3（挂起到内存）：系统状态保存到内存中，除内存外的所有部件都断电。</li><li>S4（休眠）：系统状态保存到硬盘，所有部件断电。系统恢复时从硬盘读取状态。</li><li>S5（软关机）：系统完全关机，但电源仍然供电，可以通过电源按钮启动。</li></ul><h2 id="进入各电源模式的命令"><a href="#进入各电源模式的命令" class="headerlink" title="进入各电源模式的命令"></a>进入各电源模式的命令</h2><ul><li><p>S0 模式（工作状态）<br>无需特殊命令，系统开机时即处于 S0 模式。</p></li><li><p>S1 模式（Standby）<br>使用 echo 命令：</p></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> standby | sudo <span class="built_in">tee</span> /sys/power/state</span><br></pre></td></tr></table></figure><ul><li>S2 模式（待机）<br>请注意，S2 模式在很多系统上并不常用或不被支持。如果系统支持，可以尝试：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> standby | sudo <span class="built_in">tee</span> /sys/power/state</span><br></pre></td></tr></table></figure><ul><li>S3 模式（Suspend-to-RAM）</li></ul><p><strong>方法一：使用 systemctl 命令</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">suspend</span></span><br></pre></td></tr></table></figure><p><strong>方法二：使用 echo 命令</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> mem | sudo <span class="built_in">tee</span> /sys/power/state</span><br></pre></td></tr></table></figure><ul><li>S4 模式（休眠）<br>使用 systemctl 命令：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl hibernate</span><br></pre></td></tr></table></figure><p>或者使用 echo 命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> disk | sudo <span class="built_in">tee</span> /sys/power/state</span><br></pre></td></tr></table></figure><ul><li>S5 模式（软关机）<br>使用 systemctl 命令：</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl poweroff</span><br></pre></td></tr></table></figure><h2 id="示例操作"><a href="#示例操作" class="headerlink" title="示例操作"></a>示例操作</h2><p><strong>1. 检查系统支持的电源模式：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> /sys/power/state</span><br><span class="line">freeze standby mem disk</span><br></pre></td></tr></table></figure><p><strong>2. 进入 S1 模式：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> standby | sudo <span class="built_in">tee</span> /sys/power/state</span><br></pre></td></tr></table></figure><p><strong>3. 进入 S3 模式：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">suspend</span></span><br></pre></td></tr></table></figure><p><strong>4. 进入 S4 模式：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl hibernate</span><br></pre></td></tr></table></figure><p><strong>5. 进入 S5 模式：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl poweroff</span><br></pre></td></tr></table></figure><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>硬件支持：确保你的硬件支持相应的电源模式。</p><p>数据保存：进入这些模式前保存所有未保存的工作，以避免数据丢失。</p><p>驱动支持：有些系统和设备驱动可能对某些电源模式支持不完善，可能会导致恢复时出现问题。 </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux 连接 USB 串口教程</title>
       <link href="/2024/08/05/Linux_USB_Serial_Tutorial/"/>
       <url>/2024/08/05/Linux_USB_Serial_Tutorial/</url>
