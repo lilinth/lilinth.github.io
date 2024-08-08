@@ -33,6 +33,64 @@
     
     
     <entry>
+      <title>numactl 操作流程</title>
+      <link href="/2024/08/07/bandwidth_storage_convert/"/>
+      <url>/2024/08/07/bandwidth_storage_convert/</url>
+      
+        <content type="html"><![CDATA[<h1 id="带宽和存储单位转换"><a href="#带宽和存储单位转换" class="headerlink" title="带宽和存储单位转换"></a>带宽和存储单位转换</h1><h2 id="带宽单位转换（基于十进制）"><a href="#带宽单位转换（基于十进制）" class="headerlink" title="带宽单位转换（基于十进制）"></a>带宽单位转换（基于十进制）</h2><ol><li><strong>1 字节 (B) &#x3D; 8 比特 (b)</strong></li><li><strong>1 千比特 (Kb) &#x3D; 1000 比特 (b)</strong></li><li><strong>1 兆比特 (Mb) &#x3D; 1000 千比特 (Kb)</strong></li><li><strong>1 吉比特 (Gb) &#x3D; 1000 兆比特 (Mb)</strong></li><li><strong>1 太比特 (Tb) &#x3D; 1000 吉比特 (Gb)</strong></li></ol><h2 id="存储单位转换（基于二进制）"><a href="#存储单位转换（基于二进制）" class="headerlink" title="存储单位转换（基于二进制）"></a>存储单位转换（基于二进制）</h2><ol><li><strong>1 千字节 (KiB) &#x3D; 1024 字节 (B)</strong></li><li><strong>1 兆字节 (MiB) &#x3D; 1024 千字节 (KiB)</strong></li><li><strong>1 吉字节 (GiB) &#x3D; 1024 兆字节 (MiB)</strong></li><li><strong>1 太字节 (TiB) &#x3D; 1024 吉字节 (GiB)</strong></li></ol><h2 id="带宽和存储的相互转换"><a href="#带宽和存储的相互转换" class="headerlink" title="带宽和存储的相互转换"></a>带宽和存储的相互转换</h2><h3 id="示例1：带宽转存储"><a href="#示例1：带宽转存储" class="headerlink" title="示例1：带宽转存储"></a>示例1：带宽转存储</h3><p>假设有一个文件大小为100 MiB，下载速度为20 Mbps，需要多长时间下载完这个文件？</p><ol><li><p><strong>转换文件大小为比特</strong>：</p><ul><li>100 MiB &#x3D; 100 × 1024 × 1024 × 8 &#x3D; 838,860,800 比特 (b)</li></ul></li><li><p><strong>计算下载时间</strong>：</p><ul><li>时间 (秒) &#x3D; 文件大小 (比特) &#x2F; 带宽 (比特每秒)</li><li>时间 &#x3D; 838,860,800 b &#x2F; 20,000,000 bps &#x3D; 41.94 秒</li></ul></li></ol><h3 id="示例2：存储转带宽"><a href="#示例2：存储转带宽" class="headerlink" title="示例2：存储转带宽"></a>示例2：存储转带宽</h3><p>假设有一个网络带宽为50 Mbps，每秒能够传输多少 GiB 的数据？</p><ol><li><p><strong>转换带宽为字节每秒</strong>：</p><ul><li>50 Mbps &#x3D; 50 × 1000 × 1000 &#x2F; 8 &#x3D; 6,250,000 字节每秒 (Bps)</li></ul></li><li><p><strong>转换为GiB每秒</strong>：</p><ul><li>6,250,000 Bps &#x3D; 6,250,000 &#x2F; 1024 &#x2F; 1024 &#x2F; 1024 &#x3D; 0.0058 GiB 每秒</li></ul></li></ol><p>通过以上示例可以看到，带宽和存储单位可以通过字节和比特之间的转换进行相互转换。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> Network </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>numactl 操作流程</title>
+      <link href="/2024/08/07/numactl_sop/"/>
+      <url>/2024/08/07/numactl_sop/</url>
+      
+        <content type="html"><![CDATA[<h1 id="numactl-操作流程"><a href="#numactl-操作流程" class="headerlink" title="numactl 操作流程"></a><code>numactl</code> 操作流程</h1><h2 id="1-检查NUMA节点信息"><a href="#1-检查NUMA节点信息" class="headerlink" title="1. 检查NUMA节点信息"></a>1. 检查NUMA节点信息</h2><p>在进行任何绑定操作之前，先检查系统的NUMA节点信息，以了解可用的CPU和内存节点。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --hardware</span><br></pre></td></tr></table></figure><p>记录输出信息，确保了解系统中所有NUMA节点及其CPU核心分布。</p><h2 id="2-确定需要绑定的CPU核心和NUMA节点"><a href="#2-确定需要绑定的CPU核心和NUMA节点" class="headerlink" title="2. 确定需要绑定的CPU核心和NUMA节点"></a>2. 确定需要绑定的CPU核心和NUMA节点</h2><p>根据应用程序的需求和系统的NUMA节点分布，确定需要绑定的CPU核心和内存节点。例如，假设需要绑定到CPU 2和3，并使用NUMA节点0上的内存。</p><h2 id="3-绑定CPU核心"><a href="#3-绑定CPU核心" class="headerlink" title="3. 绑定CPU核心"></a>3. 绑定CPU核心</h2><p>将应用程序绑定到特定的CPU核心，以提高CPU利用率和性能。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --physcpubind=2,3 your_command</span><br></pre></td></tr></table></figure><p>例如，运行名为 <code>my_program</code> 的应用程序：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --physcpubind=2,3 ./my_program</span><br></pre></td></tr></table></figure><h2 id="4-绑定NUMA节点内存"><a href="#4-绑定NUMA节点内存" class="headerlink" title="4. 绑定NUMA节点内存"></a>4. 绑定NUMA节点内存</h2><p>如果还需要绑定到特定的NUMA节点内存，使用以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --membind=0 your_command</span><br></pre></td></tr></table></figure><p>例如，运行名为 <code>my_program</code> 的应用程序，并绑定到NUMA节点0的内存：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --physcpubind=2,3 --membind=0 ./my_program</span><br></pre></td></tr></table></figure><h2 id="5-验证绑定结果"><a href="#5-验证绑定结果" class="headerlink" title="5. 验证绑定结果"></a>5. 验证绑定结果</h2><p>运行以下命令来检查进程的CPU和内存绑定情况，确保绑定成功。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --show</span><br></pre></td></tr></table></figure><h2 id="6-测试和监控"><a href="#6-测试和监控" class="headerlink" title="6. 测试和监控"></a>6. 测试和监控</h2><p>运行应用程序后，监控其性能和资源使用情况，确保绑定操作达到了预期效果。可以使用以下工具进行监控：</p><ul><li><code>top</code></li><li><code>htop</code></li><li><code>numastat</code></li><li><code>perf</code></li></ul><h1 id="示例SOP"><a href="#示例SOP" class="headerlink" title="示例SOP"></a>示例SOP</h1><h2 id="步骤1：检查NUMA节点信息"><a href="#步骤1：检查NUMA节点信息" class="headerlink" title="步骤1：检查NUMA节点信息"></a>步骤1：检查NUMA节点信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --hardware</span><br></pre></td></tr></table></figure><p>输出示例：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">available: 2 nodes (0-1)</span><br><span class="line">node 0 cpus: 0 1 2 3</span><br><span class="line">node 0 size: 32632 MB</span><br><span class="line">node 0 free: 12345 MB</span><br><span class="line">node 1 cpus: 4 5 6 7</span><br><span class="line">node 1 size: 32768 MB</span><br><span class="line">node 1 free: 23456 MB</span><br></pre></td></tr></table></figure><h2 id="步骤2：确定绑定的CPU核心和NUMA节点"><a href="#步骤2：确定绑定的CPU核心和NUMA节点" class="headerlink" title="步骤2：确定绑定的CPU核心和NUMA节点"></a>步骤2：确定绑定的CPU核心和NUMA节点</h2><p>假设需要绑定到CPU 2和3，并使用NUMA节点0上的内存。</p><h2 id="步骤3：绑定CPU核心"><a href="#步骤3：绑定CPU核心" class="headerlink" title="步骤3：绑定CPU核心"></a>步骤3：绑定CPU核心</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --physcpubind=2,3 ./my_program</span><br></pre></td></tr></table></figure><h2 id="步骤4：绑定NUMA节点内存"><a href="#步骤4：绑定NUMA节点内存" class="headerlink" title="步骤4：绑定NUMA节点内存"></a>步骤4：绑定NUMA节点内存</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --physcpubind=2,3 --membind=0 ./my_program</span><br></pre></td></tr></table></figure><h2 id="步骤5：验证绑定结果"><a href="#步骤5：验证绑定结果" class="headerlink" title="步骤5：验证绑定结果"></a>步骤5：验证绑定结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numactl --show</span><br></pre></td></tr></table></figure><p>输出示例：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">policy: default</span><br><span class="line">physcpubind: 2 3 </span><br><span class="line">cpubind: 0 </span><br><span class="line">membind: 0 </span><br></pre></td></tr></table></figure><h2 id="步骤6：测试和监控"><a href="#步骤6：测试和监控" class="headerlink" title="步骤6：测试和监控"></a>步骤6：测试和监控</h2><p>使用 <code>htop</code> 或 <code>numastat</code> 等工具监控应用程序的性能和资源使用情况。</p><p>通过上述步骤，可以确保应用程序在NUMA系统上得到优化运行。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> Numactl </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如何在 Linux 系统中进入 S0、S1、S2、S3、S4 和 S5 模式</title>
       <link href="/2024/08/06/linux_power_state_mode/"/>
       <url>/2024/08/06/linux_power_state_mode/</url>
