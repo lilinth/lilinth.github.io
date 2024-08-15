@@ -1,0 +1,511 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使用 Fio 工具进行性能测试 | FrankTest</title><meta name="author" content="Frank"><meta name="copyright" content="Frank"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="使用 Fio 工具进行性能测试1. 概述详细介绍如何使用Fio（Flexible I&#x2F;O Tester）工具进行存储性能测试。Fio是一款广泛应用的工具，能够测试块设备和文件系统的读写性能。本文将结合多个实际示例，逐步说明如何配置和运行Fio测试，并解析每个测试结果。 2. 适用范围适用于系统管理员、存储工程师和开发人员，他们需要对各种存储设备（如HDD、SSD、RAID阵列、SAN和N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Fio 工具进行性能测试">
+<meta property="og:url" content="https://blog.franktest.net/2024/08/14/fio_test/index.html">
+<meta property="og:site_name" content="FrankTest">
+<meta property="og:description" content="使用 Fio 工具进行性能测试1. 概述详细介绍如何使用Fio（Flexible I&#x2F;O Tester）工具进行存储性能测试。Fio是一款广泛应用的工具，能够测试块设备和文件系统的读写性能。本文将结合多个实际示例，逐步说明如何配置和运行Fio测试，并解析每个测试结果。 2. 适用范围适用于系统管理员、存储工程师和开发人员，他们需要对各种存储设备（如HDD、SSD、RAID阵列、SAN和N">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-14T16:00:00.000Z">
+<meta property="article:author" content="Frank">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Tool">
+<meta property="article:tag" content="测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.franktest.net/2024/08/14/fio_test/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用 Fio 工具进行性能测试',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-15 00:00:00'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">使用 Fio 工具进行性能测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T16:00:00.000Z" title="更新于 2024-08-15 00:00:00">2024-08-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用 Fio 工具进行性能测试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="使用-Fio-工具进行性能测试"><a href="#使用-Fio-工具进行性能测试" class="headerlink" title="使用 Fio 工具进行性能测试"></a>使用 Fio 工具进行性能测试</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h4><p>详细介绍如何使用Fio（Flexible I&#x2F;O Tester）工具进行存储性能测试。Fio是一款广泛应用的工具，能够测试块设备和文件系统的读写性能。本文将结合多个实际示例，逐步说明如何配置和运行Fio测试，并解析每个测试结果。</p>
+<h4 id="2-适用范围"><a href="#2-适用范围" class="headerlink" title="2. 适用范围"></a>2. 适用范围</h4><p>适用于系统管理员、存储工程师和开发人员，他们需要对各种存储设备（如HDD、SSD、RAID阵列、SAN和NAS设备）进行性能评估。</p>
+<h4 id="3-职责"><a href="#3-职责" class="headerlink" title="3. 职责"></a>3. 职责</h4><ul>
+<li><strong>系统管理员</strong>: 负责安装和配置Fio工具，确保测试环境的稳定性和一致性。</li>
+<li><strong>存储工程师</strong>: 设计测试参数和负载模型，以模拟实际使用场景。</li>
+<li><strong>开发人员</strong>: 使用Fio生成性能数据，帮助优化应用程序的I&#x2F;O操作。</li>
+</ul>
+<h4 id="4-要求"><a href="#4-要求" class="headerlink" title="4. 要求"></a>4. 要求</h4><ul>
+<li>安装了Fio工具的系统。</li>
+<li>对目标存储设备的完全访问权限。</li>
+<li>理解存储设备和文件系统的基本原理。</li>
+<li>适当的权限执行性能测试，以避免影响生产环境。</li>
+</ul>
+<h4 id="5-流程和示例"><a href="#5-流程和示例" class="headerlink" title="5. 流程和示例"></a>5. 流程和示例</h4><h5 id="5-1-安装-Fio"><a href="#5-1-安装-Fio" class="headerlink" title="5.1 安装 Fio"></a>5.1 安装 Fio</h5><ol>
+<li><p><strong>在Linux上安装Fio</strong>:</p>
+<ul>
+<li>大多数Linux发行版可以通过包管理器安装Fio。</li>
+<li>使用以下命令安装Fio:<ul>
+<li><strong>Debian&#x2F;Ubuntu</strong>: <code>sudo apt-get install fio</code></li>
+<li><strong>CentOS&#x2F;RHEL</strong>: <code>sudo yum install fio</code></li>
+<li><strong>Fedora</strong>: <code>sudo dnf install fio</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>验证安装</strong>:</p>
+<ul>
+<li>使用命令 <code>fio --version</code> 验证Fio是否成功安装。</li>
+</ul>
+</li>
+</ol>
+<h5 id="5-2-基本测试命令"><a href="#5-2-基本测试命令" class="headerlink" title="5.2 基本测试命令"></a>5.2 基本测试命令</h5><ol>
+<li><strong>运行简单的读写测试</strong>:<ul>
+<li>以下命令将在指定的文件或设备上运行基本的顺序写入和读取测试。</li>
+<li>示例命令: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=basic_test --filename=/path/to/testfile --size=1G --rw=readwrite --bs=4k --ioengine=libaio --numjobs=1 --runtime=60 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li>参数说明:<ul>
+<li><code>--name=basic_test</code>: 测试任务的名称。</li>
+<li><code>--filename=/path/to/testfile</code>: 测试的目标文件或设备。</li>
+<li><code>--size=1G</code>: 文件大小为1GB。</li>
+<li><code>--rw=readwrite</code>: 读写混合测试。</li>
+<li><code>--bs=4k</code>: 块大小为4KB。</li>
+<li><code>--ioengine=libaio</code>: 使用Linux异步I&#x2F;O引擎。</li>
+<li><code>--numjobs=1</code>: 使用单个工作线程。</li>
+<li><code>--runtime=60</code>: 运行时间为60秒。</li>
+<li><code>--group_reporting</code>: 汇总报告输出。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="5-3-复杂测试"><a href="#5-3-复杂测试" class="headerlink" title="5.3 复杂测试"></a>5.3 复杂测试</h5><ol>
+<li><p><strong>运行随机读写测试</strong>:</p>
+<ul>
+<li>对存储设备进行随机读写测试，以模拟实际工作负载。</li>
+<li>示例命令:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=random_test --filename=/path/to/testfile --size=2G --rw=randrw --bs=4k --ioengine=libaio --numjobs=4 --runtime=120 --rwmixread=70 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li>额外参数:<ul>
+<li><code>--rw=randrw</code>: 随机读写测试。</li>
+<li><code>--rwmixread=70</code>: 设置读操作占比为70%。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>测试多线程性能</strong>:</p>
+<ul>
+<li>使用多个工作线程同时对设备进行读写，以测试多线程性能。</li>
+<li>示例命令:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=multithread_test --filename=/path/to/testfile --size=4G --rw=randwrite --bs=8k --ioengine=libaio --numjobs=8 --runtime=180 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li>该命令使用8个线程，每个线程执行随机写操作。</li>
+</ul>
+</li>
+</ol>
+<h5 id="5-4-分析结果"><a href="#5-4-分析结果" class="headerlink" title="5.4 分析结果"></a>5.4 分析结果</h5><ol>
+<li><p><strong>查看测试报告</strong>:</p>
+<ul>
+<li>Fio的输出会包含每个测试的详细报告，包括吞吐量、IOPS、延迟等指标。</li>
+<li>示例输出分析:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Run status group 0 (all jobs):</span><br><span class="line">  READ: io=1048576KB, bw=17496KB/s, iops=4374, runt= 60001msec</span><br><span class="line">  WRITE: io=1048576KB, bw=17496KB/s, iops=4374, runt= 60001msec</span><br></pre></td></tr></table></figure></li>
+<li><code>bw</code>表示带宽（吞吐量），<code>iops</code>表示每秒I&#x2F;O操作次数，<code>runt</code>表示测试运行时间。</li>
+</ul>
+</li>
+<li><p><strong>保存结果</strong>:</p>
+<ul>
+<li>可以将结果输出保存到文件中进行进一步分析。</li>
+<li>使用 <code>--output=&lt;filename&gt;</code> 参数保存报告，例如:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=basic_test --filename=/path/to/testfile --size=1G --rw=readwrite --bs=4k --ioengine=libaio --numjobs=1 --runtime=60 --group_reporting --output=fio_report.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h4 id="6-更多示例"><a href="#6-更多示例" class="headerlink" title="6. 更多示例"></a>6. 更多示例</h4><h5 id="6-1-基本顺序读写测试"><a href="#6-1-基本顺序读写测试" class="headerlink" title="6.1 基本顺序读写测试"></a>6.1 基本顺序读写测试</h5><ol>
+<li><p><strong>顺序写入测试</strong></p>
+<ul>
+<li><strong>目的</strong>: 测试存储设备在顺序写入数据时的性能，这对数据仓库或视频存储系统等大文件顺序写入场景非常重要。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=seq_write --filename=/path/to/testfile --size=10G --rw=write --bs=1M --direct=1 --ioengine=libaio --numjobs=1 --runtime=60 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li><code>bw</code>: 测试期间的平均带宽，反映了设备的顺序写入速度。</li>
+<li><code>iops</code>: 每秒I&#x2F;O操作次数，通常用于衡量设备的响应能力。</li>
+<li>例如，如果 <code>bw=500MB/s</code> 和 <code>iops=500</code>，这表明设备在此测试中能够维持500MB&#x2F;s的顺序写入速度。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>顺序读取测试</strong></p>
+<ul>
+<li><strong>目的</strong>: 测试存储设备在顺序读取数据时的性能，适用于需要大量顺序读取操作的场景，如视频播放或数据分析。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=seq_read --filename=/path/to/testfile --size=10G --rw=<span class="built_in">read</span> --bs=1M --direct=1 --ioengine=libaio --numjobs=1 --runtime=60 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li><code>bw</code>: 测试期间的平均读取带宽。</li>
+<li>例如，<code>bw=600MB/s</code> 表示设备能够以600MB&#x2F;s的速度顺序读取数据，这对于顺序数据访问模式的应用非常理想。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="6-2-随机读写测试"><a href="#6-2-随机读写测试" class="headerlink" title="6.2 随机读写测试"></a>6.2 随机读写测试</h5><ol>
+<li><p><strong>随机写入测试</strong></p>
+<ul>
+<li><strong>目的</strong>: 测试设备在随机写入数据时的性能，模拟数据库写入、日志记录等需要频繁写入小块数据的场景。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=rand_write --filename=/path/to/testfile --size=5G --rw=randwrite --bs=4k --direct=1 --ioengine=libaio --numjobs=4 --runtime=120 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li><code>iops</code>: 随机写入操作的IOPS通常是关注的重点，反映了设备在处理小块随机写入时的能力。</li>
+<li><code>lat</code>: 延迟时间，表示每次I&#x2F;O操作的平均时间，延迟越低越好。</li>
+<li>例如，<code>iops=20000</code> 和 <code>lat=0.1ms</code> 表示设备在随机写入小块数据时表现良好。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>随机读取测试</strong></p>
+<ul>
+<li><strong>目的</strong>: 测试存储设备在随机读取数据时的性能，适用于OLTP数据库或高并发读取的应用场景。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=rand_read --filename=/path/to/testfile --size=5G --rw=randread --bs=4k --direct=1 --ioengine=libaio --numjobs=4 --runtime=120 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li><code>iops</code> 和 <code>lat</code> 是评估设备随机读取性能的重要指标。</li>
+<li>例如，如果 <code>iops=50000</code> 和 <code>lat=0.08ms</code>，这表明设备在高负载下也能快速响应随机读取请求。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>随机读写混合测试</strong></p>
+<ul>
+<li><strong>目的</strong>: 测试读写混合场景下的存储性能，常见于需要同时处理读取和写入请求的系统，如文件服务器或虚拟化环境。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=rand_rw_mix --filename=/path/to/testfile --size=5G --rw=randrw --bs=4k --direct=1 --ioengine=libaio --numjobs=4 --runtime=120 --rwmixread=70 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li><code>rwmixread=70</code> 设置读写比例为70%读和30%写，这能测试出设备在读写混合负载下的表现。</li>
+<li>观察 <code>iops</code> 和 <code>lat</code> 来评估在这种混合场景下的性能。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="6-3-多线程和多进程测试"><a href="#6-3-多线程和多进程测试" class="headerlink" title="6.3 多线程和多进程测试"></a>6.3 多线程和多进程测试</h5><ol>
+<li><p><strong>多线程顺序读写测试</strong></p>
+<ul>
+<li><strong>目的</strong>: 评估存储设备在多线程情况下的顺序读写性能，模拟多用户并发访问的场景。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=multithread_seq --filename=/path/to/testfile --size=10G --rw=write --bs=1M --direct=1 --ioengine=libaio --numjobs=8 --runtime=180 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li><code>bw</code> 和 <code>iops</code> 在多线程情况下可能会有所增加，但也可能因锁争用或I&#x2F;O调度影响而下降。</li>
+<li>对比单线程和多线程结果，可以评估设备在并发负载下的扩展性。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>多进程随机写入测试</strong></p>
+<ul>
+<li><strong>目的</strong>: 测试在多个进程同时进行随机写入时的性能，适用于模拟数据库集群或并行计算环境。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=multiprocess_rand_write --filename=/path/to/testfile --size=10G --rw=randwrite --bs=4k --direct=1 --ioengine=libaio --numjobs=8 --runtime=180 --group_reporting --gtod_reduce=1</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li>多进程下的 <code>iops</code> 和 <code>lat</code> 是关键指标，注意观察是否有瓶颈产生。</li>
+<li>例如，如果 <code>iops=45000</code> 和 <code>lat=0.15ms</code>，则表示设备在高并发写入场景下表现较为稳定。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="6-4-文件系统缓存的影响"><a href="#6-4-文件系统缓存的影响" class="headerlink" title="6.4 文件系统缓存的影响"></a>6.4 文件系统缓存的影响</h5><ol>
+<li><p><strong>开启缓存的随机写入测试</strong></p>
+<ul>
+<li><strong>目的</strong>: 测试文件系统缓存对写操作的影响，模拟常规写入操作。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=cached_rand_write --filename=/path/to/testfile --size=2G --rw=randwrite --bs=4k --ioengine=<span class="built_in">sync</span> --numjobs=1 --runtime=60 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li><code>iops</code> 可能会因为缓存的作用而显著提高，<code>lat</code> 也可能减少。</li>
+<li>例如，如果 <code>iops=35000</code> 和 <code>lat=0.05ms</code>，这表明文件系统缓存对性能有积极影响。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>禁用缓存的随机写入测试</strong></p>
+<ul>
+<li><strong>目的</strong>: 禁用缓存直接写入到磁盘，评估纯粹的硬件性能。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=direct_rand_write --filename=/path/to/testfile --size=2G --rw=randwrite --bs=4k --direct=1 --ioengine=libaio --numjobs=1 --runtime=60 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li>禁用缓存后，<code>iops</code> 和 <code>lat</code> 反映了设备的实际性能。</li>
+<li>例如，<code>iops=15000</code> 和 <code>lat=0.3ms</code> 表示在无缓存情况下，设备的硬件性能。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="6-5-RAID阵列性能测试"><a href="#6-5-RAID阵列性能测试" class="headerlink" title="6.5 RAID阵列性能测试"></a>6.5 RAID阵列性能测试</h5><ol>
+<li><p><strong>顺序读取RAID性能</strong></p>
+<ul>
+<li><strong>目的</strong>: 评估RAID阵列的顺序读取性能，适用于高吞吐量需求的应用，如视频编辑或数据备份。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=raid_seq_read --filename=/dev/md0 --size=10G --rw=<span class="built_in">read</span> --bs=1M --direct=1 --ioengine=libaio --numjobs=1 --runtime=300 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li><code>bw</code> 是主要关注点，反映了RAID阵列在顺序读取任务中的吞吐能力。</li>
+<li>例如，<code>bw=800MB/s</code> 表示RAID阵列在该测试中表现良好。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>随机写入RAID性能</strong></p>
+<ul>
+<li><strong>目的</strong>: 测试RAID阵列的随机写入性能，适用于需要高I&#x2F;O吞吐的环境，如虚拟化平台。</li>
+<li><strong>命令</strong>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fio --name=raid_rand_write --filename=/dev/md0 --size=5G --rw=randwrite --bs=4k --direct=1 --ioengine=libaio --numjobs=4 --runtime=300 --group_reporting</span><br></pre></td></tr></table></figure></li>
+<li><strong>结果分析</strong>:<ul>
+<li>关注 <code>iops</code> 和 <code>lat</code> 指标，评估RAID在并发随机写入下的性能。</li>
+<li>例如，如果 <code>iops=30000</code> 和 <code>lat=0.2ms</code>，则表示RAID阵列能够在随机写入场景下保持较高的性能。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="7-一些Tips"><a href="#7-一些Tips" class="headerlink" title="7. 一些Tips"></a>7. 一些Tips</h4><ul>
+<li>Q: 指定运行FIO的时间，但是提前就结束了。</li>
+<li>A: 加上参数 <code>-time_base</code>即可</li>
+</ul>
+<h4 id="8-参考文献"><a href="#8-参考文献" class="headerlink" title="8. 参考文献"></a>8. 参考文献</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://fio.readthedocs.io/">Fio官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.redhat.com/en/resources/storage-performance-testing-best-practices">存储性能测试最佳实践</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/support/articles/000005791/memory-and-storage.html">RAID性能优化指南</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.franktest.net">Frank</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.franktest.net/2024/08/14/fio_test/">https://blog.franktest.net/2024/08/14/fio_test/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.franktest.net" target="_blank">FrankTest</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Tool/">Tool</a><a class="post-meta__tags" href="/tags/%E6%B5%8B%E8%AF%95/">测试</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/08/14/Digital_Certificate_SOP/" title="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/07/IPv4_and_IPv6_Routing_Tutorial/" title="IPv4 和 IPv6 路由管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">IPv4 和 IPv6 路由管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/03/ARM_FFTs_test/" title="在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-04</div><div class="title">在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试</div></div></a></div><div><a href="/2024/07/29/RHEL9_network_config/" title="RHEL9 网络配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-30</div><div class="title">RHEL9 网络配置</div></div></a></div><div><a href="/2024/07/28/fstab_config/" title="&#x2F;etc&#x2F;fstab 文件配置教程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-29</div><div class="title">&#x2F;etc&#x2F;fstab 文件配置教程</div></div></a></div><div><a href="/2024/07/21/iperf_network_test/" title="Iperf&#x2F;iperf3 测试"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-22</div><div class="title">Iperf&#x2F;iperf3 测试</div></div></a></div><div><a href="/2024/07/21/linux_proxy_config/" title="Linux Proxy 设置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-22</div><div class="title">Linux Proxy 设置</div></div></a></div><div><a href="/2024/07/16/rhel9_yum_repo/" title="Red Hat Enterprise Linux 9 YUM 本地源配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-17</div><div class="title">Red Hat Enterprise Linux 9 YUM 本地源配置</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Frank</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lilinth"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Frank's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Fio-%E5%B7%A5%E5%85%B7%E8%BF%9B%E8%A1%8C%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="toc-number">1.</span> <span class="toc-text">使用 Fio 工具进行性能测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1. 概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4"><span class="toc-number">1.2.</span> <span class="toc-text">2. 适用范围</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%81%8C%E8%B4%A3"><span class="toc-number">1.3.</span> <span class="toc-text">3. 职责</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%A6%81%E6%B1%82"><span class="toc-number">1.4.</span> <span class="toc-text">4. 要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%B5%81%E7%A8%8B%E5%92%8C%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.5.</span> <span class="toc-text">5. 流程和示例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-%E5%AE%89%E8%A3%85-Fio"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 安装 Fio</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-%E5%9F%BA%E6%9C%AC%E6%B5%8B%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 基本测试命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-%E5%A4%8D%E6%9D%82%E6%B5%8B%E8%AF%95"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 复杂测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-4-%E5%88%86%E6%9E%90%E7%BB%93%E6%9E%9C"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4 分析结果</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%9B%B4%E5%A4%9A%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.6.</span> <span class="toc-text">6. 更多示例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-1-%E5%9F%BA%E6%9C%AC%E9%A1%BA%E5%BA%8F%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 基本顺序读写测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2-%E9%9A%8F%E6%9C%BA%E8%AF%BB%E5%86%99%E6%B5%8B%E8%AF%95"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 随机读写测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-3-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E6%B5%8B%E8%AF%95"><span class="toc-number">1.6.3.</span> <span class="toc-text">6.3 多线程和多进程测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%BC%93%E5%AD%98%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-number">1.6.4.</span> <span class="toc-text">6.4 文件系统缓存的影响</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-5-RAID%E9%98%B5%E5%88%97%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="toc-number">1.6.5.</span> <span class="toc-text">6.5 RAID阵列性能测试</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E4%B8%80%E4%BA%9BTips"><span class="toc-number">1.7.</span> <span class="toc-text">7. 一些Tips</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">1.8.</span> <span class="toc-text">8. 参考文献</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/14/Digital_Certificate_SOP/" title="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名">数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名</a><time datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/14/fio_test/" title="使用 Fio 工具进行性能测试">使用 Fio 工具进行性能测试</a><time datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/07/IPv4_and_IPv6_Routing_Tutorial/" title="IPv4 和 IPv6 路由管理">IPv4 和 IPv6 路由管理</a><time datetime="2024-08-07T16:00:00.000Z" title="发表于 2024-08-08 00:00:00">2024-08-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/07/bandwidth_storage_convert/" title="带宽和存储单位转换">带宽和存储单位转换</a><time datetime="2024-08-07T16:00:00.000Z" title="发表于 2024-08-08 00:00:00">2024-08-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/07/numactl_sop/" title="numactl 操作流程">numactl 操作流程</a><time datetime="2024-08-07T16:00:00.000Z" title="发表于 2024-08-08 00:00:00">2024-08-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Frank</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://blog.franktest.net/2024/08/14/fio_test/'
+    this.page.identifier = '/2024/08/14/fio_test/'
+    this.page.title = '使用 Fio 工具进行性能测试'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://frank-reoyq9vbgl.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=frank-reoyq9vbgl&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.14.0-b3"></script></div></div></body></html>

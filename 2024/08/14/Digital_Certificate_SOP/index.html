@@ -1,0 +1,367 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名 | FrankTest</title><meta name="author" content="Frank"><meta name="copyright" content="Frank"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名1. 概述本SOP概述了使用数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名的基本概念和程序。这些组件对于确保通信安全、验证数字数据的真实性和完整性至关重要。 2. 适用范围本SOP适用于组织内负责管理、部署和使用数字证书和加密技术的IT安全专业人员、系统管理员和开发人员。 3. 职责 IT安全团队：管理数字证书的生命周期，包括颁发、更新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名">
+<meta property="og:url" content="https://blog.franktest.net/2024/08/14/Digital_Certificate_SOP/index.html">
+<meta property="og:site_name" content="FrankTest">
+<meta property="og:description" content="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名1. 概述本SOP概述了使用数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名的基本概念和程序。这些组件对于确保通信安全、验证数字数据的真实性和完整性至关重要。 2. 适用范围本SOP适用于组织内负责管理、部署和使用数字证书和加密技术的IT安全专业人员、系统管理员和开发人员。 3. 职责 IT安全团队：管理数字证书的生命周期，包括颁发、更新">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-14T16:00:00.000Z">
+<meta property="article:author" content="Frank">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Tool">
+<meta property="article:tag" content="Certificate">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.franktest.net/2024/08/14/Digital_Certificate_SOP/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-15 00:00:00'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T16:00:00.000Z" title="更新于 2024-08-15 00:00:00">2024-08-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="数字证书、证书颁发机构-CA-、私钥、公钥和数字签名"><a href="#数字证书、证书颁发机构-CA-、私钥、公钥和数字签名" class="headerlink" title="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名"></a>数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h4><p>本SOP概述了使用数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名的基本概念和程序。这些组件对于确保通信安全、验证数字数据的真实性和完整性至关重要。</p>
+<h4 id="2-适用范围"><a href="#2-适用范围" class="headerlink" title="2. 适用范围"></a>2. 适用范围</h4><p>本SOP适用于组织内负责管理、部署和使用数字证书和加密技术的IT安全专业人员、系统管理员和开发人员。</p>
+<h4 id="3-职责"><a href="#3-职责" class="headerlink" title="3. 职责"></a>3. 职责</h4><ul>
+<li><strong>IT安全团队</strong>：管理数字证书的生命周期，包括颁发、更新和吊销，确保符合安全策略。</li>
+<li><strong>系统管理员</strong>：配置系统以使用数字证书，并管理私钥的安全存储。</li>
+<li><strong>开发人员</strong>：在应用程序中集成公钥和私钥，以实现安全通信协议。</li>
+<li><strong>终端用户</strong>：使用配置了有效和可信证书的系统。</li>
+</ul>
+<h4 id="4-要求"><a href="#4-要求" class="headerlink" title="4. 要求"></a>4. 要求</h4><ul>
+<li>可信的证书颁发机构 (CA) 或内部CA设置。</li>
+<li>生成加密密钥对的工具（例如OpenSSL）。</li>
+<li>私钥的安全存储机制，如硬件安全模块 (HSM) 或加密文件。</li>
+<li>配置为支持TLS&#x2F;SSL协议的应用程序或系统，用于安全的数据传输。</li>
+</ul>
+<h4 id="5-流程"><a href="#5-流程" class="headerlink" title="5. 流程"></a>5. 流程</h4><p><img src="https://lilinth.github.io/picx-images-hosting/8740f369-7073-4439-9658-d2729bdfb355[1].13lp5jsm8r.webp" alt="8740f369-7073-4439-9658-d2729bdfb355[1]"></p>
+<h5 id="5-1-生成密钥对"><a href="#5-1-生成密钥对" class="headerlink" title="5.1 生成密钥对"></a>5.1 生成密钥对</h5><ol>
+<li><p><strong>生成私钥</strong>：</p>
+<ul>
+<li>使用加密工具（如OpenSSL）创建私钥。</li>
+<li>示例命令：<code>openssl genpkey -algorithm RSA -out private_key.pem -aes256</code></li>
+<li>私钥必须安全存储，因为它对于加密和签名创建至关重要。</li>
+</ul>
+</li>
+<li><p><strong>派生公钥</strong>：</p>
+<ul>
+<li>从私钥中提取公钥，可与他人共享。</li>
+<li>示例命令：<code>openssl rsa -pubout -in private_key.pem -out public_key.pem</code></li>
+<li>公钥用于加密和验证数字签名。</li>
+</ul>
+</li>
+</ol>
+<h5 id="5-2-创建证书签名请求-CSR"><a href="#5-2-创建证书签名请求-CSR" class="headerlink" title="5.2 创建证书签名请求 (CSR)"></a>5.2 创建证书签名请求 (CSR)</h5><ol>
+<li><strong>生成CSR</strong>：<ul>
+<li>使用私钥创建包含公钥和组织信息的CSR。</li>
+<li>示例命令：<code>openssl req -new -key private_key.pem -out csr.pem</code></li>
+<li>将CSR提交给CA进行验证和证书颁发。</li>
+</ul>
+</li>
+</ol>
+<h5 id="5-3-证书颁发机构-CA-操作"><a href="#5-3-证书颁发机构-CA-操作" class="headerlink" title="5.3 证书颁发机构 (CA) 操作"></a>5.3 证书颁发机构 (CA) 操作</h5><ol>
+<li><p><strong>签署CSR</strong>：</p>
+<ul>
+<li>CA审核CSR，验证后进行签名并颁发数字证书。</li>
+<li>该证书用于服务器在安全通信中验证其身份。</li>
+<li>内部CA的示例命令：<code>openssl x509 -req -days 365 -in csr.pem -signkey ca_private_key.pem -out certificate.pem</code></li>
+</ul>
+</li>
+<li><p><strong>证书更新</strong>：</p>
+<ul>
+<li>在证书过期之前，生成新的CSR并提交给CA。</li>
+<li>CA颁发新的证书，并更新有效期。</li>
+</ul>
+</li>
+</ol>
+<h5 id="5-4-数字签名和验证"><a href="#5-4-数字签名和验证" class="headerlink" title="5.4 数字签名和验证"></a>5.4 数字签名和验证</h5><ol>
+<li><p><strong>创建数字签名</strong>：</p>
+<ul>
+<li>通过对消息或文档进行哈希处理并使用私钥加密哈希值来签名。</li>
+<li>这可确保消息的完整性和真实性。</li>
+<li>示例：<code>openssl dgst -sha256 -sign private_key.pem -out signature.sig file_to_sign.txt</code></li>
+</ul>
+</li>
+<li><p><strong>验证数字签名</strong>：</p>
+<ul>
+<li>使用发送方的公钥解密哈希值，并将其与根据收到的文档计算的哈希值进行比较，以验证签名的真实性。</li>
+<li>示例：<code>openssl dgst -sha256 -verify public_key.pem -signature signature.sig file_to_verify.txt</code></li>
+</ul>
+</li>
+</ol>
+<h5 id="5-5-管理证书吊销"><a href="#5-5-管理证书吊销" class="headerlink" title="5.5 管理证书吊销"></a>5.5 管理证书吊销</h5><ol>
+<li><strong>吊销证书</strong>：<ul>
+<li>如果证书被泄露，应立即通过CA吊销。</li>
+<li>CA会将证书添加到证书吊销列表 (CRL) 中，系统会检查CRL以避免使用被泄露的证书。</li>
+<li>创建CRL的示例命令：<code>openssl ca -gencrl -out crl.pem</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="6-参考文献"><a href="#6-参考文献" class="headerlink" title="6. 参考文献"></a>6. 参考文献</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.openssl.org/docs/">OpenSSL文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.digicert.com/ssl/">理解数字证书</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.globalsign.com/en/blog/what-is-a-certificate-authority">证书颁发机构概述</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cloudflare.com/learning/ssl/what-is-public-key-infrastructure-pki/">PKI和数字签名</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.franktest.net">Frank</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.franktest.net/2024/08/14/Digital_Certificate_SOP/">https://blog.franktest.net/2024/08/14/Digital_Certificate_SOP/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.franktest.net" target="_blank">FrankTest</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Tool/">Tool</a><a class="post-meta__tags" href="/tags/Certificate/">Certificate</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/08/14/fio_test/" title="使用 Fio 工具进行性能测试"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用 Fio 工具进行性能测试</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/03/ARM_FFTs_test/" title="在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-04</div><div class="title">在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试</div></div></a></div><div><a href="/2024/08/07/IPv4_and_IPv6_Routing_Tutorial/" title="IPv4 和 IPv6 路由管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-08</div><div class="title">IPv4 和 IPv6 路由管理</div></div></a></div><div><a href="/2024/08/05/Linux_USB_Serial_Tutorial/" title="Linux 连接 USB 串口教程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-06</div><div class="title">Linux 连接 USB 串口教程</div></div></a></div><div><a href="/2024/07/29/RHEL9_network_config/" title="RHEL9 网络配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-30</div><div class="title">RHEL9 网络配置</div></div></a></div><div><a href="/2024/08/07/bandwidth_storage_convert/" title="带宽和存储单位转换"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-08</div><div class="title">带宽和存储单位转换</div></div></a></div><div><a href="/2024/08/14/fio_test/" title="使用 Fio 工具进行性能测试"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-15</div><div class="title">使用 Fio 工具进行性能测试</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Frank</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lilinth"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Frank's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E3%80%81%E8%AF%81%E4%B9%A6%E9%A2%81%E5%8F%91%E6%9C%BA%E6%9E%84-CA-%E3%80%81%E7%A7%81%E9%92%A5%E3%80%81%E5%85%AC%E9%92%A5%E5%92%8C%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="toc-number">1.</span> <span class="toc-text">数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1. 概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4"><span class="toc-number">1.2.</span> <span class="toc-text">2. 适用范围</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%81%8C%E8%B4%A3"><span class="toc-number">1.3.</span> <span class="toc-text">3. 职责</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%A6%81%E6%B1%82"><span class="toc-number">1.4.</span> <span class="toc-text">4. 要求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%B5%81%E7%A8%8B"><span class="toc-number">1.5.</span> <span class="toc-text">5. 流程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 生成密钥对</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-%E5%88%9B%E5%BB%BA%E8%AF%81%E4%B9%A6%E7%AD%BE%E5%90%8D%E8%AF%B7%E6%B1%82-CSR"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 创建证书签名请求 (CSR)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-%E8%AF%81%E4%B9%A6%E9%A2%81%E5%8F%91%E6%9C%BA%E6%9E%84-CA-%E6%93%8D%E4%BD%9C"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 证书颁发机构 (CA) 操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-4-%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4 数字签名和验证</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-5-%E7%AE%A1%E7%90%86%E8%AF%81%E4%B9%A6%E5%90%8A%E9%94%80"><span class="toc-number">1.5.5.</span> <span class="toc-text">5.5 管理证书吊销</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">1.6.</span> <span class="toc-text">6. 参考文献</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/14/Digital_Certificate_SOP/" title="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名">数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名</a><time datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/14/fio_test/" title="使用 Fio 工具进行性能测试">使用 Fio 工具进行性能测试</a><time datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/07/IPv4_and_IPv6_Routing_Tutorial/" title="IPv4 和 IPv6 路由管理">IPv4 和 IPv6 路由管理</a><time datetime="2024-08-07T16:00:00.000Z" title="发表于 2024-08-08 00:00:00">2024-08-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/07/bandwidth_storage_convert/" title="带宽和存储单位转换">带宽和存储单位转换</a><time datetime="2024-08-07T16:00:00.000Z" title="发表于 2024-08-08 00:00:00">2024-08-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/07/numactl_sop/" title="numactl 操作流程">numactl 操作流程</a><time datetime="2024-08-07T16:00:00.000Z" title="发表于 2024-08-08 00:00:00">2024-08-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Frank</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://blog.franktest.net/2024/08/14/Digital_Certificate_SOP/'
+    this.page.identifier = '/2024/08/14/Digital_Certificate_SOP/'
+    this.page.title = '数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://frank-reoyq9vbgl.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=frank-reoyq9vbgl&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.14.0-b3"></script></div></div></body></html>
