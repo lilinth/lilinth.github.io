@@ -205,7 +205,7 @@
 </ul>
 <p>1.4 <strong>检查 KVM 是否已启用</strong></p>
 <ul>
-<li>使用以下命令检查 KVM 是否正常启用：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo lsmod | grep kvm</span><br></pre></td></tr></table></figure></li>
+<li>使用以下命令检查 KVM 是否正常启用(有些情况下虽然没有列出KVM，但是仍然是支持的)：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo lsmod | grep kvm</span><br></pre></td></tr></table></figure></li>
 <li>如果输出中包含 <code>kvm</code> 和 <code>kvm_intel</code> 或 <code>kvm_amd</code>，则表示 KVM 已正确启用。</li>
 </ul>
 <h3 id="2-获取和准备-ARM64-镜像"><a href="#2-获取和准备-ARM64-镜像" class="headerlink" title="2. 获取和准备 ARM64 镜像"></a>2. <strong>获取和准备 ARM64 镜像</strong></h3><p>2.1 <strong>下载 RHEL 9.4 ARM64 操作系统镜像</strong></p>
@@ -248,7 +248,7 @@
 <p>3.3 <strong>完成安装后，重启虚拟机</strong></p>
 <ul>
 <li>完成安装后，可以使用以下命令进入虚拟机：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virsh console myvm</span><br></pre></td></tr></table></figure>
-   当提示 Escape character is ^] 时，按 Enter 键进入虚拟机的命令行。如果要退出控制台，您可以使用 Ctrl + ]。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure></li>
+   当提示 <code>Escape character is ^]</code> 时，按 <code>Enter</code> 键进入虚拟机的命令行。如果要退出控制台，您可以使用 <code>Ctrl + ]</code>。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure></li>
 <li>解释：此命令省略了安装 CD-ROM 部分，仅使用已安装的磁盘镜像启动虚拟机。</li>
 </ul>
 <h3 id="4-维护与管理-ARM64-虚拟机"><a href="#4-维护与管理-ARM64-虚拟机" class="headerlink" title="4. 维护与管理 ARM64 虚拟机"></a>4. <strong>维护与管理 ARM64 虚拟机</strong></h3><p>4.1 <strong>快照管理</strong></p>
