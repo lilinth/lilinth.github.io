@@ -223,30 +223,33 @@
 </ul>
 <h3 id="3-创建和配置-ARM64-虚拟机"><a href="#3-创建和配置-ARM64-虚拟机" class="headerlink" title="3. 创建和配置 ARM64 虚拟机"></a>3. <strong>创建和配置 ARM64 虚拟机</strong></h3><p>3.1 <strong>启动虚拟机并进行安装</strong></p>
 <ul>
-<li>使用以下命令启动虚拟机，并从 ISO 镜像进行安装：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo qemu-system-aarch64 -m 4096 -cpu cortex-a57 -M virt -nographic \</span><br><span class="line">-bios /usr/share/qemu-efi-aarch64/QEMU_EFI.fd \</span><br><span class="line">-drive <span class="keyword">if</span>=pflash,format=raw,<span class="built_in">readonly</span>=on,file=/usr/share/qemu-efi-aarch64/QEMU_EFI.fd \</span><br><span class="line">-drive <span class="keyword">if</span>=pflash,format=raw,file=/usr/share/qemu-efi-aarch64/vars.fd \</span><br><span class="line">-drive <span class="keyword">if</span>=none,file=rhel9-arm64.qcow2,<span class="built_in">id</span>=hd0 \</span><br><span class="line">-device virtio-blk-device,drive=hd0 \</span><br><span class="line">-netdev user,<span class="built_in">id</span>=mynet,hostfwd=tcp::2222-:22 \</span><br><span class="line">-device virtio-net-device,netdev=mynet \</span><br><span class="line">-cdrom /path/to/rhel9-arm64.iso</span><br></pre></td></tr></table></figure></li>
+<li>使用以下命令启动虚拟机，并从 ISO 镜像进行安装：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo virt-install --name myvm --ram 2048 --vcpus 2 --disk path=/var/lib/libvirt/images/myvm.qcow2,size=20  --os-variant rhel9.4 --network bridge=virbr0 --graphics none --console pty,target_type=serial --cdrom /path/to/your/iso/file.iso</span><br></pre></td></tr></table></figure></li>
 <li>解释：<ul>
-<li><code>-m 4096</code>：分配 4096MB 内存给虚拟机。</li>
-<li><code>-cpu cortex-a57</code>：模拟 ARM Cortex-A57 CPU。</li>
-<li><code>-M virt</code>：使用 <code>virt</code> 机器类型，该类型专为虚拟化设计。</li>
-<li><code>-nographic</code>：以无图形模式启动（在终端中进行操作）。</li>
-<li><code>-bios</code>：指定 UEFI 固件文件。</li>
-<li><code>-drive</code>：配置虚拟机硬盘和 CD-ROM 驱动器。</li>
-<li><code>-netdev user</code> 和 <code>-device virtio-net-device</code>：配置网络转发，使虚拟机可以通过主机的端口 2222 进行 SSH 访问。</li>
+<li><code>virt-install</code>：命令行工具，用于创建新的虚拟机。</li>
+<li><code>--name myvm</code>：指定虚拟机的名称为 myvm。这个名称将用于管理和识别该虚拟机。</li>
+<li><code>--ram 2048</code>：分配给虚拟机的内存大小，以 MB 为单位。这意味着为虚拟机分配了 2048 MB（2 GB）的内存。</li>
+<li><code>--vcpus 2</code>：指定虚拟机的虚拟 CPU 数量为 2 个。这决定了虚拟机可以使用的 CPU 核心数。</li>
+<li><code>--disk path=/var/lib/libvirt/images/arm64vm.qcow2,size=20</code>：path&#x3D;&#x2F;var&#x2F;lib&#x2F;libvirt&#x2F;images&#x2F;arm64vm.qcow2：定义虚拟机的磁盘映像文件路径和文件名。此文件将存储虚拟机的虚拟硬盘。</li>
+<li><code>size=20</code>：为虚拟机的磁盘分配 20 GB 的存储空间。</li>
+<li><code>--os-variant generic</code>：指定操作系统的具体版本或变体为 generic，即通用版本。这意味着该配置适用于多种 Linux 发行版。可以使用 osinfo-query os 命令查看可用的具体操作系统变体。</li>
+<li><code>--arch aarch64</code>：指定虚拟机的架构为 ARM64（aarch64）。这意味着虚拟机将仿真或使用 ARM64 架构的硬件。</li>
+<li><code>--machine virt</code>：指定虚拟机的机器类型为 virt，这是 QEMU 用于 ARM 仿真的通用机器类型，适用于多种 ARM64 设备。</li>
+<li><code>--network bridge=virbr0</code>：将虚拟机连接到名为 virbr0 的桥接网络接口。这允许虚拟机与主机及网络中的其他设备进行通信。</li>
+<li><code>--graphics none</code>：指定虚拟机不使用图形界面（无图形输出），以纯命令行方式运行。这通常用于服务器或嵌入式系统的设置。</li>
+<li><code>--console pty,target_type=serial</code>：设置虚拟机的控制台为伪终端（PTY），并将其连接到虚拟机的串行端口。这允许通过命令行的方式直接与虚拟机进行交互。</li>
+<li><code>--cdrom /path/to/your/arm64.iso</code>：指定要加载的 ISO 文件路径，这通常是操作系统安装镜像的路径。虚拟机启动时会从这个 ISO 镜像中引导，并开始安装操作系统。<ul>
+<li>也可以使用图形界面virt进行安装<br>3.2 <strong>安装操作系统</strong></li>
 </ul>
 </li>
 </ul>
-<p>3.2 <strong>安装操作系统</strong></p>
-<ul>
+</li>
 <li>当虚拟机启动后，按照屏幕提示安装 RHEL 9.4 操作系统。安装过程与在物理机上的安装类似。</li>
 </ul>
 <p>3.3 <strong>完成安装后，重启虚拟机</strong></p>
 <ul>
-<li>完成安装后，可以使用以下命令重启虚拟机，并通过 SSH 进行访问：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo qemu-system-aarch64 -m 4096 -cpu cortex-a57 -M virt -nographic \</span><br><span class="line">-drive <span class="keyword">if</span>=none,file=rhel9-arm64.qcow2,<span class="built_in">id</span>=hd0 \</span><br><span class="line">-device virtio-blk-device,drive=hd0 \</span><br><span class="line">-netdev user,<span class="built_in">id</span>=mynet,hostfwd=tcp::2222-:22 \</span><br><span class="line">-device virtio-net-device,netdev=mynet</span><br></pre></td></tr></table></figure></li>
+<li>完成安装后，可以使用以下命令进入虚拟机：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virsh console myvm</span><br></pre></td></tr></table></figure>
+   当提示 Escape character is ^] 时，按 Enter 键进入虚拟机的命令行。如果要退出控制台，您可以使用 Ctrl + ]。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure></li>
 <li>解释：此命令省略了安装 CD-ROM 部分，仅使用已安装的磁盘镜像启动虚拟机。</li>
-</ul>
-<p>3.4 <strong>通过 SSH 访问虚拟机</strong></p>
-<ul>
-<li>在主机上使用以下命令通过端口 2222 访问虚拟机：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 2222 root@localhost</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="4-维护与管理-ARM64-虚拟机"><a href="#4-维护与管理-ARM64-虚拟机" class="headerlink" title="4. 维护与管理 ARM64 虚拟机"></a>4. <strong>维护与管理 ARM64 虚拟机</strong></h3><p>4.1 <strong>快照管理</strong></p>
 <ul>
