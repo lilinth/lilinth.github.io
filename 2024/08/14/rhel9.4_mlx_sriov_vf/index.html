@@ -196,7 +196,7 @@
 </ul>
 <p>1.2 <strong>安装必要的驱动和工具</strong></p>
 <ul>
-<li><p>安装 Mellanox 网卡的驱动程序和相关工具：</p>
+<li><p>安装 Mellanox 网卡的驱动程序和相关工具(如果已经安装mlx驱动直接跳过)：</p>
    <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf install -y mlnx-ofed-basic</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>安装完毕后，重启服务器以加载新安装的驱动：</p>
@@ -230,7 +230,7 @@
 <h3 id="3-配置-SR-IOV-VFs-的-Passthrough"><a href="#3-配置-SR-IOV-VFs-的-Passthrough" class="headerlink" title="3. 配置 SR-IOV VFs 的 Passthrough"></a>3. <strong>配置 SR-IOV VFs 的 Passthrough</strong></h3><p>3.1 <strong>识别并绑定 VF</strong></p>
 <ul>
 <li>使用 <code>lspci</code> 命令获取 SR-IOV VF 的 PCI 地址：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci | grep Virtual</span><br></pre></td></tr></table></figure></li>
-<li>将对应的 VF 通过 VFIO 驱动绑定：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo modprobe vfio-pci</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;0000:03:02.0&quot;</span> | sudo <span class="built_in">tee</span> /sys/bus/pci/drivers/mlx5_core/unbind</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;0000:03:02.0&quot;</span> | sudo <span class="built_in">tee</span> /sys/bus/pci/drivers/vfio-pci/bind</span><br></pre></td></tr></table></figure></li>
+<li>将对应的 VF 通过 VFIO 驱动绑定：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo modprobe vfio</span><br><span class="line">sudo modprobe vfio-pci</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;0000:03:02.0&quot;</span> | sudo <span class="built_in">tee</span> /sys/bus/pci/drivers/mlx5_core/unbind</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;0000:03:02.0&quot;</span> | sudo <span class="built_in">tee</span> /sys/bus/pci/drivers/vfio-pci/bind</span><br></pre></td></tr></table></figure></li>
 <li>确认绑定成功：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci -nnk -d 15b3: | grep <span class="string">&quot;Kernel driver in use&quot;</span></span><br></pre></td></tr></table></figure></li>
 <li>输出应显示 <code>vfio-pci</code> 作为内核驱动。</li>
 </ul>

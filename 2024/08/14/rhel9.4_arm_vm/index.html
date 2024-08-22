@@ -207,6 +207,7 @@
 <ul>
 <li>使用以下命令检查 KVM 是否正常启用(有些情况下虽然没有列出KVM，但是仍然是支持的)：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo lsmod | grep kvm</span><br></pre></td></tr></table></figure></li>
 <li>如果输出中包含 <code>kvm</code> 和 <code>kvm_intel</code> 或 <code>kvm_amd</code>，则表示 KVM 已正确启用。</li>
+<li>实际测试，不包含<code>kvm</code>也可以使用，具体问题具体分析。</li>
 </ul>
 <h3 id="2-获取和准备-ARM64-镜像"><a href="#2-获取和准备-ARM64-镜像" class="headerlink" title="2. 获取和准备 ARM64 镜像"></a>2. <strong>获取和准备 ARM64 镜像</strong></h3><p>2.1 <strong>下载 RHEL 9.4 ARM64 操作系统镜像</strong></p>
 <ul>
