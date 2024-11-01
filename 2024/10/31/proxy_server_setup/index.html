@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Linux搭建HTTP代理服务器 | FrankTest</title><meta name="author" content="Frank"><meta name="copyright" content="Frank"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Linux搭建HTTP代理服务器1. 概述在 Ubuntu 和 RHEL 系统上搭建代理服务器并配置防火墙，以确保网络安全和访问控制。本文主要使用 Squid 作为代理服务器软件，并使用 UFW（Ubuntu）和 firewalld（RHEL）来管理防火墙。 2. 范围适用于希望通过代理服务器安全地访问互联网的用户和组织，适合 Ubuntu 和 RHEL 系统。 3. 职责 系统管理员：负责安装和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux搭建HTTP代理服务器">
+<meta property="og:url" content="https://blog.franktest.net/2024/10/31/proxy_server_setup/index.html">
+<meta property="og:site_name" content="FrankTest">
+<meta property="og:description" content="Linux搭建HTTP代理服务器1. 概述在 Ubuntu 和 RHEL 系统上搭建代理服务器并配置防火墙，以确保网络安全和访问控制。本文主要使用 Squid 作为代理服务器软件，并使用 UFW（Ubuntu）和 firewalld（RHEL）来管理防火墙。 2. 范围适用于希望通过代理服务器安全地访问互联网的用户和组织，适合 Ubuntu 和 RHEL 系统。 3. 职责 系统管理员：负责安装和">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp">
+<meta property="article:published_time" content="2024-10-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-31T16:00:00.000Z">
+<meta property="article:author" content="Frank">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Tool">
+<meta property="article:tag" content="Proxy">
+<meta property="article:tag" content="Squid">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.franktest.net/2024/10/31/proxy_server_setup/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux搭建HTTP代理服务器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-01 00:00:00'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Linux搭建HTTP代理服务器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-31T16:00:00.000Z" title="发表于 2024-11-01 00:00:00">2024-11-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-31T16:00:00.000Z" title="更新于 2024-11-01 00:00:00">2024-11-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Linux搭建HTTP代理服务器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Linux搭建HTTP代理服务器"><a href="#Linux搭建HTTP代理服务器" class="headerlink" title="Linux搭建HTTP代理服务器"></a>Linux搭建HTTP代理服务器</h1><h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>在 Ubuntu 和 RHEL 系统上搭建代理服务器并配置防火墙，以确保网络安全和访问控制。本文主要使用 Squid 作为代理服务器软件，并使用 UFW（Ubuntu）和 firewalld（RHEL）来管理防火墙。</p>
+<h2 id="2-范围"><a href="#2-范围" class="headerlink" title="2. 范围"></a>2. 范围</h2><p>适用于希望通过代理服务器安全地访问互联网的用户和组织，适合 Ubuntu 和 RHEL 系统。</p>
+<h2 id="3-职责"><a href="#3-职责" class="headerlink" title="3. 职责"></a>3. 职责</h2><ul>
+<li><strong>系统管理员</strong>：负责安装和配置代理服务器及防火墙，确保其安全性和正常运行。</li>
+<li><strong>用户</strong>：负责通过代理服务器访问互联网，并遵循公司网络安全政策。</li>
+</ul>
+<h2 id="4-要求"><a href="#4-要求" class="headerlink" title="4. 要求"></a>4. 要求</h2><ul>
+<li>具备 Ubuntu 或 RHEL 操作系统的服务器或计算机。</li>
+<li>具备管理员权限。</li>
+</ul>
+<h2 id="5-过程"><a href="#5-过程" class="headerlink" title="5. 过程"></a>5. 过程</h2><h3 id="步骤-1-更新系统"><a href="#步骤-1-更新系统" class="headerlink" title="步骤 1: 更新系统"></a>步骤 1: 更新系统</h3><p>在终端中运行以下命令以确保系统软件包是最新的：</p>
+<ul>
+<li><p><strong>Ubuntu</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt upgrade -y</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>RHEL</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update -y</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="步骤-2-安装-Squid"><a href="#步骤-2-安装-Squid" class="headerlink" title="步骤 2: 安装 Squid"></a>步骤 2: 安装 Squid</h3><p>在终端中运行以下命令以安装 Squid：</p>
+<ul>
+<li><p><strong>Ubuntu</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install squid -y</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>RHEL</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install squid -y</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="步骤-3-配置-Squid"><a href="#步骤-3-配置-Squid" class="headerlink" title="步骤 3: 配置 Squid"></a>步骤 3: 配置 Squid</h3><ol>
+<li>编辑 Squid 配置文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/squid/squid.conf</span><br></pre></td></tr></table></figure></li>
+<li>配置访问控制列表（ACL）：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">acl localnet src 192.168.1.0/24  # 适配局域网IP段</span><br><span class="line">http_access allow localnet</span><br><span class="line">http_access deny all</span><br></pre></td></tr></table></figure></li>
+<li>设置代理端口（默认为 3128）：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http_port 3128</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="步骤-4-安装和配置防火墙"><a href="#步骤-4-安装和配置防火墙" class="headerlink" title="步骤 4: 安装和配置防火墙"></a>步骤 4: 安装和配置防火墙</h3><ul>
+<li><p><strong>Ubuntu 使用 UFW</strong>:</p>
+<ol>
+<li>安装 UFW（如果未安装）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ufw -y</span><br></pre></td></tr></table></figure></li>
+<li>允许通过代理端口访问：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow 3128/tcp</span><br></pre></td></tr></table></figure></li>
+<li>启用 UFW：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw <span class="built_in">enable</span></span><br></pre></td></tr></table></figure></li>
+<li>检查 UFW 状态：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw status</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p><strong>RHEL 使用 firewalld</strong>:</p>
+<ol>
+<li>启用 firewalld：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start firewalld</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> firewalld</span><br></pre></td></tr></table></figure></li>
+<li>允许通过代理端口访问：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-port=3128/tcp --permanent</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></li>
+<li>检查 firewalld 状态：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --state</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h3 id="步骤-5-重启-Squid-服务"><a href="#步骤-5-重启-Squid-服务" class="headerlink" title="步骤 5: 重启 Squid 服务"></a>步骤 5: 重启 Squid 服务</h3><p>在修改配置后，重启 Squid 以应用更改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart squid</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-6-检查-Squid-状态"><a href="#步骤-6-检查-Squid-状态" class="headerlink" title="步骤 6: 检查 Squid 状态"></a>步骤 6: 检查 Squid 状态</h3><p>确保 Squid 正在运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status squid</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-7-配置客户端"><a href="#步骤-7-配置客户端" class="headerlink" title="步骤 7: 配置客户端"></a>步骤 7: 配置客户端</h3><p>在客户端计算机上，将网络代理设置为服务器的 IP 地址和配置的端口（例如，<code>http://&lt;server-ip&gt;:3128</code>）。</p>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="https://cybrix.ai/workflow_diagrams/static/a444ca81-4fd1-4550-8fa9-876bb5205063.png" alt="代理服务器搭建流程图"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.franktest.net">Frank</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.franktest.net/2024/10/31/proxy_server_setup/">https://blog.franktest.net/2024/10/31/proxy_server_setup/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.franktest.net" target="_blank">FrankTest</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Tool/">Tool</a><a class="post-meta__tags" href="/tags/Proxy/">Proxy</a><a class="post-meta__tags" href="/tags/Squid/">Squid</a></div><div class="post_share"><div class="social-share" data-image="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/10/21/linux_grep_command/" title="在Linux上使用 `grep`"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">在Linux上使用 `grep`</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/03/ARM_FFTs_test/" title="在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-04</div><div class="title">在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试</div></div></a></div><div><a href="/2024/08/14/Digital_Certificate_SOP/" title="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-15</div><div class="title">数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名</div></div></a></div><div><a href="/2024/08/07/IPv4_and_IPv6_Routing_Tutorial/" title="IPv4 和 IPv6 路由管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-08</div><div class="title">IPv4 和 IPv6 路由管理</div></div></a></div><div><a href="/2024/08/05/Linux_USB_Serial_Tutorial/" title="Linux 连接 USB 串口教程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-06</div><div class="title">Linux 连接 USB 串口教程</div></div></a></div><div><a href="/2024/07/29/RHEL9_network_config/" title="RHEL9 网络配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-30</div><div class="title">RHEL9 网络配置</div></div></a></div><div><a href="/2024/08/07/bandwidth_storage_convert/" title="带宽和存储单位转换"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-08</div><div class="title">带宽和存储单位转换</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Frank</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Frank's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E6%90%AD%E5%BB%BAHTTP%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">Linux搭建HTTP代理服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1. 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%8C%83%E5%9B%B4"><span class="toc-number">1.2.</span> <span class="toc-text">2. 范围</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%81%8C%E8%B4%A3"><span class="toc-number">1.3.</span> <span class="toc-text">3. 职责</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%A6%81%E6%B1%82"><span class="toc-number">1.4.</span> <span class="toc-text">4. 要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%BF%87%E7%A8%8B"><span class="toc-number">1.5.</span> <span class="toc-text">5. 过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1-%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.5.1.</span> <span class="toc-text">步骤 1: 更新系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2-%E5%AE%89%E8%A3%85-Squid"><span class="toc-number">1.5.2.</span> <span class="toc-text">步骤 2: 安装 Squid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-3-%E9%85%8D%E7%BD%AE-Squid"><span class="toc-number">1.5.3.</span> <span class="toc-text">步骤 3: 配置 Squid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-4-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">1.5.4.</span> <span class="toc-text">步骤 4: 安装和配置防火墙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-5-%E9%87%8D%E5%90%AF-Squid-%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.5.5.</span> <span class="toc-text">步骤 5: 重启 Squid 服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-6-%E6%A3%80%E6%9F%A5-Squid-%E7%8A%B6%E6%80%81"><span class="toc-number">1.5.6.</span> <span class="toc-text">步骤 6: 检查 Squid 状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-7-%E9%85%8D%E7%BD%AE%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">1.5.7.</span> <span class="toc-text">步骤 7: 配置客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-number">1.6.</span> <span class="toc-text">流程图</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/31/proxy_server_setup/" title="Linux搭建HTTP代理服务器">Linux搭建HTTP代理服务器</a><time datetime="2024-10-31T16:00:00.000Z" title="发表于 2024-11-01 00:00:00">2024-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/21/linux_grep_command/" title="在Linux上使用 `grep`">在Linux上使用 `grep`</a><time datetime="2024-10-21T16:00:00.000Z" title="发表于 2024-10-22 00:00:00">2024-10-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/25/memory_dpc_rank_channel/" title="Memory Rank/Channel/DPC">Memory Rank/Channel/DPC</a><time datetime="2024-09-25T16:00:00.000Z" title="发表于 2024-09-26 00:00:00">2024-09-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/25/rhel9_kernel_switch/" title="RHEL9 切换默认启动内核">RHEL9 切换默认启动内核</a><time datetime="2024-09-25T16:00:00.000Z" title="发表于 2024-09-26 00:00:00">2024-09-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/08/14/Digital_Certificate_SOP/" title="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名">数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名</a><time datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Frank</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://blog.franktest.net/2024/10/31/proxy_server_setup/'
+    this.page.identifier = '/2024/10/31/proxy_server_setup/'
+    this.page.title = 'Linux搭建HTTP代理服务器'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://frank-reoyq9vbgl.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=frank-reoyq9vbgl&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.14.0-b3"></script></div></div></body></html>
