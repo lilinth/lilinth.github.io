@@ -1,8 +1,9 @@
 https://blog.franktest.net/2024/06/30/hello-world/
 https://blog.franktest.net/2024/06/30/post_template/
 https://blog.franktest.net/categories/index.html
-https://blog.franktest.net/link/index.html
 https://blog.franktest.net/tags/index.html
+https://blog.franktest.net/link/index.html
+https://blog.franktest.net/2024/10/31/pcie_aer/
 https://blog.franktest.net/2024/10/31/proxy_server_setup/
 https://blog.franktest.net/2024/10/21/linux_grep_command/
 https://blog.franktest.net/2024/09/25/memory_dpc_rank_channel/
@@ -45,6 +46,7 @@ https://blog.franktest.net/tags/template/
 https://blog.franktest.net/tags/memory/
 https://blog.franktest.net/tags/Memtester/
 https://blog.franktest.net/tags/Numactl/
+https://blog.franktest.net/tags/AER/
 https://blog.franktest.net/tags/Proxy/
 https://blog.franktest.net/tags/Squid/
 https://blog.franktest.net/tags/VM/

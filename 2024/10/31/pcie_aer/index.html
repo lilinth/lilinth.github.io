@@ -1,0 +1,589 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>PCIe高级错误报告 | FrankTest</title><meta name="author" content="Frank"><meta name="copyright" content="Frank"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="PCIe高级错误报告（AER）PCIe（Peripheral Component Interconnect Express）高级错误报告（AER）是一种机制，用于监控和报告在PCIe设备和链路上发生的错误。AER旨在提供更详细的错误信息，从而帮助工程师快速识别和解决问题。 AER 的主要功能 错误检测：实时监测PCIe设备中的错误情况。 错误报告：通过状态寄存器报告不同类型的错误。 错误处理：支持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PCIe高级错误报告">
+<meta property="og:url" content="https://blog.franktest.net/2024/10/31/pcie_aer/index.html">
+<meta property="og:site_name" content="FrankTest">
+<meta property="og:description" content="PCIe高级错误报告（AER）PCIe（Peripheral Component Interconnect Express）高级错误报告（AER）是一种机制，用于监控和报告在PCIe设备和链路上发生的错误。AER旨在提供更详细的错误信息，从而帮助工程师快速识别和解决问题。 AER 的主要功能 错误检测：实时监测PCIe设备中的错误情况。 错误报告：通过状态寄存器报告不同类型的错误。 错误处理：支持">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp">
+<meta property="article:published_time" content="2024-10-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-31T16:00:00.000Z">
+<meta property="article:author" content="Frank">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Tool">
+<meta property="article:tag" content="AER">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.franktest.net/2024/10/31/pcie_aer/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PCIe高级错误报告',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-01 00:00:00'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">PCIe高级错误报告</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-31T16:00:00.000Z" title="发表于 2024-11-01 00:00:00">2024-11-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-31T16:00:00.000Z" title="更新于 2024-11-01 00:00:00">2024-11-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PCIe高级错误报告"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="PCIe高级错误报告（AER）"><a href="#PCIe高级错误报告（AER）" class="headerlink" title="PCIe高级错误报告（AER）"></a>PCIe高级错误报告（AER）</h1><p>PCIe（Peripheral Component Interconnect Express）高级错误报告（AER）是一种机制，用于监控和报告在PCIe设备和链路上发生的错误。AER旨在提供更详细的错误信息，从而帮助工程师快速识别和解决问题。</p>
+<h2 id="AER-的主要功能"><a href="#AER-的主要功能" class="headerlink" title="AER 的主要功能"></a>AER 的主要功能</h2><ol>
+<li><strong>错误检测</strong>：实时监测PCIe设备中的错误情况。</li>
+<li><strong>错误报告</strong>：通过状态寄存器报告不同类型的错误。</li>
+<li><strong>错误处理</strong>：支持自动或手动错误恢复机制。</li>
+</ol>
+<h2 id="AER-寄存器"><a href="#AER-寄存器" class="headerlink" title="AER 寄存器"></a>AER 寄存器</h2><p>AER通过几个关键寄存器来实现其功能：</p>
+<ol>
+<li><p><strong>UESta（不可校正错误状态寄存器）</strong>：</p>
+<ul>
+<li><p>指示发生的不可校正错误类型，包括多个错误类型的位域。</p>
+</li>
+<li><p><strong>功能</strong>：用于指示不可校正错误的状态。</p>
+</li>
+<li><p><strong>寄存器字段</strong>：</p>
+<ul>
+<li><strong>Bit 0</strong>：<strong>不可校正错误检测</strong>。设置为1表示检测到不可校正错误。</li>
+<li><strong>Bit 1</strong>：<strong>事务层超时</strong>。表示事务层操作超时。</li>
+<li><strong>Bit 2</strong>：<strong>接收器溢出</strong>。指示接收器缓冲区溢出。</li>
+<li><strong>Bit 3</strong>：<strong>格式错误的TLP</strong>。表示收到格式错误的事务层包（TLP）。</li>
+<li><strong>Bit 4</strong>：<strong>ECRC错误</strong>。指示外部循环冗余校验失败。</li>
+<li><strong>Bit 5</strong>：<strong>不支持的请求</strong>。表示收到不支持的请求类型。</li>
+<li><strong>Bit 6</strong>：<strong>AER不可校正错误</strong>。通过AER报告的不可校正错误。</li>
+</ul>
+</li>
+<li><p>示例：<code>UESta: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-</code> 表示当前没有检测到不可校正错误。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>UEMsk（不可校正错误掩码寄存器）</strong>：</p>
+<ul>
+<li><p>控制哪些不可校正错误被掩码（忽略）。</p>
+</li>
+<li><p><strong>功能</strong>：控制哪些不可校正错误可以被报告。</p>
+</li>
+<li><p><strong>寄存器字段</strong>：</p>
+<ul>
+<li><strong>Bit 0</strong>：<strong>不可校正错误掩码</strong>。设置为1表示掩码此类错误。</li>
+<li><strong>Bit 1</strong>：<strong>事务层超时掩码</strong>。</li>
+<li><strong>Bit 2</strong>：<strong>接收器溢出掩码</strong>。</li>
+<li><strong>Bit 3</strong>：<strong>格式错误的TLP掩码</strong>。</li>
+<li><strong>Bit 4</strong>：<strong>ECRC错误掩码</strong>。</li>
+<li><strong>Bit 5</strong>：<strong>不支持的请求错误掩码</strong>。</li>
+</ul>
+</li>
+<li><p>示例：<code>UEMsk: DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-</code> 表示没有错误被掩码，所有不可校正错误均可报告。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>UESvrt（不可校正错误服务寄存器）</strong>：</p>
+<ul>
+<li>指示哪些不可校正错误已被处理。</li>
+<li>示例：<code>UESvrt: DLP+ SDES+ TLP- FCP+</code> 表示DLP和FCP错误已被处理。</li>
+</ul>
+</li>
+<li><p><strong>CESta（可校正错误状态寄存器）</strong>：</p>
+<ul>
+<li><p>指示发生的可校正错误类型。</p>
+</li>
+<li><p><strong>功能</strong>：用于报告可校正错误的状态。</p>
+</li>
+<li><p><strong>寄存器字段</strong>：</p>
+<ul>
+<li><strong>Bit 0</strong>：<strong>可校正错误检测</strong>。设置为1表示检测到可校正错误。</li>
+<li><strong>Bit 1</strong>：<strong>数据链路层可校正错误</strong>。</li>
+<li><strong>Bit 2</strong>：<strong>重播超时错误</strong>。</li>
+<li><strong>Bit 3</strong>：<strong>接收错误</strong>。</li>
+<li><strong>Bit 4</strong>：<strong>格式错误的TLP</strong>。</li>
+<li><strong>Bit 5</strong>：<strong>ECRC错误</strong>。</li>
+<li><strong>Bit 6</strong>：<strong>不支持的请求错误</strong>。</li>
+</ul>
+</li>
+<li><p>示例：<code>CESta: RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr-</code> 表示当前没有可校正错误被检测到。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>CEMsk（可校正错误掩码寄存器）</strong>：</p>
+<ul>
+<li><p>控制哪些可校正错误被掩码。</p>
+</li>
+<li><p><strong>功能</strong>：控制哪些可校正错误可以被报告。</p>
+</li>
+<li><p><strong>寄存器字段</strong>：</p>
+<ul>
+<li><strong>Bit 0</strong>：<strong>可校正错误掩码</strong>。设置为1表示掩码此类错误。</li>
+<li><strong>Bit 1</strong>：<strong>数据链路层错误掩码</strong>。</li>
+<li><strong>Bit 2</strong>：<strong>重播超时错误掩码</strong>。</li>
+<li><strong>Bit 3</strong>：<strong>接收错误掩码</strong>。</li>
+<li><strong>Bit 4</strong>：<strong>格式错误的TLP掩码</strong>。</li>
+<li><strong>Bit 5</strong>：<strong>ECRC错误掩码</strong>。</li>
+</ul>
+</li>
+<li><p>示例：<code>CEMsk: RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr+</code> 表示所有可校正错误均可报告，但<code>AdvNonFatalErr</code>将被掩码。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>AERCap（AER能力寄存器）</strong>：</p>
+<ul>
+<li>提供设备支持的AER功能的详细信息，如ECRC生成和检查能力。</li>
+<li>示例：<code>AERCap: First Error Pointer: 00, ECRCGenCap+ ECRCGenEn-</code> 表示设备支持ECRC生成但未启用。</li>
+</ul>
+</li>
+<li><p><strong>HeaderLog（头部日志）</strong>：</p>
+<ul>
+<li>用于记录错误的日志，帮助故障排查。</li>
+<li>示例：<code>HeaderLog: 00000000 00000000 00000000 00000000</code> 表示当前没有错误日志。</li>
+</ul>
+</li>
+<li><p><strong>RootCmd（根命令寄存器）</strong>：</p>
+<ul>
+<li>控制根复杂设备的错误报告功能。</li>
+<li>示例：<code>RootCmd: CERptEn+ NFERptEn+ FERptEn+</code> 表示所有错误报告功能已启用。</li>
+</ul>
+</li>
+<li><p><strong>RootSta（根状态寄存器）</strong>：</p>
+<ul>
+<li>显示接收到的错误消息的状态。</li>
+<li>示例：<code>RootSta: CERcvd- MultCERcvd- UERcvd-</code> 表示没有接收到错误消息。</li>
+</ul>
+</li>
+<li><p><strong>ErrorSrc（错误源寄存器）</strong>：</p>
+<ul>
+<li>指示当前的错误来源，包括可校正和不可校正错误。</li>
+<li>示例：<code>ErrorSrc: ERR_COR: 0000 ERR_FATAL/NONFATAL: 0000</code> 表示没有检测到可校正或不可校正错误来源。</li>
+</ul>
+</li>
+</ol>
+<h2 id="常见错误类型"><a href="#常见错误类型" class="headerlink" title="常见错误类型"></a>常见错误类型</h2><p>在AER报告中，错误类型通常以缩写形式列出，具体包括：</p>
+<ol>
+<li><p><strong>DLP</strong> (Data Link Protocol Error)</p>
+<ul>
+<li>指数据链路层协议错误，这类错误通常是由于数据包在传输过程中未能成功到达目标。</li>
+</ul>
+</li>
+<li><p><strong>SDES</strong> (Surprise Down Error Status)</p>
+<ul>
+<li>表示突发断开错误状态，通常是由于设备突然失去连接或出现故障引起的。</li>
+</ul>
+</li>
+<li><p><strong>TLP</strong> (Transaction Layer Protocol Error)</p>
+<ul>
+<li>指事务层协议错误，通常涉及到数据包的事务处理过程中的错误。</li>
+</ul>
+</li>
+<li><p><strong>FCP</strong> (Flow Control Protocol Error)</p>
+<ul>
+<li>指流控制协议错误，这种错误可能发生在流控制机制出现问题时，例如未能正确地发送或接收流控制信号。</li>
+</ul>
+</li>
+<li><p><strong>CmpltTO</strong> (Completion Timeout)</p>
+<ul>
+<li>表示完成超时，通常是指在规定时间内未能收到请求的操作的完成响应。</li>
+</ul>
+</li>
+<li><p><strong>CmpltAbrt</strong> (Completion Aborted)</p>
+<ul>
+<li>指完成操作被中止，可能由于设备错误或其他原因导致请求未能成功完成。</li>
+</ul>
+</li>
+<li><p><strong>UnxCmplt</strong> (Unexpected Completion)</p>
+<ul>
+<li>表示意外的完成，通常是指收到的完成包与发出的请求不匹配。</li>
+</ul>
+</li>
+<li><p><strong>RxOF</strong> (Receive Overflow)</p>
+<ul>
+<li>表示接收溢出，通常发生在接收缓冲区已满但仍尝试接收更多数据时。</li>
+</ul>
+</li>
+<li><p><strong>MalfTLP</strong> (Malformed TLP)</p>
+<ul>
+<li>指格式错误的事务层包（TLP），这通常意味着包的结构不符合协议规范。</li>
+</ul>
+</li>
+<li><p><strong>ECRC</strong> (ECRC Error)</p>
+<ul>
+<li>指ECRC（End-to-End CRC）错误，这是数据完整性检查的一部分，当发现数据传输错误时会触发。</li>
+</ul>
+</li>
+<li><p><strong>UnsupReq</strong> (Unsupported Request)</p>
+<ul>
+<li>表示收到不支持的请求，可能是因为设备不支持该请求的类型或参数。</li>
+</ul>
+</li>
+<li><h2 id="ACSViol-Access-Control-Service-Violation-指访问控制服务违规，通常涉及安全或权限问题，表示某个操作未能遵循预定义的访问控制规则。"><a href="#ACSViol-Access-Control-Service-Violation-指访问控制服务违规，通常涉及安全或权限问题，表示某个操作未能遵循预定义的访问控制规则。" class="headerlink" title="ACSViol (Access Control Service Violation)- 指访问控制服务违规，通常涉及安全或权限问题，表示某个操作未能遵循预定义的访问控制规则。"></a><strong>ACSViol</strong> (Access Control Service Violation)<br>- 指访问控制服务违规，通常涉及安全或权限问题，表示某个操作未能遵循预定义的访问控制规则。</h2></li>
+</ol>
+<h2 id="错误处理流程"><a href="#错误处理流程" class="headerlink" title="错误处理流程"></a>错误处理流程</h2><p>AER机制的有效性依赖于对寄存器的监控与响应，以下是一个典型的错误处理流程：</p>
+<h3 id="步骤-1：检测错误"><a href="#步骤-1：检测错误" class="headerlink" title="步骤 1：检测错误"></a>步骤 1：检测错误</h3><p>使用<code>lspci</code>命令查看设备的错误状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci -vvv -s &lt;device_id&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在输出中，查找<code>CESta</code>和<code>CEMsk</code>、<code>UESta</code>和<code>UEMsk</code>部分。</p>
+<h3 id="步骤-2：分析寄存器状态"><a href="#步骤-2：分析寄存器状态" class="headerlink" title="步骤 2：分析寄存器状态"></a>步骤 2：分析寄存器状态</h3><ul>
+<li><strong>CESta</strong>：检查哪些可校正错误被检测到。</li>
+<li><strong>CEMsk</strong>：检查哪些可校正错误被掩码。</li>
+<li><strong>UESta</strong>：检查哪些不可校正错误被检测到。</li>
+<li><strong>UEMsk</strong>：检查哪些不可校正错误被掩码。</li>
+</ul>
+<h3 id="步骤-3：判断和响应"><a href="#步骤-3：判断和响应" class="headerlink" title="步骤 3：判断和响应"></a>步骤 3：判断和响应</h3><ul>
+<li><p><strong>对于可校正错误</strong>：</p>
+<ul>
+<li>如果<code>CESta</code>中的位为1且<code>CEMsk</code>中的对应位为0，表示该可校正错误被检测到并会被报告。可以考虑记录该错误并分析原因。</li>
+<li>如果<code>CEMsk</code>中的位为1，表示该错误被掩码，主机不会报告。可以根据需求决定是否解除掩码。</li>
+</ul>
+</li>
+<li><p><strong>对于不可校正错误</strong>：</p>
+<ul>
+<li>如果<code>UESta</code>中的位为1且<code>UEMsk</code>中的对应位为0，表示检测到不可校正错误并将被报告。这通常需要更紧急的响应，例如设备重置或硬件检查。</li>
+<li>如果<code>UEMsk</code>中的位为1，表示该错误被掩码，不会被报告。此时可以考虑是否需要调整掩码设置以捕获重要的错误信息。</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用-lspci-检查-AER-状态"><a href="#使用-lspci-检查-AER-状态" class="headerlink" title="使用 lspci 检查 AER 状态"></a>使用 <code>lspci</code> 检查 AER 状态</h2><p>可以使用<code>lspci</code>命令来查看PCIe设备的AER状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci -vvv -s &lt;device_id&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="AER-状态分析"><a href="#AER-状态分析" class="headerlink" title="AER 状态分析"></a>AER 状态分析</h3><h4 id="1-AER-能力（Capabilities）"><a href="#1-AER-能力（Capabilities）" class="headerlink" title="1. AER 能力（Capabilities）"></a>1. AER 能力（Capabilities）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Capabilities: [100 v2] Advanced Error Reporting</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这表示设备支持AER，并且是版本2。</li>
+</ul>
+<h4 id="2-不可校正错误状态寄存器（UESta）"><a href="#2-不可校正错误状态寄存器（UESta）" class="headerlink" title="2. 不可校正错误状态寄存器（UESta）"></a>2. 不可校正错误状态寄存器（UESta）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此寄存器用于指示是否检测到不可校正错误。</li>
+<li><code>DLP-</code>、<code>SDES-</code>等前面的<code>-</code>表示这些错误类型未被检测到。</li>
+<li>所有项均未设置，表示当前没有不可校正错误。</li>
+</ul>
+<h4 id="3-不可校正错误掩码寄存器（UEMsk）"><a href="#3-不可校正错误掩码寄存器（UEMsk）" class="headerlink" title="3. 不可校正错误掩码寄存器（UEMsk）"></a>3. 不可校正错误掩码寄存器（UEMsk）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此寄存器控制哪些不可校正错误被掩码。</li>
+<li>同样，所有项前的<code>-</code>表示没有错误被掩码，所有不可校正错误均可报告。</li>
+</ul>
+<h4 id="4-不可校正错误源寄存器（UESvrt）"><a href="#4-不可校正错误源寄存器（UESvrt）" class="headerlink" title="4. 不可校正错误源寄存器（UESvrt）"></a>4. 不可校正错误源寄存器（UESvrt）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt- RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此寄存器表示哪些不可校正错误被服务。</li>
+<li><code>DLP+</code>、<code>FCP+</code>、<code>RxOF+</code>、<code>MalfTLP+</code>表示这些错误类型已被服务（即被处理）。</li>
+<li>其他项未被服务，表示没有检测到这些类型的错误。</li>
+</ul>
+<h4 id="5-可校正错误状态寄存器（CESta）"><a href="#5-可校正错误状态寄存器（CESta）" class="headerlink" title="5. 可校正错误状态寄存器（CESta）"></a>5. 可校正错误状态寄存器（CESta）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr-</span><br></pre></td></tr></table></figure>
+<ul>
+<li>该寄存器显示检测到的可校正错误状态。</li>
+<li>所有项均为<code>-</code>，表示当前没有可校正错误被检测到。</li>
+</ul>
+<h4 id="6-可校正错误掩码寄存器（CEMsk）"><a href="#6-可校正错误掩码寄存器（CEMsk）" class="headerlink" title="6. 可校正错误掩码寄存器（CEMsk）"></a>6. 可校正错误掩码寄存器（CEMsk）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr+</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此寄存器控制哪些可校正错误被掩码。</li>
+<li>除了<code>AdvNonFatalErr+</code>外，其他项均为<code>-</code>，表示所有其他类型的可校正错误将被报告。</li>
+</ul>
+<h4 id="7-AER-能力寄存器（AERCap）"><a href="#7-AER-能力寄存器（AERCap）" class="headerlink" title="7. AER 能力寄存器（AERCap）"></a>7. AER 能力寄存器（AERCap）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AERCap: First Error Pointer: 00, ECRCGenCap+ ECRCGenEn- ECRCChkCap+ ECRCChkEn-</span><br><span class="line">        MultHdrRecCap+ MultHdrRecEn- TLPPfxPres- HdrLogCap-</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>First Error Pointer</strong>: 00 — 表示最近的错误指针位置。</li>
+<li><strong>ECRCGenCap+</strong>: 支持生成ECRC。</li>
+<li><strong>ECRCGenEn-</strong>: 生成ECRC功能未启用。</li>
+<li><strong>ECRCChkCap+</strong>: 支持ECRC检查。</li>
+<li><strong>ECRCChkEn-</strong>: ECRC检查功能未启用。</li>
+<li><strong>MultHdrRecCap+</strong>: 支持多个头部接收。</li>
+<li><strong>MultHdrRecEn-</strong>: 多个头部接收功能未启用。</li>
+<li><strong>TLPPfxPres</strong>: 事务层前缀保留功能。</li>
+<li><strong>HdrLogCap-</strong>: 头部日志能力未启用。</li>
+</ul>
+<h4 id="8-头部日志（HeaderLog）"><a href="#8-头部日志（HeaderLog）" class="headerlink" title="8. 头部日志（HeaderLog）"></a>8. 头部日志（HeaderLog）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HeaderLog: 00000000 00000000 00000000 00000000</span><br></pre></td></tr></table></figure>
+<ul>
+<li>头部日志显示为零，表示没有错误日志可用。</li>
+</ul>
+<h4 id="9-根命令（RootCmd）"><a href="#9-根命令（RootCmd）" class="headerlink" title="9. 根命令（RootCmd）"></a>9. 根命令（RootCmd）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RootCmd: CERptEn+ NFERptEn+ FERptEn+</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指示根命令的错误报告功能均已启用（CERptEn、NFERptEn、FERptEn）。</li>
+</ul>
+<h4 id="10-根状态（RootSta）"><a href="#10-根状态（RootSta）" class="headerlink" title="10. 根状态（RootSta）"></a>10. 根状态（RootSta）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RootSta: CERcvd- MultCERcvd- UERcvd- MultUERcvd-</span><br><span class="line">         FirstFatal- NonFatalMsg- FatalMsg- IntMsg 0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这些字段指示各种错误状态。当前无错误被接收（CERcvd-、UERcvd-）。</li>
+</ul>
+<h4 id="11-错误源（ErrorSrc）"><a href="#11-错误源（ErrorSrc）" class="headerlink" title="11. 错误源（ErrorSrc）"></a>11. 错误源（ErrorSrc）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ErrorSrc: ERR_COR: 0000 ERR_FATAL/NONFATAL: 0000</span><br></pre></td></tr></table></figure>
+<ul>
+<li>表示当前没有可校正错误和不可校正错误来源。</li>
+</ul>
+<h3 id="示例分析1"><a href="#示例分析1" class="headerlink" title="示例分析1"></a>示例分析1</h3><p>假设读取到的寄存器状态如下：</p>
+<ul>
+<li><code>CESta</code>: <code>00000111</code>（可校正错误位0、1和2被设置）</li>
+<li><code>CEMsk</code>: <code>00000001</code>（可校正错误掩码位0被设置）</li>
+<li><code>UESta</code>: <code>00000001</code>（不可校正错误位0被设置）</li>
+<li><code>UEMsk</code>: <code>00000000</code>（不可校正错误掩码位0未设置）</li>
+</ul>
+<p><strong>分析</strong>：</p>
+<ul>
+<li><p><strong>可校正错误</strong>：</p>
+<ul>
+<li><code>CESta</code>中的Bit 0（可校正错误检测）为1，表示检测到可校正错误，但由于<code>CEMsk</code>中对应位为1，因此不会报告。</li>
+<li><code>CESta</code>中的Bit 1和2为1，表示数据链路层可校正错误和重播超时错误被检测到，且<code>CEMsk</code>中的对应位均为0，这些错误将被报告。</li>
+</ul>
+</li>
+<li><p><strong>不可校正错误</strong>：</p>
+<ul>
+<li><code>UESta</code>中的Bit 0（不可校正错误检测）为1且<code>UEMsk</code>中对应位为0，表示检测到不可校正错误并将被报告。这需要立即关注和处理。</li>
+</ul>
+</li>
+</ul>
+<h3 id="示例分析2"><a href="#示例分析2" class="headerlink" title="示例分析2"></a>示例分析2</h3><p>假设运行<code>lspci -vvv -s 00:1f.6</code>，得到以下输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Capabilities: [100 v2] Advanced Error Reporting</span><br><span class="line">    UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-</span><br><span class="line">    UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-</span><br><span class="line">    CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr-</span><br><span class="line">    CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr+</span><br><span class="line">    AERCap: First Error Pointer: 00, ECRCGenCap+ ECRCGenEn- ECRCChkCap+ ECRCChkEn-</span><br><span class="line">            MultHdrRecCap+ MultHdrRecEn- TLPPfxPres- HdrLogCap-</span><br><span class="line">    HeaderLog: 00000000 00000000 00000000 00000000</span><br><span class="line">    RootCmd: CERptEn+ NFERptEn+ FERptEn+</span><br><span class="line">    RootSta: CERcvd- MultCERcvd- UERcvd- MultUERcvd-</span><br><span class="line">             FirstFatal- NonFatalMsg- FatalMsg- IntMsg 0</span><br><span class="line">    ErrorSrc: ERR_COR: 0000 ERR_FATAL/NONFATAL: 0000</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>UESta</strong>：无不可校正错误。</li>
+<li><strong>UEMsk</strong>：所有不可校正错误可报告。</li>
+<li><strong>CESta</strong>：无可校正错误。</li>
+<li><strong>CEMsk</strong>：大部分可校正错误可报告。</li>
+<li><strong>AERCap</strong>：显示支持的AER功能，如ECRC。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>PCIe AER是一个强大的工具，用于检测和报告PCIe设备的错误。通过监控AER寄存器，能够及时发现和处理潜在的问题，确保系统的稳定性和性能。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.franktest.net">Frank</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.franktest.net/2024/10/31/pcie_aer/">https://blog.franktest.net/2024/10/31/pcie_aer/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.franktest.net" target="_blank">FrankTest</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Tool/">Tool</a><a class="post-meta__tags" href="/tags/AER/">AER</a></div><div class="post_share"><div class="social-share" data-image="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/10/31/proxy_server_setup/" title="Linux搭建HTTP代理服务器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux搭建HTTP代理服务器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/03/ARM_FFTs_test/" title="在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-04</div><div class="title">在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试</div></div></a></div><div><a href="/2024/08/14/Digital_Certificate_SOP/" title="数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-15</div><div class="title">数字证书、证书颁发机构 (CA)、私钥、公钥和数字签名</div></div></a></div><div><a href="/2024/08/07/IPv4_and_IPv6_Routing_Tutorial/" title="IPv4 和 IPv6 路由管理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-08</div><div class="title">IPv4 和 IPv6 路由管理</div></div></a></div><div><a href="/2024/08/05/Linux_USB_Serial_Tutorial/" title="Linux 连接 USB 串口教程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-06</div><div class="title">Linux 连接 USB 串口教程</div></div></a></div><div><a href="/2024/07/29/RHEL9_network_config/" title="RHEL9 网络配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-30</div><div class="title">RHEL9 网络配置</div></div></a></div><div><a href="/2024/08/07/bandwidth_storage_convert/" title="带宽和存储单位转换"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-08</div><div class="title">带宽和存储单位转换</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Frank</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Frank's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PCIe%E9%AB%98%E7%BA%A7%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A%EF%BC%88AER%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">PCIe高级错误报告（AER）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#AER-%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="toc-number">1.1.</span> <span class="toc-text">AER 的主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AER-%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">AER 寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">常见错误类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ACSViol-Access-Control-Service-Violation-%E6%8C%87%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E6%9C%8D%E5%8A%A1%E8%BF%9D%E8%A7%84%EF%BC%8C%E9%80%9A%E5%B8%B8%E6%B6%89%E5%8F%8A%E5%AE%89%E5%85%A8%E6%88%96%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98%EF%BC%8C%E8%A1%A8%E7%A4%BA%E6%9F%90%E4%B8%AA%E6%93%8D%E4%BD%9C%E6%9C%AA%E8%83%BD%E9%81%B5%E5%BE%AA%E9%A2%84%E5%AE%9A%E4%B9%89%E7%9A%84%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E8%A7%84%E5%88%99%E3%80%82"><span class="toc-number">1.4.</span> <span class="toc-text">ACSViol (Access Control Service Violation)- 指访问控制服务违规，通常涉及安全或权限问题，表示某个操作未能遵循预定义的访问控制规则。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-number">1.5.</span> <span class="toc-text">错误处理流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1%EF%BC%9A%E6%A3%80%E6%B5%8B%E9%94%99%E8%AF%AF"><span class="toc-number">1.5.1.</span> <span class="toc-text">步骤 1：检测错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2%EF%BC%9A%E5%88%86%E6%9E%90%E5%AF%84%E5%AD%98%E5%99%A8%E7%8A%B6%E6%80%81"><span class="toc-number">1.5.2.</span> <span class="toc-text">步骤 2：分析寄存器状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-3%EF%BC%9A%E5%88%A4%E6%96%AD%E5%92%8C%E5%93%8D%E5%BA%94"><span class="toc-number">1.5.3.</span> <span class="toc-text">步骤 3：判断和响应</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-lspci-%E6%A3%80%E6%9F%A5-AER-%E7%8A%B6%E6%80%81"><span class="toc-number">1.6.</span> <span class="toc-text">使用 lspci 检查 AER 状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">1.7.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AER-%E7%8A%B6%E6%80%81%E5%88%86%E6%9E%90"><span class="toc-number">1.7.1.</span> <span class="toc-text">AER 状态分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-AER-%E8%83%BD%E5%8A%9B%EF%BC%88Capabilities%EF%BC%89"><span class="toc-number">1.7.1.1.</span> <span class="toc-text">1. AER 能力（Capabilities）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%B8%8D%E5%8F%AF%E6%A0%A1%E6%AD%A3%E9%94%99%E8%AF%AF%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88UESta%EF%BC%89"><span class="toc-number">1.7.1.2.</span> <span class="toc-text">2. 不可校正错误状态寄存器（UESta）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%B8%8D%E5%8F%AF%E6%A0%A1%E6%AD%A3%E9%94%99%E8%AF%AF%E6%8E%A9%E7%A0%81%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88UEMsk%EF%BC%89"><span class="toc-number">1.7.1.3.</span> <span class="toc-text">3. 不可校正错误掩码寄存器（UEMsk）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E4%B8%8D%E5%8F%AF%E6%A0%A1%E6%AD%A3%E9%94%99%E8%AF%AF%E6%BA%90%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88UESvrt%EF%BC%89"><span class="toc-number">1.7.1.4.</span> <span class="toc-text">4. 不可校正错误源寄存器（UESvrt）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%8F%AF%E6%A0%A1%E6%AD%A3%E9%94%99%E8%AF%AF%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88CESta%EF%BC%89"><span class="toc-number">1.7.1.5.</span> <span class="toc-text">5. 可校正错误状态寄存器（CESta）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%8F%AF%E6%A0%A1%E6%AD%A3%E9%94%99%E8%AF%AF%E6%8E%A9%E7%A0%81%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88CEMsk%EF%BC%89"><span class="toc-number">1.7.1.6.</span> <span class="toc-text">6. 可校正错误掩码寄存器（CEMsk）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-AER-%E8%83%BD%E5%8A%9B%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88AERCap%EF%BC%89"><span class="toc-number">1.7.1.7.</span> <span class="toc-text">7. AER 能力寄存器（AERCap）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E5%A4%B4%E9%83%A8%E6%97%A5%E5%BF%97%EF%BC%88HeaderLog%EF%BC%89"><span class="toc-number">1.7.1.8.</span> <span class="toc-text">8. 头部日志（HeaderLog）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E6%A0%B9%E5%91%BD%E4%BB%A4%EF%BC%88RootCmd%EF%BC%89"><span class="toc-number">1.7.1.9.</span> <span class="toc-text">9. 根命令（RootCmd）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-%E6%A0%B9%E7%8A%B6%E6%80%81%EF%BC%88RootSta%EF%BC%89"><span class="toc-number">1.7.1.10.</span> <span class="toc-text">10. 根状态（RootSta）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-%E9%94%99%E8%AF%AF%E6%BA%90%EF%BC%88ErrorSrc%EF%BC%89"><span class="toc-number">1.7.1.11.</span> <span class="toc-text">11. 错误源（ErrorSrc）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%901"><span class="toc-number">1.7.2.</span> <span class="toc-text">示例分析1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%902"><span class="toc-number">1.7.3.</span> <span class="toc-text">示例分析2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.8.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/31/pcie_aer/" title="PCIe高级错误报告">PCIe高级错误报告</a><time datetime="2024-10-31T16:00:00.000Z" title="发表于 2024-11-01 00:00:00">2024-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/31/proxy_server_setup/" title="Linux搭建HTTP代理服务器">Linux搭建HTTP代理服务器</a><time datetime="2024-10-31T16:00:00.000Z" title="发表于 2024-11-01 00:00:00">2024-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/21/linux_grep_command/" title="在Linux上使用 `grep`">在Linux上使用 `grep`</a><time datetime="2024-10-21T16:00:00.000Z" title="发表于 2024-10-22 00:00:00">2024-10-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/25/memory_dpc_rank_channel/" title="Memory Rank/Channel/DPC">Memory Rank/Channel/DPC</a><time datetime="2024-09-25T16:00:00.000Z" title="发表于 2024-09-26 00:00:00">2024-09-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/25/rhel9_kernel_switch/" title="RHEL9 切换默认启动内核">RHEL9 切换默认启动内核</a><time datetime="2024-09-25T16:00:00.000Z" title="发表于 2024-09-26 00:00:00">2024-09-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Frank</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://blog.franktest.net/2024/10/31/pcie_aer/'
+    this.page.identifier = '/2024/10/31/pcie_aer/'
+    this.page.title = 'PCIe高级错误报告'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://frank-reoyq9vbgl.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=frank-reoyq9vbgl&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.14.0-b3"></script></div></div></body></html>
