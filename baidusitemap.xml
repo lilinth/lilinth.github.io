@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2024-11-06</lastmod>
+    <lastmod>2024-11-08</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2024-11-06</lastmod>
+    <lastmod>2024-11-08</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/10/31/nvidia_switch_quick_start/</loc>
@@ -74,6 +74,10 @@
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/07/03/stressapptest_test/</loc>
+    <lastmod>2024-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2024/08/14/tpm_seal_and_unseal/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
