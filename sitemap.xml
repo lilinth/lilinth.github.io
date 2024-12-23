@@ -4,7 +4,7 @@
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
     
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,7 +13,7 @@
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
     
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -22,7 +22,7 @@
   <url>
     <loc>https://blog.franktest.net/categories/index.html</loc>
     
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,7 +31,7 @@
   <url>
     <loc>https://blog.franktest.net/link/index.html</loc>
     
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -40,7 +40,16 @@
   <url>
     <loc>https://blog.franktest.net/tags/index.html</loc>
     
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/2024/12/22/enable_rhel9_os_serial_output/</loc>
+    
+    <lastmod>2024-12-22</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -337,7 +346,7 @@
 
   <url>
     <loc>https://blog.franktest.net/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -345,189 +354,189 @@
   
   <url>
     <loc>https://blog.franktest.net/tags/Linux/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/Tool/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/Certificate/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/Network/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/Serial/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/Hexo/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/Template/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/template/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/memory/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/Memtester/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/Numactl/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/CumulusLinux/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/AER/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/Proxy/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/Squid/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/VM/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/PF/</loc>
-    <lastmod>2024-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/SR-IOV/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/RHEL/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/Kernel/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/template/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/memory/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/Memtester/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/Numactl/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/CumulusLinux/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/AER/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/Proxy/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/Squid/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/VM/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/PF/</loc>
+    <lastmod>2024-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/SR-IOV/</loc>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/YUM/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/stress-ng/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/stress/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/Stressapptest/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.franktest.net/tags/TPM/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -536,7 +545,7 @@
   
   <url>
     <loc>https://blog.franktest.net/categories/%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2024-11-26</lastmod>
+    <lastmod>2024-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

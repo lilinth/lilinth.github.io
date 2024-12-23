@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>RHEL9 启用OS串口(Serial Port)信息输出</title>
+      <link href="/2024/12/22/enable_rhel9_os_serial_output/"/>
+      <url>/2024/12/22/enable_rhel9_os_serial_output/</url>
+      
+        <content type="html"><![CDATA[<h1 id="RHEL9-启用OS串口信息输出"><a href="#RHEL9-启用OS串口信息输出" class="headerlink" title="RHEL9 启用OS串口信息输出"></a>RHEL9 启用OS串口信息输出</h1><p>基于 RHEL 的系统上修改 GRUB 配置以调整内核启动参数：</p><ol><li><p><strong>备份现有的 GRUB 配置文件</strong>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /etc/default/grub /etc/default/grub.bak</span><br></pre></td></tr></table></figure><p>将原始的 GRUB 配置文件 <code>/etc/default/grub</code> 备份为 <code>/etc/default/grub.bak</code>。</p></li><li><p><strong>修改 GRUB 配置</strong>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&quot;s/quiet/loglevel=8 console=tty1 console=ttyS1,115200n8/g&quot;</span> /etc/default/grub</span><br></pre></td></tr></table></figure><p>使用 <code>sed</code> 命令查找并替换文件中的内容：</p><ul><li>将 <code>quiet</code> 参数替换为 <code>loglevel=8 console=tty1 console=ttyS1,115200n8</code>。</li><li>这会启用详细日志输出 (<code>loglevel=8</code>)，并将输出同时发送到 <code>tty1</code> 和串口 <code>ttyS1</code>，速率为 115200 波特率，8 个数据位，无校验位，1 个停止位。</li></ul></li><li><p><strong>重新生成 GRUB 配置文件</strong>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg --update-bls-cmdline</span><br></pre></td></tr></table></figure><p>使用 <code>grub2-mkconfig</code> 生成新的 GRUB 配置文件，并保存到指定路径 <code>/boot/efi/EFI/redhat/grub.cfg</code>。  </p><ul><li>选项 <code>--update-bls-cmdline</code> 用于更新 Boot Loader Specification (BLS) 条目。</li></ul></li></ol><h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul><li><strong>路径正确性</strong>：确保你的 GRUB 配置路径是 <code>/boot/efi/EFI/redhat/grub.cfg</code>。如果你的系统路径不同，需要调整为适合你的实际环境。</li><li><strong>BIOS 或 UEFI</strong>：此路径适用于 UEFI 引导。如果是传统 BIOS 引导，可能需要将配置文件路径修改为 <code>/boot/grub2/grub.cfg</code>。</li><li><strong>备份</strong>：在修改配置前一定要备份，以防止配置错误导致无法启动。</li><li><strong>验证</strong>：修改完成后建议通过以下命令验证是否生效：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E <span class="string">&quot;loglevel|console&quot;</span> /boot/grub2/grub.cfg</span><br></pre></td></tr></table></figure></li></ul><p>完成以上步骤后，重启系统验证新参数是否生效即可。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> 测试 </tag>
+            
+            <tag> Serial </tag>
+            
+            <tag> RHEL </tag>
+            
+            <tag> Kernel </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux bridge 与device对应关系</title>
       <link href="/2024/11/24/lspci_bridge_devices/"/>
       <url>/2024/11/24/lspci_bridge_devices/</url>
