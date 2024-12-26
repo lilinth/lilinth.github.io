@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2024-12-23</lastmod>
+    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
+    <lastmod>2024-12-26</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
+    <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
+    <lastmod>2024-12-26</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2024/12/25/bash_directory_config/</loc>
+    <lastmod>2024-12-25</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2024/12/23/RHEL9_home_partition_lost_solution/</loc>
     <lastmod>2024-12-23</lastmod>
   </url>
   <url>

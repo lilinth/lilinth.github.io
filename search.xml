@@ -4,6 +4,64 @@
   
     
     <entry>
+      <title>在 Bash 中隐藏路径以简化提示符</title>
+      <link href="/2024/12/25/bash_directory_config/"/>
+      <url>/2024/12/25/bash_directory_config/</url>
+      
+        <content type="html"><![CDATA[<h1 id="在-Bash-中隐藏路径以简化提示符"><a href="#在-Bash-中隐藏路径以简化提示符" class="headerlink" title="在 Bash 中隐藏路径以简化提示符"></a>在 Bash 中隐藏路径以简化提示符</h1><p>在 Bash 中，可以通过以下方法隐藏路径或调整提示符以简化显示，并保持高亮效果：</p><hr><h3 id="方法一：自定义-PS1（Prompt-String-1）"><a href="#方法一：自定义-PS1（Prompt-String-1）" class="headerlink" title="方法一：自定义 PS1（Prompt String 1）"></a>方法一：自定义 <code>PS1</code>（Prompt String 1）</h3><p><code>PS1</code> 是 Bash 的提示符变量，你可以通过设置它来定制显示内容。例如：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;\u@\h:~\$ &#x27;</span></span><br></pre></td></tr></table></figure><ul><li><code>\u</code>：显示用户名。</li><li><code>\h</code>：显示主机名。</li><li><code>~</code>：始终显示为 <code>~</code>，而不是完整路径。</li></ul><p>此时，提示符将变成类似这样：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user@localhost:~$</span><br></pre></td></tr></table></figure><p>如果希望添加高亮效果，可以加入颜色代码：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;\[\033[1;32m\]\u@\h:\[\033[1;34m\]~\[\033[0m\]\$ &#x27;</span></span><br></pre></td></tr></table></figure><ul><li><code>\[\033[1;32m\]</code>：设置绿色高亮（用户名和主机名）。</li><li><code>\[\033[1;34m\]</code>：设置蓝色高亮（路径）。</li><li><code>\[\033[0m\]</code>：重置颜色，避免影响后续输出。</li></ul><hr><h3 id="方法二：显示相对路径"><a href="#方法二：显示相对路径" class="headerlink" title="方法二：显示相对路径"></a>方法二：显示相对路径</h3><p>让路径只显示相对于主目录的内容：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;\u@\h:\w\$ &#x27;</span></span><br></pre></td></tr></table></figure><ul><li><code>\w</code>：显示当前路径，但用 <code>~</code> 替代主目录路径。</li></ul><p>例如：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user@localhost:~/log$</span><br></pre></td></tr></table></figure><p>如果希望保持高亮，可以使用以下代码：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;\[\033[1;32m\]\u@\h:\[\033[1;34m\]\w\[\033[0m\]\$ &#x27;</span></span><br></pre></td></tr></table></figure><hr><h3 id="方法三：完全隐藏路径"><a href="#方法三：完全隐藏路径" class="headerlink" title="方法三：完全隐藏路径"></a>方法三：完全隐藏路径</h3><p>如果你想完全隐藏路径，只显示用户名和主机名：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;\u@\h\$ &#x27;</span></span><br></pre></td></tr></table></figure><p>例如：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user@localhost$</span><br></pre></td></tr></table></figure><p>为恢复高亮，可以这样设置：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;\[\033[1;32m\]\u@\h\[\033[0m\]\$ &#x27;</span></span><br></pre></td></tr></table></figure><hr><h3 id="方法四：设置为简短路径"><a href="#方法四：设置为简短路径" class="headerlink" title="方法四：设置为简短路径"></a>方法四：设置为简短路径</h3><p>如果你只想显示目录名，可以使用：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;\u@\h:\W\$ &#x27;</span></span><br></pre></td></tr></table></figure><ul><li><code>\W</code>：仅显示当前目录名。</li></ul><p>例如：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user@localhost:stress$</span><br></pre></td></tr></table></figure><p>为添加高亮：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;\[\033[1;32m\]\u@\h:\[\033[1;34m\]\W\[\033[0m\]\$ &#x27;</span></span><br></pre></td></tr></table></figure><hr><h3 id="方法五：使用系统默认高亮提示符"><a href="#方法五：使用系统默认高亮提示符" class="headerlink" title="方法五：使用系统默认高亮提示符"></a>方法五：使用系统默认高亮提示符</h3><p>如果不想手动设置颜色，可以使用系统默认提示符样式：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;\[\e]0;\u@\h: \w\a\]\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ &#x27;</span></span><br></pre></td></tr></table></figure><hr><h3 id="持久化配置"><a href="#持久化配置" class="headerlink" title="持久化配置"></a>持久化配置</h3><p>如果需要每次启动 Bash 都应用设置，可以将上述命令加入 <code>~/.bashrc</code> 文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export PS1=&#x27;\[\033[1;32m\]\u@\h:\[\033[1;34m\]\W\[\033[0m\]\$ &#x27;&quot;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure><hr><h3 id="测试终端颜色支持"><a href="#测试终端颜色支持" class="headerlink" title="测试终端颜色支持"></a>测试终端颜色支持</h3><p>确保你的终端支持 ANSI 转义序列（大多数现代终端都支持，例如 GNOME Terminal、Konsole 等）。</p><p>测试颜色支持的命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\033[1;32m绿色高亮\033[0m 和 \033[1;34m蓝色高亮\033[0m&quot;</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> BASH </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>解决RHEL9 Home 分区丢失导致进入emergency mode</title>
+      <link href="/2024/12/23/RHEL9_home_partition_lost_solution/"/>
+      <url>/2024/12/23/RHEL9_home_partition_lost_solution/</url>
+      
+        <content type="html"><![CDATA[<h1 id="解决RHEL9-Home-分区丢失导致进入emergency-mode"><a href="#解决RHEL9-Home-分区丢失导致进入emergency-mode" class="headerlink" title="解决RHEL9 Home 分区丢失导致进入emergency mode"></a>解决RHEL9 Home 分区丢失导致进入emergency mode</h1><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a><strong>适用场景</strong></h4><ul><li>系统进入紧急模式。  </li><li>需要修复LVM设备配置文件问题，E.g. &#x2F;home 分区丢失。</li></ul><h4 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a><strong>操作步骤</strong></h4><ol><li>删除损坏的设备文件：  <pre><code class="bash">rm /etc/lvm/devices/system.devices  </code></pre></li><li>创建新的设备文件：  <pre><code class="bash">vgimportdevices -a  </code></pre></li></ol><h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h4><ul><li>执行操作前确保有系统备份。  </li><li>适用于LVM相关配置问题。</li></ul><p>更多详情参考原文：<a href="https://portal.nutanix.com/page/documents/kbs/details?targetId=kA07V000000LaGrSAK">Nutanix知识库</a>。  </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> RHEL9 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RHEL9 启用OS串口(Serial Port)信息输出</title>
       <link href="/2024/12/22/enable_rhel9_os_serial_output/"/>
       <url>/2024/12/22/enable_rhel9_os_serial_output/</url>
