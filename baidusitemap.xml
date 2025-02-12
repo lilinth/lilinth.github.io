@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2024-12-26</lastmod>
+    <lastmod>2025-02-12</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2024-12-26</lastmod>
+    <lastmod>2025-02-12</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/02/11/namp_scan/</loc>
+    <lastmod>2025-02-11</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/12/25/bash_directory_config/</loc>
