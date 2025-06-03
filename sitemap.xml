@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
+    
+    <lastmod>2025-06-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.franktest.net/2025/06/03/Windows_PXE_environment/</loc>
     
     <lastmod>2025-06-03</lastmod>
@@ -12,15 +21,6 @@
   
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    
-    <lastmod>2025-06-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
     
     <lastmod>2025-06-03</lastmod>
     

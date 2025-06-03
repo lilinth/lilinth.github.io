@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
+    <lastmod>2025-06-03</lastmod>
+  </url>
+  <url>
     <loc>https://blog.franktest.net/2025/06/03/Windows_PXE_environment/</loc>
     <lastmod>2025-06-03</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2025-06-03</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
     <lastmod>2025-06-03</lastmod>
   </url>
   <url>
