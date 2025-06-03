@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
+    <loc>https://blog.franktest.net/2025/06/22/Windows_PXE_environment/</loc>
     
-    <lastmod>2025-06-03</lastmod>
+    <lastmod>2025-06-22</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/2025/06/03/Windows_PXE_environment/</loc>
+    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
     
     <lastmod>2025-06-03</lastmod>
     
@@ -462,6 +462,27 @@
   
   <url>
     <loc>https://blog.franktest.net/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
+    <lastmod>2025-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/PXE/</loc>
+    <lastmod>2025-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/Windows/</loc>
+    <lastmod>2025-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/DHCP/</loc>
     <lastmod>2025-06-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
