@@ -1,0 +1,662 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Intel和AMD服务器处理器路线图 | FrankTest</title><meta name="author" content="Frank"><meta name="copyright" content="Frank"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Intel和AMD服务器处理器路线图英特尔（Intel）和超威（AMD）服务器处理器路线图，涵盖2010年至2025年间的关键产品、技术演进以及对比分析。  🧩 英特尔 Xeon 处理器路线图（2010–2025）   年份 架构代号 制程工艺 核心数 插槽&#x2F;平台 主要特性     2010 Westmere-EP 32nm 6 LGA 1366 基于 Nehalem 架构，支持超线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Intel和AMD服务器处理器路线图">
+<meta property="og:url" content="https://blog.franktest.net/2025/06/03/amd_intel_processor_roadmap/index.html">
+<meta property="og:site_name" content="FrankTest">
+<meta property="og:description" content="Intel和AMD服务器处理器路线图英特尔（Intel）和超威（AMD）服务器处理器路线图，涵盖2010年至2025年间的关键产品、技术演进以及对比分析。  🧩 英特尔 Xeon 处理器路线图（2010–2025）   年份 架构代号 制程工艺 核心数 插槽&#x2F;平台 主要特性     2010 Westmere-EP 32nm 6 LGA 1366 基于 Nehalem 架构，支持超线程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp">
+<meta property="article:published_time" content="2025-06-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-06-03T16:00:00.000Z">
+<meta property="article:author" content="Frank">
+<meta property="article:tag" content="CPU">
+<meta property="article:tag" content="Intel">
+<meta property="article:tag" content="AMD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.franktest.net/2025/06/03/amd_intel_processor_roadmap/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Intel和AMD服务器处理器路线图',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-06-04 00:00:00'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Intel和AMD服务器处理器路线图</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-03T16:00:00.000Z" title="发表于 2025-06-04 00:00:00">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-03T16:00:00.000Z" title="更新于 2025-06-04 00:00:00">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Intel和AMD服务器处理器路线图"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Intel和AMD服务器处理器路线图"><a href="#Intel和AMD服务器处理器路线图" class="headerlink" title="Intel和AMD服务器处理器路线图"></a>Intel和AMD服务器处理器路线图</h1><p>英特尔（Intel）和超威（AMD）服务器处理器路线图，涵盖2010年至2025年间的关键产品、技术演进以及对比分析。</p>
+<hr>
+<h2 id="🧩-英特尔-Xeon-处理器路线图（2010–2025）"><a href="#🧩-英特尔-Xeon-处理器路线图（2010–2025）" class="headerlink" title="🧩 英特尔 Xeon 处理器路线图（2010–2025）"></a>🧩 英特尔 Xeon 处理器路线图（2010–2025）</h2><table>
+<thead>
+<tr>
+<th>年份</th>
+<th>架构代号</th>
+<th>制程工艺</th>
+<th>核心数</th>
+<th>插槽&#x2F;平台</th>
+<th>主要特性</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2010</td>
+<td>Westmere-EP</td>
+<td>32nm</td>
+<td>6</td>
+<td>LGA 1366</td>
+<td>基于 Nehalem 架构，支持超线程和 Turbo Boost 技术。</td>
+<td></td>
+</tr>
+<tr>
+<td>2011</td>
+<td>Sandy Bridge-EP</td>
+<td>32nm</td>
+<td>8</td>
+<td>LGA 2011</td>
+<td>引入 AVX 指令集，提升浮点性能。</td>
+<td></td>
+</tr>
+<tr>
+<td>2012</td>
+<td>Ivy Bridge-EP</td>
+<td>22nm</td>
+<td>12</td>
+<td>LGA 2011</td>
+<td>首次采用 3D 晶体管技术，提升能效比。</td>
+<td></td>
+</tr>
+<tr>
+<td>2014</td>
+<td>Haswell-EP</td>
+<td>22nm</td>
+<td>18</td>
+<td>LGA 2011-v3</td>
+<td>引入 AVX2 指令集，提升整数和浮点性能。</td>
+<td></td>
+</tr>
+<tr>
+<td>2015</td>
+<td>Broadwell-EP</td>
+<td>14nm</td>
+<td>22</td>
+<td>LGA 2011-v3</td>
+<td>制程升级至 14nm，提升能效和性能。</td>
+<td></td>
+</tr>
+<tr>
+<td>2017</td>
+<td>Skylake-SP</td>
+<td>14nm</td>
+<td>28</td>
+<td>LGA 3647</td>
+<td>引入 Xeon Scalable 命名，支持 AVX-512 指令集。</td>
+<td></td>
+</tr>
+<tr>
+<td>2019</td>
+<td>Cascade Lake-SP</td>
+<td>14nm</td>
+<td>28</td>
+<td>LGA 3647</td>
+<td>支持 Optane DC 持久内存，提升内存容量和带宽。</td>
+<td></td>
+</tr>
+<tr>
+<td>2020</td>
+<td>Cooper Lake</td>
+<td>14nm</td>
+<td>28</td>
+<td>LGA 4189</td>
+<td>首次支持 bfloat16 指令，优化 AI 性能。</td>
+<td></td>
+</tr>
+<tr>
+<td>2021</td>
+<td>Ice Lake-SP</td>
+<td>10nm</td>
+<td>40</td>
+<td>LGA 4189</td>
+<td>首次采用 10nm 制程，支持 PCIe 4.0 和 DDR4。</td>
+<td></td>
+</tr>
+<tr>
+<td>2022</td>
+<td>Sapphire Rapids</td>
+<td>Intel 7</td>
+<td>60</td>
+<td>LGA 4677</td>
+<td>引入模块化设计，支持 DDR5 和 PCIe 5.0。</td>
+<td></td>
+</tr>
+<tr>
+<td>2023</td>
+<td>Emerald Rapids</td>
+<td>Intel 7</td>
+<td>64</td>
+<td>LGA 4677</td>
+<td>增加 L3 缓存，提升能效比，兼容 LGA 4677 插槽。</td>
+<td></td>
+</tr>
+<tr>
+<td>2024</td>
+<td>Sierra Forest (E-Core)</td>
+<td>Intel 3</td>
+<td>144–288</td>
+<td>LGA 7529</td>
+<td>首款纯 E-Core 设计，面向云计算，支持 DDR5 和 PCIe 5.0。</td>
+<td></td>
+</tr>
+<tr>
+<td>2024</td>
+<td>Granite Rapids (P-Core)</td>
+<td>Intel 3</td>
+<td>128</td>
+<td>LGA 7529</td>
+<td>基于 P-Core 设计，面向高性能计算，支持 DDR5-8800。</td>
+<td></td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Clearwater Forest (E-Core)</td>
+<td>Intel 18A</td>
+<td>待定</td>
+<td>LGA 7529</td>
+<td>采用 RibbonFET 晶体管技术，进一步提升能效和核心密度。</td>
+<td></td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Diamond Rapids (P-Core)</td>
+<td>Intel 18A</td>
+<td>待定</td>
+<td>LGA 9324</td>
+<td>预计采用 Panther Cove-X 架构，支持 APX 指令集，提升 IPC 性能。</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="🧩-AMD-EPYC-处理器路线图（2010–2025）"><a href="#🧩-AMD-EPYC-处理器路线图（2010–2025）" class="headerlink" title="🧩 AMD EPYC 处理器路线图（2010–2025）"></a>🧩 AMD EPYC 处理器路线图（2010–2025）</h2><h3 id="2010-2016"><a href="#2010-2016" class="headerlink" title="2010-2016"></a>2010-2016</h3><hr>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>架构代号</th>
+<th>制程</th>
+<th>核心数</th>
+<th>主要特性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2010</td>
+<td>Magny-Cours</td>
+<td>45nm</td>
+<td>8–12</td>
+<td>基于 K10 架构，支持 DDR3 内存，采用 Socket G34 插槽。</td>
+</tr>
+<tr>
+<td>2011</td>
+<td>Interlagos</td>
+<td>32nm</td>
+<td>8–16</td>
+<td>首次引入 Bulldozer 架构，支持 AVX 指令集，提升浮点性能。</td>
+</tr>
+<tr>
+<td>2012</td>
+<td>Abu Dhabi</td>
+<td>32nm</td>
+<td>8–16</td>
+<td>基于 Piledriver 架构，优化能效比，提升时钟频率。</td>
+</tr>
+<tr>
+<td>2014</td>
+<td>Warsaw</td>
+<td>32nm</td>
+<td>8–16</td>
+<td>针对 2P&#x2F;4P 服务器优化，提升性能和能效。</td>
+</tr>
+<tr>
+<td>2016</td>
+<td>Opteron A1100</td>
+<td>28nm</td>
+<td>4–8</td>
+<td>基于 ARM Cortex-A57 架构，首款 ARM 架构的 Opteron 处理器。</td>
+</tr>
+</tbody></table>
+<h3 id="2017-2025"><a href="#2017-2025" class="headerlink" title="2017-2025"></a>2017-2025</h3><hr>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>架构代号</th>
+<th>制程工艺</th>
+<th>核心数</th>
+<th>插槽&#x2F;平台</th>
+<th>主要特性</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2017</td>
+<td>Naples</td>
+<td>14nm</td>
+<td>32</td>
+<td>SP3</td>
+<td>首款 EPYC 处理器，基于 Zen 架构，支持 8 通道 DDR4 内存和 128 条 PCIe 3.0 通道。</td>
+<td></td>
+</tr>
+<tr>
+<td>2019</td>
+<td>Rome</td>
+<td>7nm</td>
+<td>64</td>
+<td>SP3</td>
+<td>基于 Zen 2 架构，采用 Chiplet 设计，支持 PCIe 4.0，提升内存带宽和 I&#x2F;O 性能。</td>
+<td></td>
+</tr>
+<tr>
+<td>2021</td>
+<td>Milan</td>
+<td>7nm</td>
+<td>64</td>
+<td>SP3</td>
+<td>基于 Zen 3 架构，提升每核心性能，优化缓存架构。</td>
+<td></td>
+</tr>
+<tr>
+<td>2022</td>
+<td>Milan-X</td>
+<td>7nm</td>
+<td>64</td>
+<td>SP3</td>
+<td>在 Milan 基础上引入 3D V-Cache 技术，L3 缓存高达 768MB，提升特定工作负载性能。</td>
+<td></td>
+</tr>
+<tr>
+<td>2022</td>
+<td>Genoa</td>
+<td>5nm</td>
+<td>96</td>
+<td>SP5</td>
+<td>基于 Zen 4 架构，支持 DDR5 内存和 PCIe 5.0，采用 SP5 插槽。</td>
+<td></td>
+</tr>
+<tr>
+<td>2023</td>
+<td>Bergamo (Zen 4c)</td>
+<td>5nm</td>
+<td>128</td>
+<td>SP5</td>
+<td>基于 Zen 4c 架构，针对云计算优化，提升核心密度和能效比。</td>
+<td></td>
+</tr>
+<tr>
+<td>2023</td>
+<td>Siena</td>
+<td>5nm</td>
+<td>16–64</td>
+<td>SP6</td>
+<td>面向边缘计算和电信市场，优化功耗和成本，采用 SP6 插槽。</td>
+<td></td>
+</tr>
+<tr>
+<td>2024</td>
+<td>Turin</td>
+<td>4nm&#x2F;3nm</td>
+<td>192</td>
+<td>SP5</td>
+<td>基于 Zen 5 架构，支持 DDR5 和 PCIe 5.0，进一步提升性能和能效。</td>
+<td></td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Venice (Zen 6&#x2F;6c)</td>
+<td>3nm&#x2F;2nm</td>
+<td>96–256</td>
+<td>SP7&#x2F;SP8</td>
+<td>基于 Zen 6 架构，采用先进封装技术，支持更高核心数和缓存容量，预计在 2026 年发布。</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="⚔️-技术对比分析（Intel-vs-AMD）"><a href="#⚔️-技术对比分析（Intel-vs-AMD）" class="headerlink" title="⚔️ 技术对比分析（Intel vs AMD）"></a>⚔️ 技术对比分析（Intel vs AMD）</h2><h3 id="核心数与架构"><a href="#核心数与架构" class="headerlink" title="核心数与架构"></a>核心数与架构</h3><ul>
+<li><p><strong>Intel</strong>：通过引入 E-Core（如 Sierra Forest）和 P-Core（如 Granite Rapids）架构，实现了核心数的显著提升，Sierra Forest 高达 288 核心，Granite Rapids 达到 128 核心。</p>
+</li>
+<li><p><strong>AMD</strong>：采用 Chiplet 设计和 Zen 架构的持续优化，核心数从 Naples 的 32 核心提升至 Venice 的最高 256 核心，特别是在 Bergamo 和 Turin 中展现出高核心密度的优势。</p>
+</li>
+</ul>
+<h3 id="制程工艺"><a href="#制程工艺" class="headerlink" title="制程工艺"></a>制程工艺</h3><ul>
+<li><p><strong>Intel</strong>：从 32nm 逐步过渡到 Intel 18A 制程，计划在 2025 年的 Clearwater Forest 和 Diamond Rapids 中采用。</p>
+</li>
+<li><p><strong>AMD</strong>：依赖台积电（TSMC）的先进制程，从 14nm 过渡到 2nm，预计在 Venice 中采用，提升晶体管密度和能效比。</p>
+</li>
+</ul>
+<h3 id="平台与内存支持"><a href="#平台与内存支持" class="headerlink" title="平台与内存支持"></a>平台与内存支持</h3><ul>
+<li><p><strong>Intel</strong>：从 LGA 1366 过渡到 LGA 9324，支持 DDR5 内存和 PCIe 5.0&#x2F;5.0+，提升内存带宽和 I&#x2F;O 性能。</p>
+</li>
+<li><p><strong>AMD</strong>：从 SP3 过渡到 SP7&#x2F;SP8，支持 DDR5 内存和 PCIe 5.0，进一步提升内存带宽和 I&#x2F;O 性能。</p>
+</li>
+</ul>
+<h3 id="能效与性能优化"><a href="#能效与性能优化" class="headerlink" title="能效与性能优化"></a>能效与性能优化</h3><ul>
+<li><p><strong>Intel</strong>：通过引入 E-Core 架构（如 Sierra Forest）和先进制程，提升性能每瓦比，特别适用于云计算和高密度部署。</p>
+</li>
+<li><p><strong>AMD</strong>：通过 Zen 架构的持续优化和 3D V-Cache 技术，提升每核心性能和缓存容量，适用于高性能计算和数据密集型工作负载。</p>
+</li>
+</ul>
+<hr>
+<h2 id="📊-总结对比表"><a href="#📊-总结对比表" class="headerlink" title="📊 总结对比表"></a>📊 总结对比表</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>Intel Xeon 系列</th>
+<th>AMD EPYC 系列</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>架构</td>
+<td>P-Core &#x2F; E-Core 分离设计</td>
+<td>Zen 系列架构（Zen 至 Zen 6）</td>
+<td></td>
+</tr>
+<tr>
+<td>核心数范围</td>
+<td>6 – 288</td>
+<td>8 – 256</td>
+<td></td>
+</tr>
+<tr>
+<td>制程工艺</td>
+<td>32nm → Intel 18A</td>
+<td>14nm → TSMC 2nm</td>
+<td></td>
+</tr>
+<tr>
+<td>插槽平台</td>
+<td>LGA 1366 → LGA 9324</td>
+<td>SP3 → SP7&#x2F;SP8</td>
+<td></td>
+</tr>
+<tr>
+<td>内存支持</td>
+<td>DDR3 → DDR5</td>
+<td>DDR4 → DDR5</td>
+<td></td>
+</tr>
+<tr>
+<td>PCIe 支持</td>
+<td>PCIe 3.0 → PCIe 5.0</td>
+<td>PCIe 3.0 → PCIe 5.0</td>
+<td></td>
+</tr>
+<tr>
+<td>能效优化</td>
+<td>引入 E-Core 架构，提升性能每瓦比</td>
+<td>Zen 架构优化，采用 3D V-Cache 技术</td>
+<td></td>
+</tr>
+<tr>
+<td>代表产品</td>
+<td>Sierra Forest, Granite Rapids</td>
+<td>Bergamo, Turin, Venice</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.franktest.net">Frank</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.franktest.net/2025/06/03/amd_intel_processor_roadmap/">https://blog.franktest.net/2025/06/03/amd_intel_processor_roadmap/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.franktest.net" target="_blank">FrankTest</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CPU/">CPU</a><a class="post-meta__tags" href="/tags/Intel/">Intel</a><a class="post-meta__tags" href="/tags/AMD/">AMD</a></div><div class="post_share"><div class="social-share" data-image="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/06/22/Windows_PXE_environment/" title="Windows PXE 自动化部署环境搭建指南"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Windows PXE 自动化部署环境搭建指南</div></div></a></div><div class="next-post pull-right"><a href="/2025/02/11/namp_scan/" title="Nmap 使用介绍"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Nmap 使用介绍</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Frank</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Frank's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Intel%E5%92%8CAMD%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%84%E7%90%86%E5%99%A8%E8%B7%AF%E7%BA%BF%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">Intel和AMD服务器处理器路线图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-%E8%8B%B1%E7%89%B9%E5%B0%94-Xeon-%E5%A4%84%E7%90%86%E5%99%A8%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%882010%E2%80%932025%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">🧩 英特尔 Xeon 处理器路线图（2010–2025）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-AMD-EPYC-%E5%A4%84%E7%90%86%E5%99%A8%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%882010%E2%80%932025%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">🧩 AMD EPYC 处理器路线图（2010–2025）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2010-2016"><span class="toc-number">1.2.1.</span> <span class="toc-text">2010-2016</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2017-2025"><span class="toc-number">1.2.2.</span> <span class="toc-text">2017-2025</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%94%EF%B8%8F-%E6%8A%80%E6%9C%AF%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90%EF%BC%88Intel-vs-AMD%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">⚔️ 技术对比分析（Intel vs AMD）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%95%B0%E4%B8%8E%E6%9E%B6%E6%9E%84"><span class="toc-number">1.3.1.</span> <span class="toc-text">核心数与架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B6%E7%A8%8B%E5%B7%A5%E8%89%BA"><span class="toc-number">1.3.2.</span> <span class="toc-text">制程工艺</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B3%E5%8F%B0%E4%B8%8E%E5%86%85%E5%AD%98%E6%94%AF%E6%8C%81"><span class="toc-number">1.3.3.</span> <span class="toc-text">平台与内存支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%BD%E6%95%88%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">1.3.4.</span> <span class="toc-text">能效与性能优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%8A-%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94%E8%A1%A8"><span class="toc-number">1.4.</span> <span class="toc-text">📊 总结对比表</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/22/Windows_PXE_environment/" title="Windows PXE 自动化部署环境搭建指南">Windows PXE 自动化部署环境搭建指南</a><time datetime="2025-06-22T16:00:00.000Z" title="发表于 2025-06-23 00:00:00">2025-06-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/03/amd_intel_processor_roadmap/" title="Intel和AMD服务器处理器路线图">Intel和AMD服务器处理器路线图</a><time datetime="2025-06-03T16:00:00.000Z" title="发表于 2025-06-04 00:00:00">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/11/namp_scan/" title="Nmap 使用介绍">Nmap 使用介绍</a><time datetime="2025-02-11T16:00:00.000Z" title="发表于 2025-02-12 00:00:00">2025-02-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/25/bash_directory_config/" title="在 Bash 中隐藏路径以简化提示符">在 Bash 中隐藏路径以简化提示符</a><time datetime="2024-12-25T16:00:00.000Z" title="发表于 2024-12-26 00:00:00">2024-12-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/23/RHEL9_home_partition_lost_solution/" title="解决RHEL9 Home 分区丢失导致进入emergency mode">解决RHEL9 Home 分区丢失导致进入emergency mode</a><time datetime="2024-12-23T16:00:00.000Z" title="发表于 2024-12-24 00:00:00">2024-12-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Frank</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://blog.franktest.net/2025/06/03/amd_intel_processor_roadmap/'
+    this.page.identifier = '/2025/06/03/amd_intel_processor_roadmap/'
+    this.page.title = 'Intel和AMD服务器处理器路线图'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://frank-reoyq9vbgl.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=frank-reoyq9vbgl&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.14.0-b3"></script></div></div></body></html>
