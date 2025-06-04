@@ -414,11 +414,13 @@
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /store &quot;C:\RemoteInstall\Boot\x64\Images\LiteTouchPE_x64.wim.bcd&quot; /enum</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>设置指定identifier的EMS ON</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /store &quot;C:\RemoteInstall\Boot\x64\Images\LiteTouchPE_x64.wim.bcd&quot; /ems &#123;&lt;identifier&gt;&#125; ON</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /store &quot;C:\RemoteInstall\Boot\x64\Images\LiteTouchPE_x64.wim.bcd&quot; /ems &#123;&lt;identifier&gt;&#125; ON</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>再次检查BCD是否包含 <code>ems Yes</code></p>
 </li>
 </ol>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcdedit /store &quot;C:\RemoteInstall\Boot\x64\Images\LiteTouchPE_x64.wim.bcd&quot; /enum</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>⚠️ 注意：务必使用 <code>/store</code> 指定 <code>.bcd</code> 文件路径，否则可能更改当前系统引导配置。</p>
 </blockquote>
