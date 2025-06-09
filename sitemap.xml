@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    
-    <lastmod>2025-06-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
     
     <lastmod>2025-06-09</lastmod>
@@ -20,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/google292c3b305482dc52.html</loc>
+    <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
     
     <lastmod>2025-06-09</lastmod>
     
@@ -29,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/categories/index.html</loc>
+    <loc>https://blog.franktest.net/google292c3b305482dc52.html</loc>
     
     <lastmod>2025-06-09</lastmod>
     
@@ -48,6 +39,15 @@
   
   <url>
     <loc>https://blog.franktest.net/tags/index.html</loc>
+    
+    <lastmod>2025-06-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/index.html</loc>
     
     <lastmod>2025-06-09</lastmod>
     
@@ -577,13 +577,6 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/Numactl/</loc>
-    <lastmod>2025-06-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.franktest.net/tags/CumulusLinux/</loc>
     <lastmod>2025-06-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -591,7 +584,21 @@
   </url>
   
   <url>
+    <loc>https://blog.franktest.net/tags/Numactl/</loc>
+    <lastmod>2025-06-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.franktest.net/tags/AER/</loc>
+    <lastmod>2025-06-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/VM/</loc>
     <lastmod>2025-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -606,13 +613,6 @@
   
   <url>
     <loc>https://blog.franktest.net/tags/Squid/</loc>
-    <lastmod>2025-06-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/VM/</loc>
     <lastmod>2025-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
