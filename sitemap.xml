@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    
-    <lastmod>2025-06-10</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
     
     <lastmod>2025-06-10</lastmod>
@@ -20,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/index.html</loc>
+    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
     
     <lastmod>2025-06-10</lastmod>
     
@@ -48,6 +39,15 @@
   
   <url>
     <loc>https://blog.franktest.net/link/index.html</loc>
+    
+    <lastmod>2025-06-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/index.html</loc>
     
     <lastmod>2025-06-10</lastmod>
     
@@ -263,7 +263,7 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/stress-ng_test/</loc>
+    <loc>https://blog.franktest.net/2024/08/14/stress_test/</loc>
     
     <lastmod>2024-08-14</lastmod>
     
@@ -272,7 +272,7 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/stress_test/</loc>
+    <loc>https://blog.franktest.net/2024/08/14/stress-ng_test/</loc>
     
     <lastmod>2024-08-14</lastmod>
     
@@ -647,14 +647,14 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/stress-ng/</loc>
+    <loc>https://blog.franktest.net/tags/stress/</loc>
     <lastmod>2025-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/stress/</loc>
+    <loc>https://blog.franktest.net/tags/stress-ng/</loc>
     <lastmod>2025-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
