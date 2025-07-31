@@ -2,11 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2025-06-10</lastmod>
+    <lastmod>2025-07-31</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2025-06-10</lastmod>
+    <lastmod>2025-07-31</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/07/30/RTC_Crystal/</loc>
+    <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/07/30/haproxy_rdp_configuration/</loc>
+    <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/07/30/infiniband_card_test/</loc>
+    <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/07/30/psexec_access_is_denied/</loc>
+    <lastmod>2025-07-30</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/07/30/windows_wql_query/</loc>
+    <lastmod>2025-07-30</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2025/06/03/Windows_PXE_environment/</loc>
