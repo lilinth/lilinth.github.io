@@ -216,9 +216,9 @@
 <li><p>Windows 默认会对远程登录的本地 Admin 账号进行权限剥离。</p>
 </li>
 <li><p>可在 <strong>目标机注册表</strong>中设置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System</span><br><span class="line">  LocalAccountTokenFilterPolicy = 1 (DWORD)</span><br></pre></td></tr></table></figure></li>
+</li>
 <li><p>cmd命令:</p>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v LocalAccountTokenFilterPolicy /t REG_DWORD /d <span class="number">1</span> /f</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v LocalAccountTokenFilterPolicy /t REG_DWORD /d <span class="number">1</span> /f</span><br><span class="line"></span><br><span class="line">reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d <span class="number">0</span> /f</span><br><span class="line"></span><br><span class="line">reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d <span class="number">0</span> /f</span><br><span class="line"></span><br><span class="line">reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v PromptOnSecureDesktop /t REG_DWORD /d <span class="number">0</span> /f</span><br></pre></td></tr></table></figure>
 
 <p>设置后重启目标 Windows，恢复完整管理员访问。</p>
 </li>
