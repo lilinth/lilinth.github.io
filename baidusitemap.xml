@@ -2,11 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-20</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2025-07-31</lastmod>
+    <lastmod>2025-08-20</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/08/19/Integrate_windows_patch_to_install_file/</loc>
+    <lastmod>2025-08-19</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/08/14/ssh_server_cannot_start_too_open/</loc>
+    <lastmod>2025-08-14</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2025/07/30/RTC_Crystal/</loc>
