@@ -4,6 +4,151 @@
   
     
     <entry>
+      <title>Linux 下将 ISO 写入 USB 磁盘</title>
+      <link href="/2025/09/22/linux_write_iso_to_usb_disk/"/>
+      <url>/2025/09/22/linux_write_iso_to_usb_disk/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux-下将-ISO-写入-USB-磁盘"><a href="#Linux-下将-ISO-写入-USB-磁盘" class="headerlink" title="Linux 下将 ISO 写入 USB 磁盘"></a>Linux 下将 ISO 写入 USB 磁盘</h1><p>要将 OS 的 ISO 写入 USB 磁盘以制作可启动的安装介质，可以按照以下步骤操作：</p><hr><h3 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h3><p>以RHEL9为例：</p><ol><li><p><strong>下载 RHEL 9 的 ISO 文件：</strong><br>从 <a href="https://access.redhat.com/downloads">Red Hat 官方网站</a> 下载 RHEL 9 的 ISO 文件。</p></li><li><p><strong>插入 USB 磁盘：</strong><br>将 USB 磁盘插入计算机，并确保没有重要数据，因为写入操作会清除磁盘上的所有内容。</p></li><li><p><strong>确定 USB 磁盘设备：</strong><br>打开终端并运行以下命令以找到 USB 磁盘的设备路径（例如 <code>/dev/sdX</code>）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure><p>确认磁盘的容量以避免误操作。</p></li></ol><hr><h3 id="写入-ISO-到-USB-磁盘："><a href="#写入-ISO-到-USB-磁盘：" class="headerlink" title="写入 ISO 到 USB 磁盘："></a>写入 ISO 到 USB 磁盘：</h3><ol><li><p>使用 <code>dd</code> 命令写入：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">dd</span> <span class="keyword">if</span>=/path/to/rhel9.iso of=/dev/sdX bs=4M status=progress oflag=<span class="built_in">sync</span></span><br></pre></td></tr></table></figure><ul><li><code>if=/path/to/rhel9.iso</code> 是 ISO 文件的路径。</li><li><code>of=/dev/sdX</code> 是 USB 磁盘的设备路径，请根据实际情况替换 <code>sdX</code>。</li><li><code>bs=4M</code> 表示使用 4MB 的块大小，能够提高写入速度。</li><li><code>status=progress</code> 显示实时进度。</li><li><code>oflag=sync</code> 确保写入完成后同步到磁盘。</li></ul></li><li><p>写入完成后，运行以下命令同步磁盘缓冲：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sync</span></span><br></pre></td></tr></table></figure></li></ol><hr><h3 id="验证："><a href="#验证：" class="headerlink" title="验证："></a>验证：</h3><ol><li>移除并重新插入 USB 磁盘。</li><li>确认 USB 磁盘内容是否包含 RHEL 9 的安装文件。</li><li>尝试从该 USB 启动以确保其可用。</li></ol><hr><p>如果需要图形化工具，可以使用 <code>Rufus</code>（Windows）或 <code>Etcher</code>（Linux 和 macOS）进行写入操作。这些工具提供简单易用的界面来完成 ISO 写入。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> ISO </tag>
+            
+            <tag> DD </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>sedutil 编译与使用指南 (Draft)</title>
+      <link href="/2025/09/18/quick_guide_for_sedutil/"/>
+      <url>/2025/09/18/quick_guide_for_sedutil/</url>
+      
+        <content type="html"><![CDATA[<h1 id="sedutil-编译与使用指南"><a href="#sedutil-编译与使用指南" class="headerlink" title="sedutil 编译与使用指南"></a>sedutil 编译与使用指南</h1><h2 id="sedutil-是一个开源工具，用于管理自加密驱动器（SED）。本文将介绍如何在-Linux-系统上编译和使用-sedutil。"><a href="#sedutil-是一个开源工具，用于管理自加密驱动器（SED）。本文将介绍如何在-Linux-系统上编译和使用-sedutil。" class="headerlink" title="sedutil 是一个开源工具，用于管理自加密驱动器（SED）。本文将介绍如何在 Linux 系统上编译和使用 sedutil。"></a><code>sedutil</code> 是一个开源工具，用于管理自加密驱动器（SED）。本文将介绍如何在 Linux 系统上编译和使用 <code>sedutil</code>。</h2><h2 id="✅-1-环境准备"><a href="#✅-1-环境准备" class="headerlink" title="✅ 1. 环境准备"></a>✅ 1. 环境准备</h2><p>在开始之前，请确保你的系统满足以下要求：</p><ol><li>确保你的系统支持 SED，并且你有一个兼容的自加密驱动器。</li><li>建议在虚拟机或测试环境中进行操作，以避免对生产系统造成影响。</li><li>确保你有管理员权限（root）来执行相关命令。</li><li>备份重要数据，以防操作过程中出现问题。</li><li>了解 SED 的基本概念和工作原理。</li><li>阅读 <code>sedutil</code> 的官方文档和使用指南。</li><li>确保你的系统时间和日期设置正确，以避免 SSL 证书验证问题。</li><li>如果你使用的是非 Debian&#x2F;Ubuntu 系统，请根据你的发行版安装相应的依赖项。</li><li>确保你的系统有足够的磁盘空间来编译和安装 <code>sedutil</code>。</li><li>安装了必要的编译工具和依赖项：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y build-essential cmake git libssl-dev</span><br><span class="line">sudo apt install -y git autoconf automake libtool pkg-config make gcc g++ \</span><br><span class="line">    nasm cpio xz-utils syslinux-common wget bison flex</span><br></pre></td></tr></table></figure></li></ol><h2 id="✅-2-获取-sedutil"><a href="#✅-2-获取-sedutil" class="headerlink" title="✅ 2. 获取 sedutil"></a>✅ 2. 获取 sedutil</h2><ol><li>克隆 <code>sedutil</code> 的源码仓库： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Drive-Trust-Alliance/sedutil.git</span><br><span class="line"><span class="built_in">cd</span> sedutil</span><br></pre></td></tr></table></figure></li></ol><h2 id="✅-3-编译-sedutil-cli"><a href="#✅-3-编译-sedutil-cli" class="headerlink" title="✅ 3. 编译 sedutil-cli"></a>✅ 3. 编译 sedutil-cli</h2><ol><li><p>生成配置文件并编译 <code>sedutil</code>：</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">autoreconf -i</span><br><span class="line">./configure --enable-silent-rules</span><br><span class="line">make</span><br></pre></td></tr></table></figure></li><li><p>编译完成之后，<code>sedutil-cli</code> 可执行文件位于 <code>sedutil</code> 目录下。</p></li><li><p>你可以将其复制到系统的可执行路径中，例如 <code>/usr/local/bin</code>：</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> sedutil-cli /usr/local/bin/</span><br></pre></td></tr></table></figure></li></ol><h2 id="✅-4-使用-sedutil-cli"><a href="#✅-4-使用-sedutil-cli" class="headerlink" title="✅ 4. 使用 sedutil-cli"></a>✅ 4. 使用 sedutil-cli</h2><ol><li>查看帮助信息： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sedutil-cli --<span class="built_in">help</span></span><br></pre></td></tr></table></figure></li><li>识别 SED 设备： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sedutil-cli --scan</span><br></pre></td></tr></table></figure></li><li>解锁 SED 设备： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sedutil-cli --set-password &lt;device&gt; &lt;password&gt;</span><br></pre></td></tr></table></figure></li><li>锁定 SED 设备： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sedutil-cli --lock &lt;device&gt;</span><br></pre></td></tr></table></figure></li><li>其他命令和选项请参考帮助信息。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> sedutil </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PBA image 编译与使用指南 (Draft)</title>
+      <link href="/2025/09/18/sed_pba_image_complie/"/>
+      <url>/2025/09/18/sed_pba_image_complie/</url>
+      
+        <content type="html"><![CDATA[<h1 id="PBA-image-编译与使用指南"><a href="#PBA-image-编译与使用指南" class="headerlink" title="PBA image 编译与使用指南"></a>PBA image 编译与使用指南</h1><p><code>PBA image</code> 是 <code>sedutil</code> 工具的一部分，用于在自加密驱动器（SED）上实现预启动身份验证。本文将介绍如何在 Linux 系统上编译和使用 <code>PBA image</code>。</p><hr><h2 id="✅-1-环境准备"><a href="#✅-1-环境准备" class="headerlink" title="✅ 1. 环境准备"></a>✅ 1. 环境准备</h2><p>在开始之前，请确保你的系统满足以下要求：</p><ol><li>确保你的系统支持 SED，并且你有一个兼容的自加密驱动器。</li><li>建议在虚拟机或测试环境中进行操作，以避免对生产系统造成影响。</li><li>确保你有管理员权限（root）来执行相关命令。</li><li>备份重要数据，以防操作过程中出现问题。</li><li>了解 SED 的基本概念和工作原理。</li><li>阅读 <code>sedutil</code> 的官方文档和使用指南。</li><li>确保你的系统时间和日期设置正确，以避免 SSL 证书验证问题。</li><li>如果你使用的是非 Debian&#x2F;Ubuntu 系统，请根据你的发行版安装相应的依赖项。</li><li>确保你的系统有足够的磁盘空间来编译和安装 <code>sedutil</code>。</li></ol><h2 id="✅-2-编译-PBA-image"><a href="#✅-2-编译-PBA-image" class="headerlink" title="✅ 2. 编译 PBA image"></a>✅ 2. 编译 PBA image</h2><p>由于sedutil自带的PBA image编译环境比较陈旧，这里使用另外的PBA构建环境<code>sedunlocksrv-pba</code>。</p><ol><li><p>克隆 <code>sedunlocksrv-pba</code> 的源码仓库：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Jip-Hop/sedunlocksrv-pba.git</span><br><span class="line"><span class="built_in">cd</span> sedunlocksrv-pba</span><br></pre></td></tr></table></figure></li><li><p>安装<code>sedunlocksrv-pba</code>的依赖：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install cpio curl dosfstools dropbear fdisk git golang-go grub-efi-amd64-bin grub-efi-ia32-bin grub-pc-bin grub2-common libarchive-tools rsync squashfs-tools udev wget xorriso</span><br></pre></td></tr></table></figure></li><li><p>编译 PBA image：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./build.sh</span><br></pre></td></tr></table></figure></li><li><p>编译完成后，生成的 PBA image 位于相同的目录下，<code>sedunlocksrv-pba.img</code>。</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> PBA image </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>NVME 加密(Self-Encrypting Drives, TCG Opal / Enterprise / ISE / etc)相关介绍 (Draft)</title>
+      <link href="/2025/09/16/nmve_encryption/"/>
+      <url>/2025/09/16/nmve_encryption/</url>
+      
+        <content type="html"><![CDATA[<h1 id="NVME-NVME-加密-Self-Encrypting-Drives-TCG-Opal-Enterprise-ISE-etc-相关介绍"><a href="#NVME-NVME-加密-Self-Encrypting-Drives-TCG-Opal-Enterprise-ISE-etc-相关介绍" class="headerlink" title="NVME NVME 加密(Self-Encrypting Drives, TCG Opal &#x2F; Enterprise &#x2F; ISE &#x2F; etc)相关介绍"></a>NVME NVME 加密(Self-Encrypting Drives, TCG Opal &#x2F; Enterprise &#x2F; ISE &#x2F; etc)相关介绍</h1><p>本文档介绍 NVMe 驱动器中常见的加密相关标准和概念，主要包括 TCG Opal、Enterprise、ISE (Instant Secure Erase) 等。内容涵盖基本概念、主要标准与规格、NVMe 与 Opal 的结合、识别与验证方法、优缺点与局限，以及在 Linux 环境中的实践建议。</p><hr><h2 id="一、基本概念"><a href="#一、基本概念" class="headerlink" title="一、基本概念"></a>一、基本概念</h2><table><thead><tr><th>术语</th><th>全称 &#x2F; 英文</th><th>含义 &#x2F;作用</th></tr></thead><tbody><tr><td><strong>SED</strong></td><td>Self-Encrypting Drive</td><td>驱动器内部硬件加密所有静止数据（Data at Rest），自动进行加密&#x2F;解密。</td></tr><tr><td><strong>TCG</strong></td><td>Trusted Computing Group</td><td>制定存储设备安全标准的组织，其下有 Storage Work Group，提出 Opal、Enterprise 等规范。</td></tr><tr><td><strong>Opal SSC</strong></td><td>Opal Security Subsystem Class</td><td>TCG 定义的存储设备安全子系统类别，用于管理 SED 的加密、访问控制、锁定等功能。</td></tr><tr><td><strong>Opalite &#x2F; Pyrite</strong></td><td>Opal 的子集 &#x2F;简化版本</td><td>提供部分 Opal 功能或做精简处理，可能不具备完整锁定细粒度或复杂管理功能。</td></tr><tr><td><strong>ISE</strong></td><td>Instant Secure Erase &#x2F; Cryptographic Erase</td><td>一种快速擦除方式，通过失效或删除&#x2F;重置密钥，使所有用该密钥加密的数据无法解密，从而“擦除”数据，而不必物理或逐块覆盖。</td></tr><tr><td><strong>TCG Enterprise</strong></td><td>Enterprise SSC &#x2F; 企业级 Opal 扩展 &#x2F;管理标准</td><td>在 Opal 的基础上针对大规模部署、统一管理、多命名空间、多用户、多权限管理、预启动认证、远程擦除等企业需求的标准或扩展。</td></tr></tbody></table><hr><h2 id="二、主要标准与规格"><a href="#二、主要标准与规格" class="headerlink" title="二、主要标准与规格"></a>二、主要标准与规格</h2><table><thead><tr><th>标准 &#x2F;规范</th><th>主要特性 &#x2F;用途</th><th>优势 &#x2F;缺点</th></tr></thead><tbody><tr><td><strong>TCG Opal SSC（如 Opal 2.0）</strong></td><td>支持硬件加密（AES-128 &#x2F; AES-256）、认证凭证(Admin&#x2F;User)、加密密钥管理 (Media Encryption Key, MEK + Key Encryption Key KEK)、锁定不同 LBA 区段 (Locking Ranges)、预启动认证 (Pre-Boot Authentication PBA)、密钥擦除 &#x2F;加密擦除（Cryptographic Erase）等。(<a href="https://nvmexpress.org/wp-content/uploads/TCGandNVMe_Joint_White_Paper-TCG_Storage_Opal_and_NVMe_FINAL.pdf?utm_source=chatgpt.com" title="TCG Storage, Opal, and NVMe">nvmexpress.org</a>)</td><td>优点：性能开销小，加密不依赖 CPU／软件；安全性高；擦除速度快；适合企业 &#x2F;客户端安全需求。<br>缺点：配置复杂；某些功能（如 PBA）在 BIOS 或固件支持方面有约束；如果凭证／密钥泄露，风险严重。</td></tr><tr><td><strong>Instant Secure Erase (ISE &#x2F; Cryptographic Erase)</strong></td><td>快速擦除数据，仅使密钥无效或者重置密钥，从而使数据永久不可读。(<a href="https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp4864.pdf?utm_source=chatgpt.com" title="Samsung NVMe TCG Opal SSC SEDs PM9A3 Series FIPS ...">NIST计算机安全资源中心</a>)</td><td>优点：非常快；在回收、报废、重新使用驱动器时节约时间。<br>缺点：如果密钥管理不当（密钥被备份、密钥未妥善销毁），可能存在安全盲点。某些设备对 ISE 的支持可能有局限。</td></tr><tr><td><strong>TCG Enterprise SSC &#x2F; 企业级扩展</strong></td><td>在标准 Opal 功能之上，更多企业管理功能，例如集中管理、多凭证 &#x2F;多角色管理、远程部署／远程擦除、多个命名空间锁定、合规性认证（如 FIPS）等。</td><td>优点：适合大规模部署，安全与管理性更强；支持政策管理、审计等。<br>缺点：成本可能高；复杂性增加；所有设备都不一定支持这些扩展；工具／固件支持需求更高。</td></tr></tbody></table><hr><h2 id="三、NVMe-与-Opal-TCG-的结合"><a href="#三、NVMe-与-Opal-TCG-的结合" class="headerlink" title="三、NVMe 与 Opal &#x2F;TCG 的结合"></a>三、NVMe 与 Opal &#x2F;TCG 的结合</h2><ul><li><p><strong>TCG &amp; NVMe 合作白皮书</strong>：TCG 和 NVM Express 联合发布了一篇白皮书 “TCG Storage, Opal, and NVMe”，讨论了 Opal 家族标准（Opal &#x2F; Opalite &#x2F; Pyrite）与 NVMe 存储协议如何协调使用。(<a href="https://nvmexpress.org/wp-content/uploads/TCGandNVMe_Joint_White_Paper-TCG_Storage_Opal_and_NVMe_FINAL.pdf?utm_source=chatgpt.com" title="TCG Storage, Opal, and NVMe">nvmexpress.org</a>)</p></li><li><p><strong>Opal 功能在 NVMe 中的映射</strong>：</p><ul><li>Locking Ranges（锁定区域）：可以对命名空间或 LBA 区域进行访问控制。(<a href="https://nvmexpress.org/wp-content/uploads/TCGandNVMe_Joint_White_Paper-TCG_Storage_Opal_and_NVMe_FINAL.pdf?utm_source=chatgpt.com" title="TCG Storage, Opal, and NVMe">nvmexpress.org</a>)</li><li>Authentication Credential（认证凭证）：Admin &#x2F;User 凭证用于解锁或配置安全功能。(<a href="https://nvmexpress.org/wp-content/uploads/TCGandNVMe_Joint_White_Paper-TCG_Storage_Opal_and_NVMe_FINAL.pdf?utm_source=chatgpt.com" title="TCG Storage, Opal, and NVMe">nvmexpress.org</a>)</li><li>密钥管理（MEK + KEK）：硬盘内部生成 MEK，用 KEK 来保护 MEK。(<a href="https://www.atpinc.com/blog/tcg-opal-encrytion-sed-self-encryption-drive?utm_source=chatgpt.com" title="Self encryption drive supported by TCG-opal 2.0">atpinc.com</a>)</li><li>Cryptographic Erase &#x2F; Sanitize &#x2F; ISE：支持密钥擦除或马上使数据不可访问的方式。Samsung 的 PM9A3 系列就支持这一项。(<a href="https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp4864.pdf?utm_source=chatgpt.com" title="Samsung NVMe TCG Opal SSC SEDs PM9A3 Series FIPS ...">NIST计算机安全资源中心</a>)</li></ul></li></ul><hr><h2 id="四、识别与验证"><a href="#四、识别与验证" class="headerlink" title="四、识别与验证"></a>四、识别与验证</h2><h3 id="如何判断一个-NVMe-驱动器是否支持这些加密／安全标准"><a href="#如何判断一个-NVMe-驱动器是否支持这些加密／安全标准" class="headerlink" title="如何判断一个 NVMe 驱动器是否支持这些加密／安全标准"></a>如何判断一个 NVMe 驱动器是否支持这些加密／安全标准</h3><p>以下是一些可操作的验证方法：</p><ol><li><p><strong>厂商规格书 &#x2F;数据手册</strong><br>查驱动器型号在官方规格书中是否标注 “TCG Opal &#x2F; SED &#x2F; hardware encryption &#x2F; enterprise &#x2F; cryptographic erase &#x2F; ISE &#x2F; multiple locking ranges &#x2F; pre-boot authentication”等关键词。</p></li><li><p><strong>使用 <code>nvme-cli</code> 查看设备标识</strong></p><ul><li><code>nvme id-ctrl -H /dev/nvmeX</code> 查看控制器标识和「Security Capabilities」「Sanitize Capabilities」等字段。</li><li><code>nvme get-feature /dev/nvmeX --feature-id 0x403</code>（若支持）用于查看 “Configurable Namespace Locking” descriptor。</li></ul></li><li><p><strong>使用专用工具</strong></p><ul><li><code>sedutil-cli</code>、<code>sedcli</code> 等工具，可以直接扫描是否为 Opal SED，是否支持 Enterprise，是否支持 ISE 等。</li><li>示例命令：<code>sedutil-cli --scan</code>／<code>sedutil-cli --isValidSED /dev/xxx</code> 等。</li></ul></li><li><p><strong>合规认证文档</strong><br>如果该硬盘通过 FIPS 140-2 &#x2F; 140-3 或类似政府／行业安全标准认证，其安全政策文档中会明确提及这些功能。比如 Samsung 的 PM9A3 系列就有 FIPS／Opal SSC SED 的安全政策文档。(<a href="https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp4864.pdf?utm_source=chatgpt.com" title="Samsung NVMe TCG Opal SSC SEDs PM9A3 Series FIPS ...">NIST计算机安全资源中心</a>)</p></li></ol><hr><h2 id="五、优缺点与局限（实际使用中要注意）"><a href="#五、优缺点与局限（实际使用中要注意）" class="headerlink" title="五、优缺点与局限（实际使用中要注意）"></a>五、优缺点与局限（实际使用中要注意）</h2><table><thead><tr><th>优点</th><th>局限 &#x2F;风险</th></tr></thead><tbody><tr><td>性能开销非常低／几乎无（加密／解密由硬件在 SSD 控制器内部完成）</td><td>有些固件中的实现可能有缺陷或漏洞（如早期某些 SSD 的硬件加密漏洞）。</td></tr><tr><td>ISE &#x2F; cryptographic erase 提供快速清除数据能力</td><td>如果密钥保存不当或被备份，可能无法真正保护数据；擦除密钥后的“恢复”可能依赖于设备是否安全删除。</td></tr><tr><td>支持多个锁定区／多用户／预启动认证等功能，管理灵活</td><td>部分功能（如 PBA 或 BIOS&#x2F;UEFI 解锁界面）可能受硬件 &#x2F;主板 &#x2F;固件支持的限制；设置复杂；用户体验可能不统一。</td></tr><tr><td>符合行业法规／合规要求（如 FIPS、政府／企业安全策略）</td><td>若工具／驱动／内核支持不佳，可能达不到预期效果；误操作可能导致数据不可访问；对硬件寿命有一定风险（频繁擦写、不正确使用sanitize功能可能降低寿命或性能）。</td></tr></tbody></table><hr><h2 id="六、在-Linux-环境中的实践建议"><a href="#六、在-Linux-环境中的实践建议" class="headerlink" title="六、在 Linux 环境中的实践建议"></a>六、在 Linux 环境中的实践建议</h2><ul><li><p>确保 Linux 内核开启相关选项，比如 <code>CONFIG_BLK_SED_OPAL</code>（对 Opal SED 的块设备支持）。(<a href="https://wiki.archlinux.org/title/Self-encrypting_drives?utm_source=chatgpt.com" title="Self-encrypting drives">ArchWiki</a>)</p></li><li><p>使用 <code>nvme-cli</code> 和 <code>sedutil-cli</code> 等工具来检测与配置：</p><ul><li>检查是否为 Valid SED</li><li>扫描是否为 Opal／Enterprise</li><li>测试加密擦除 &#x2F;清除功能</li></ul></li><li><p>在部署时制定加密策略，包括对凭证／密钥管理、恢复策略、预启动／引导阶段认证、硬件资产回收／擦除流程等。</p></li><li><p>在生产环境中先验证固件版本，因为安全相关功能常常在不同固件版本中有差异或存在已知漏洞。</p></li></ul><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> 测试 </tag>
+            
+            <tag> NVME </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使用 Wireshark 捕获 IPv4 与 IPv6 下的 PXE 启动流量 (Draft)</title>
+      <link href="/2025/09/09/wireshark_capture_pxe_packet/"/>
+      <url>/2025/09/09/wireshark_capture_pxe_packet/</url>
+      
+        <content type="html"><![CDATA[<h1 id="使用-Wireshark-捕获-IPv4-与-IPv6-下的-PXE-启动流量"><a href="#使用-Wireshark-捕获-IPv4-与-IPv6-下的-PXE-启动流量" class="headerlink" title="使用 Wireshark 捕获 IPv4 与 IPv6 下的 PXE 启动流量"></a>使用 Wireshark 捕获 IPv4 与 IPv6 下的 PXE 启动流量</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>PXE（Preboot Execution Environment）启动通常涉及 DHCP（IPv4）或 DHCPv6（IPv6）协商，以及 TFTP（或相关协议）传输引导镜像。Wireshark 是一款强大的抓包与分析工具，可以准确捕捉并定位 PXE 启动过程中的问题。此文档适用于同时支持 IPv4 和 IPv6 的混合网络环境。</p><hr><h2 id="二、前期准备"><a href="#二、前期准备" class="headerlink" title="二、前期准备"></a>二、前期准备</h2><ol><li><p><strong>确认硬件与网络环境支持</strong>：</p><ul><li>IPv4 PXE 启动需要 DHCP Server 和 TFTP Server 支持。</li><li>IPv6 PXE 启动则依赖 DHCPv6 或 RA + Boot Service 配置。</li></ul></li><li><p><strong>Wireshark 安装与权限配置</strong>：</p><ul><li>Linux：<code>sudo apt install wireshark</code>，并将用户加入 <code>wireshark</code> 组以非 root 权限使用软件。</li><li>Windows&#x2F;macOS：下载并安装 Wireshark，同时确保安装了抓包驱动（如 Npcap）。</li></ul></li></ol><hr><h2 id="三、捕获设置——捕获过滤器（Capture-Filter）"><a href="#三、捕获设置——捕获过滤器（Capture-Filter）" class="headerlink" title="三、捕获设置——捕获过滤器（Capture Filter）"></a>三、捕获设置——捕获过滤器（Capture Filter）</h2><p>在 Wireshark 启动抓包前设置过滤器，精准捕获目标数据包，减少噪音。</p><h3 id="3-1-IPv4-PXE-流量捕获"><a href="#3-1-IPv4-PXE-流量捕获" class="headerlink" title="3.1 IPv4 PXE 流量捕获"></a>3.1 IPv4 PXE 流量捕获</h3><p>推荐使用如下过滤器：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">port 67 or port 68 or port 69 or port 4011</span><br></pre></td></tr></table></figure><ul><li>端口 67&#x2F;68：DHCP Discover &#x2F; Offer &#x2F; Request &#x2F; ACK</li><li>端口 69：TFTP 文件下载</li><li>端口 4011：proxyDHCP 回应（若网络使用 proxyDHCP 架构）([Support Portal][1], [FOG Project][2])</li></ul><p>你也可以使用保守写法 <code>bootp</code>，Wireshark 会捕捉与 DHCP 相关所有数据包([Super User][3])。</p><h3 id="3-2-IPv6-PXE（DHCPv6）流量捕获"><a href="#3-2-IPv6-PXE（DHCPv6）流量捕获" class="headerlink" title="3.2 IPv6 PXE（DHCPv6）流量捕获"></a>3.2 IPv6 PXE（DHCPv6）流量捕获</h3><p>对于 IPv6，使用如下过滤策略：</p><ul><li><p>捕获所有 IPv6 流量（可进一步优化过滤）：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip6 and (udp port 546 or udp port 547)</span><br></pre></td></tr></table></figure><ul><li>UDP 546&#x2F;547 是 DHCPv6 的标准端口</li></ul></li><li><p>或者仅抓原生 IPv6：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip6 and not ip proto 41</span><br></pre></td></tr></table></figure><p>用于排除诸如 IPv6-over-IPv4 等隧道流量。</p></li></ul><hr><h2 id="四、抓包执行流程"><a href="#四、抓包执行流程" class="headerlink" title="四、抓包执行流程"></a>四、抓包执行流程</h2><p>以下步骤适用于 IPv4 和 IPv6 流程捕获，需选择对应过滤器：</p><ol><li>启动 Wireshark，选择目标网卡接口（建议与 PXE 客户端在同一子网）。</li><li>在 “Capture Filter” 输入相应过滤器（详见第三条）。</li><li>点击 “Start” 开始捕获。</li><li>重启客户端并触发 PXE 启动流程（IPv4 或 IPv6）。</li><li>抓包完成后点击 “Stop” 停止录制。</li></ol><hr><h2 id="五、分析方法——显示过滤器（Display-Filter）"><a href="#五、分析方法——显示过滤器（Display-Filter）" class="headerlink" title="五、分析方法——显示过滤器（Display Filter）"></a>五、分析方法——显示过滤器（Display Filter）</h2><p>捕获后使用以下显示过滤器查看关键报文：</p><h3 id="5-1-IPv4-分析"><a href="#5-1-IPv4-分析" class="headerlink" title="5.1 IPv4 分析"></a>5.1 IPv4 分析</h3><ul><li><code>bootp</code>：查看 DHCP Discover &#x2F; Offer &#x2F; Request &#x2F; ACK；</li><li><code>tftp</code>：查看 TFTP 请求与传输过程。</li></ul><h3 id="5-2-IPv6-分析（DHCPv6）"><a href="#5-2-IPv6-分析（DHCPv6）" class="headerlink" title="5.2 IPv6 分析（DHCPv6）"></a>5.2 IPv6 分析（DHCPv6）</h3><ul><li><code>dhcpv6</code>：查看 DHCPv6 Solicit &#x2F; Advertise &#x2F; Request &#x2F; Reply 等流程；</li><li>也可使用 <code>ipv6 &amp;&amp; dhcpv6</code> 组合过滤。</li></ul><p>此外，还可以使用 <code>ipv6</code> 查看全部 IPv6 包，或通过 Wireshark 帮助查看相关字段。</p><hr><h2 id="六、常见问题与抓包诊断示例"><a href="#六、常见问题与抓包诊断示例" class="headerlink" title="六、常见问题与抓包诊断示例"></a>六、常见问题与抓包诊断示例</h2><table><thead><tr><th>问题类型</th><th>抓包分析思路</th></tr></thead><tbody><tr><td>无 DHCP Offer 或 Solicit 无响应</td><td>确认客户端是否发出 Discover&#x2F;Solicit，服务器是否响应。抓包端是否拓扑正确（镜像端口或旁听主机）。</td></tr><tr><td>多个 PXE Server Offer 混乱</td><td>IPv4 环境下可能收到多个 Offer，客户端响应第一个，查看抓包是否存在多 Offer 情况。</td></tr><tr><td>ACK 包无 Bootfile（IPv4）</td><td>DHCP ACK 包中缺少引导文件名，导致 PXE-E53 错误，可能 DHCP Option 配置有误或封包被拦截。</td></tr><tr><td>客户端收不到 DHCPv6 回应</td><td>IPv6 中 DHCPv6 Solicit 后无 Reply，需确认 DHCPv6 服务是否运行正常，网络是否允许 IPv6 广播&#x2F;组播。</td></tr><tr><td>TFTP 未下载引导镜像</td><td>若 DHCP 阶段正常但 TFTP 阶段失败，可通过 <code>tftp</code> 显示过滤器确认哪一步断裂</td></tr></tbody></table><hr><h2 id="七、流程对照"><a href="#七、流程对照" class="headerlink" title="七、流程对照"></a>七、流程对照</h2><table><thead><tr><th>步骤</th><th>IPv4（bootp）</th><th>IPv6（dhcpv6）</th></tr></thead><tbody><tr><td>1</td><td>安装 Wireshark，选择接口</td><td>同左</td></tr><tr><td>2</td><td>设置 Capture Filter：<code>port 67 or 68 or 69 or 4011</code></td><td><code>ip6 and (udp port 546 or 547)</code></td></tr><tr><td>3</td><td>开始抓包</td><td>同左</td></tr><tr><td>4</td><td>客户端触发 PXE 启动</td><td>同左</td></tr><tr><td>5</td><td>停止抓包，用 Display Filter 分析 (<code>bootp</code>, <code>tftp</code>)</td><td>用 <code>dhcpv6</code>, <code>ipv6 &amp;&amp; dhcpv6</code> 分析</td></tr><tr><td>6</td><td>定位 DHCP Offer、Bootfile、TFTP 是否完成</td><td>同 IPv4，重点看 DHCPv6 流程是否完整</td></tr></tbody></table><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>NVME BDF 与物理位置映射</title>
       <link href="/2025/08/25/NVME_BDF_physical_location_mapping/"/>
       <url>/2025/08/25/NVME_BDF_physical_location_mapping/</url>
