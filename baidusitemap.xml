@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2025-09-26</lastmod>
+    <lastmod>2025-10-21</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2025-09-26</lastmod>
+    <lastmod>2025-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/10/20/window_chipsec_installation_and_execution/</loc>
+    <lastmod>2025-10-20</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2025/09/22/linux_write_iso_to_usb_disk/</loc>

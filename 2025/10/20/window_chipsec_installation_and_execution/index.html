@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Chipsec在Windows上的安装与执行 | FrankTest</title><meta name="author" content="Frank"><meta name="copyright" content="Frank"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Chipsec在Windows上的安装与执行准备设置测试机 关闭安全启动 允许加载未签名的驱动程序 以管理员身份打开命令提示符，运行以下命令  123BcdEdit &#x2F;set TESTSIGNING ONBcdEdit &#x2F;set noIntegrityChecks ONBcdEdit &#x2F;set loadoptions DDISABLE_INTEGRITY_CHECKS   重启计算机使设置生效">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chipsec在Windows上的安装与执行">
+<meta property="og:url" content="https://blog.franktest.net/2025/10/20/window_chipsec_installation_and_execution/index.html">
+<meta property="og:site_name" content="FrankTest">
+<meta property="og:description" content="Chipsec在Windows上的安装与执行准备设置测试机 关闭安全启动 允许加载未签名的驱动程序 以管理员身份打开命令提示符，运行以下命令  123BcdEdit &#x2F;set TESTSIGNING ONBcdEdit &#x2F;set noIntegrityChecks ONBcdEdit &#x2F;set loadoptions DDISABLE_INTEGRITY_CHECKS   重启计算机使设置生效">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp">
+<meta property="article:published_time" content="2025-10-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-20T16:00:00.000Z">
+<meta property="article:author" content="Frank">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="Chipsec">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.franktest.net/2025/10/20/window_chipsec_installation_and_execution/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Chipsec在Windows上的安装与执行',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-10-21 00:00:00'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Chipsec在Windows上的安装与执行</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-20T16:00:00.000Z" title="发表于 2025-10-21 00:00:00">2025-10-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-20T16:00:00.000Z" title="更新于 2025-10-21 00:00:00">2025-10-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Chipsec在Windows上的安装与执行"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Chipsec在Windows上的安装与执行"><a href="#Chipsec在Windows上的安装与执行" class="headerlink" title="Chipsec在Windows上的安装与执行"></a>Chipsec在Windows上的安装与执行</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="设置测试机"><a href="#设置测试机" class="headerlink" title="设置测试机"></a>设置测试机</h3><ul>
+<li>关闭安全启动</li>
+<li>允许加载未签名的驱动程序<ul>
+<li>以管理员身份打开命令提示符，运行以下命令  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BcdEdit /<span class="built_in">set</span> TESTSIGNING ON</span><br><span class="line">BcdEdit /<span class="built_in">set</span> noIntegrityChecks ON</span><br><span class="line">BcdEdit /<span class="built_in">set</span> loadoptions DDISABLE_INTEGRITY_CHECKS</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>重启计算机使设置生效</li>
+</ul>
+<h3 id="安装编译driver所需Build-Tools"><a href="#安装编译driver所需Build-Tools" class="headerlink" title="安装编译driver所需Build Tools"></a>安装编译driver所需Build Tools</h3><ul>
+<li>安装<code>Visual Studio 2022 Build Tools</code>  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">winget install <span class="literal">--id</span>=Microsoft.VisualStudio.<span class="number">2022</span>.BuildTools <span class="literal">-e</span></span><br></pre></td></tr></table></figure></li>
+<li>安装VS其余组件<ul>
+<li>打开<code>Visual Studio Installer(C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe)</code>，找到<code>Visual Studio 生成工具 2022</code>，选择<code>修改</code>已安装的Build Tools</li>
+<li>选择以下工作负载：<ul>
+<li>使用C++的桌面开发<ul>
+<li>Windows 11 SDK (10.0.26100.4654)</li>
+<li>MSVC v143 - VS 2022 C++ x64&#x2F;x86 生成工具 (最新)</li>
+<li>用于 Windows 的 C++ CMake 工具 (最新)</li>
+<li>测试工具核心功能 - 生成工具</li>
+<li>C++ AddressSanitizer</li>
+<li>vcpkg 包管理器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>选择以下单个组件：<ul>
+<li>带有Spectre 缓解措施、适用于最新 v143 生成工具的 C++ ATL (x86 &amp; x64)</li>
+<li>带有Spectre 缓解措施、适用于最新 v143 生成工具的 C++ MFC (x86 &amp; x64)</li>
+<li>MSVC v143 - VS 2022 C++ x64&#x2F;x86 Spectre 缓解工具 (最新)</li>
+<li>Windows 驱动程序工具包 (WDK)生成工具</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安装WDK<ul>
+<li>下载 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk">https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk</a></li>
+<li>运行安装程序，选择与Visual Studio 2022集成安装</li>
+</ul>
+</li>
+</ul>
+<h3 id="配置python环境"><a href="#配置python环境" class="headerlink" title="配置python环境"></a>配置python环境</h3><ul>
+<li><p>安装Python 3.13.9</p>
+<ul>
+<li>下载 <a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-3139/">https://www.python.org/downloads/release/python-3139/</a></li>
+<li>运行安装程序，选择<code>Add Python 3.13 to PATH</code></li>
+<li>安装完成之后，打开命令提示符，运行以下命令确认安装成功<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python <span class="literal">--version</span> <span class="comment">#应该输出Python 3.13.9</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>安装pip</p>
+<ul>
+<li>会随Python一起安装</li>
+</ul>
+</li>
+<li><p>安装Python依赖包</p>
+  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install <span class="literal">-r</span> windows_requirements.txt</span><br></pre></td></tr></table></figure></li>
+<li><p>如果没有网络，可以手动在有网络的环境下载whl包</p>
+  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip download <span class="literal">-r</span> windows_requirements.txt <span class="literal">-d</span> &lt;下载目录&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>然后将下载目录下的whl包复制到无网络环境，使用pip安装</p>
+  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install <span class="literal">--no-index</span> <span class="literal">--find-links</span>=&lt;下载目录&gt; <span class="literal">-r</span> windows_requirements.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="安装Chipsec"><a href="#安装Chipsec" class="headerlink" title="安装Chipsec"></a>安装Chipsec</h3><ul>
+<li>下载Chipsec(也可以使用其他定制的版本)<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/chipsec/chipsec/releases">https://github.com/chipsec/chipsec/releases</a></li>
+</ul>
+</li>
+<li>选择目标版本的zip包下载</li>
+<li>解压缩到目标目录，例如<code>C:\chipsec</code></li>
+</ul>
+<h3 id="编译驱动"><a href="#编译驱动" class="headerlink" title="编译驱动"></a>编译驱动</h3><ul>
+<li><p>编译EfiCompressor</p>
+<ul>
+<li>切换到目录<code>C:\chipsec\chipsec_tools\compression</code></li>
+<li>运行以下命令编译EfiCompressor  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup.py build</span><br></pre></td></tr></table></figure></li>
+<li>编译成功后，复制build\lib.win-amd64-cpython-313下的文件到C:\chpipsec</li>
+</ul>
+</li>
+<li><p>编译Driver(可以在有网络的环境编译好后复制到无网络环境)</p>
+<ul>
+<li>打开<code>x64 本机工具命令提示符 for VS 2022</code></li>
+<li>在开始菜单中搜索<code>Developer Command Prompt for VS 2022</code>，右键以管理员身份运行</li>
+<li>cd 到chipsec目录  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\chipsec  <span class="comment"># 根据实际路径修改</span></span><br></pre></td></tr></table></figure></li>
+<li>运行以下命令编译driver  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\chipsec\drivers\windows</span><br><span class="line"><span class="built_in">cd</span> chipsec</span><br><span class="line">msbuild /p:Platform=x64</span><br><span class="line"><span class="built_in">cd</span> ../pcifilter</span><br><span class="line">msbuild /p:Platform=x64</span><br></pre></td></tr></table></figure></li>
+<li>编译成功后，安装驱动程序，切换到以下目录<br><code>C:\chipsec\drivers\windows\pcifilter\x64\Debug\pcifilter</code></li>
+<li>右键点击<code>pcifilter.inf</code>，选择<code>安装</code><ul>
+<li>如果提示驱动程序未签名，强制安装即可</li>
+</ul>
+</li>
+<li>打开<code>设备管理器</code><ul>
+<li>在<code>系统设备</code>下找到<code>PCI Express Root Complex</code></li>
+<li>右键点击选择<code>属性</code></li>
+<li>切换到<code>驱动程序</code>选项卡</li>
+<li>选择更新驱动</li>
+<li>然后选择<code>浏览计算机以查找驱动程序软件</code></li>
+<li>选择<code>从计算机的设备驱动程序列表中选择</code></li>
+<li>选择<code>已安装的驱动程序</code>中的<code>PCI Filter Driver</code>，然后点击<code>下一步</code></li>
+<li>完成驱动程序更新</li>
+<li>每一个PCI Express Root Complex都需要重复上述步骤安装驱动程序</li>
+</ul>
+</li>
+<li>驱动程序安装完成后，重启计算机</li>
+<li>重启之后，可以在<code>设备管理器</code>的<code>系统设备</code>下看到<code>PCI Filter Driver</code></li>
+<li>确认驱动程序版本是Debug版本</li>
+</ul>
+</li>
+</ul>
+<h3 id="测试Chipsec运行"><a href="#测试Chipsec运行" class="headerlink" title="测试Chipsec运行"></a>测试Chipsec运行</h3><ul>
+<li>以管理员身份打开命令提示符</li>
+<li>cd 到chipsec目录  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\chipsec  <span class="comment"># 根据实际路径修改</span></span><br></pre></td></tr></table></figure></li>
+<li>运行Chipsec  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">py chipsec_util.py pci dump <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line">py chipsec_util.py pci enumerate</span><br></pre></td></tr></table></figure></li>
+<li>如果输出信息且没有报错，说明安装成功</li>
+</ul>
+<h2 id="执行完整测试"><a href="#执行完整测试" class="headerlink" title="执行完整测试"></a>执行完整测试</h2><ul>
+<li>切换到chipsec目录<ul>
+<li>以管理员身份打开命令提示符</li>
+<li>cd 到chipsec目录  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\chipsec  <span class="comment"># 根据实际路径修改</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>运行完整测试  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python chipsec_main.py</span><br></pre></td></tr></table></figure></li>
+<li>测试结果会输出到chipsec目录下的logs文件中</li>
+<li>分析测试结果<ul>
+<li>打开logs目录下的最新日志文件</li>
+<li>查看测试结果，关注FAIL和WARNING的项</li>
+<li>根据需要进行进一步分析和处理</li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.franktest.net">Frank</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.franktest.net/2025/10/20/window_chipsec_installation_and_execution/">https://blog.franktest.net/2025/10/20/window_chipsec_installation_and_execution/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.franktest.net" target="_blank">FrankTest</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Windows/">Windows</a><a class="post-meta__tags" href="/tags/Chipsec/">Chipsec</a></div><div class="post_share"><div class="social-share" data-image="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/09/22/linux_write_iso_to_usb_disk/" title="Linux 下将 ISO 写入 USB 磁盘"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux 下将 ISO 写入 USB 磁盘</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2025/08/19/Integrate_windows_patch_to_install_file/" title="集成Windows 补丁到安装文件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-20</div><div class="title">集成Windows 补丁到安装文件</div></div></a></div><div><a href="/2025/06/03/Windows_PXE_environment/" title="Windows PXE 自动化部署环境搭建"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-04</div><div class="title">Windows PXE 自动化部署环境搭建</div></div></a></div><div><a href="/2025/07/30/haproxy_rdp_configuration/" title="HAProxy 转发 Windows RDP"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-31</div><div class="title">HAProxy 转发 Windows RDP</div></div></a></div><div><a href="/2025/07/30/psexec_access_is_denied/" title="PsExec 访问被拒绝问题排查和解决"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-31</div><div class="title">PsExec 访问被拒绝问题排查和解决</div></div></a></div><div><a href="/2025/07/30/windows_wql_query/" title="Windows WQL 查询"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-31</div><div class="title">Windows WQL 查询</div></div></a></div><div><a href="/2025/09/09/wireshark_capture_pxe_packet/" title="使用 Wireshark 捕获 IPv4 与 IPv6 下的 PXE 启动流量 (Draft)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-10</div><div class="title">使用 Wireshark 捕获 IPv4 与 IPv6 下的 PXE 启动流量 (Draft)</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Frank</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Frank's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chipsec%E5%9C%A8Windows%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E6%89%A7%E8%A1%8C"><span class="toc-number">1.</span> <span class="toc-text">Chipsec在Windows上的安装与执行</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">1.1.</span> <span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%B5%8B%E8%AF%95%E6%9C%BA"><span class="toc-number">1.1.1.</span> <span class="toc-text">设置测试机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%BC%96%E8%AF%91driver%E6%89%80%E9%9C%80Build-Tools"><span class="toc-number">1.1.2.</span> <span class="toc-text">安装编译driver所需Build Tools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEpython%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.3.</span> <span class="toc-text">配置python环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Chipsec"><span class="toc-number">1.1.4.</span> <span class="toc-text">安装Chipsec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E9%A9%B1%E5%8A%A8"><span class="toc-number">1.1.5.</span> <span class="toc-text">编译驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95Chipsec%E8%BF%90%E8%A1%8C"><span class="toc-number">1.1.6.</span> <span class="toc-text">测试Chipsec运行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%95%B4%E6%B5%8B%E8%AF%95"><span class="toc-number">1.2.</span> <span class="toc-text">执行完整测试</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/20/window_chipsec_installation_and_execution/" title="Chipsec在Windows上的安装与执行">Chipsec在Windows上的安装与执行</a><time datetime="2025-10-20T16:00:00.000Z" title="发表于 2025-10-21 00:00:00">2025-10-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/22/linux_write_iso_to_usb_disk/" title="Linux 下将 ISO 写入 USB 磁盘">Linux 下将 ISO 写入 USB 磁盘</a><time datetime="2025-09-22T16:00:00.000Z" title="发表于 2025-09-23 00:00:00">2025-09-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/18/quick_guide_for_sedutil/" title="sedutil 编译与使用指南 (Draft)">sedutil 编译与使用指南 (Draft)</a><time datetime="2025-09-18T16:00:00.000Z" title="发表于 2025-09-19 00:00:00">2025-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/18/sed_pba_image_complie/" title="PBA image 编译与使用指南 (Draft)">PBA image 编译与使用指南 (Draft)</a><time datetime="2025-09-18T16:00:00.000Z" title="发表于 2025-09-19 00:00:00">2025-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/16/nmve_encryption/" title="NVME 加密(Self-Encrypting Drives, TCG Opal / Enterprise / ISE / etc)相关介绍 (Draft)">NVME 加密(Self-Encrypting Drives, TCG Opal / Enterprise / ISE / etc)相关介绍 (Draft)</a><time datetime="2025-09-16T16:00:00.000Z" title="发表于 2025-09-17 00:00:00">2025-09-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Frank</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://blog.franktest.net/2025/10/20/window_chipsec_installation_and_execution/'
+    this.page.identifier = '/2025/10/20/window_chipsec_installation_and_execution/'
+    this.page.title = 'Chipsec在Windows上的安装与执行'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://frank-reoyq9vbgl.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=frank-reoyq9vbgl&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.14.0-b3"></script></div></div></body></html>
