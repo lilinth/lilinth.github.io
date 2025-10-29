@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>NVIDIA Spectrum SN4700 交换机介绍与简单配置 | FrankTest</title><meta name="author" content="Frank"><meta name="copyright" content="Frank"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="NVIDIA Spectrum SN4700 交换机介绍与简单配置1. 概述本文档介绍了 NVIDIA Spectrum SN4700 交换机的基本概念、功能以及配置方法。NVIDIA Spectrum SN4700 交换机是一个开源网络操作系统，专为数据中心和企业网络设计，支持多种硬件平台和丰富的网络功能。  2. SN4700 规格摘要  1. 基本定位／产品概况 SN4700 是 Spect">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NVIDIA Spectrum SN4700 交换机介绍与简单配置">
+<meta property="og:url" content="https://blog.franktest.net/2025/10/27/sonic_switch_introduction_and_config/index.html">
+<meta property="og:site_name" content="FrankTest">
+<meta property="og:description" content="NVIDIA Spectrum SN4700 交换机介绍与简单配置1. 概述本文档介绍了 NVIDIA Spectrum SN4700 交换机的基本概念、功能以及配置方法。NVIDIA Spectrum SN4700 交换机是一个开源网络操作系统，专为数据中心和企业网络设计，支持多种硬件平台和丰富的网络功能。  2. SN4700 规格摘要  1. 基本定位／产品概况 SN4700 是 Spect">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp">
+<meta property="article:published_time" content="2025-10-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-27T16:00:00.000Z">
+<meta property="article:author" content="Frank">
+<meta property="article:tag" content="Switches">
+<meta property="article:tag" content="Networking">
+<meta property="article:tag" content="Sonic OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.franktest.net/2025/10/27/sonic_switch_introduction_and_config/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'NVIDIA Spectrum SN4700 交换机介绍与简单配置',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-10-28 00:00:00'
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">53</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">NVIDIA Spectrum SN4700 交换机介绍与简单配置</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-27T16:00:00.000Z" title="发表于 2025-10-28 00:00:00">2025-10-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-27T16:00:00.000Z" title="更新于 2025-10-28 00:00:00">2025-10-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="NVIDIA Spectrum SN4700 交换机介绍与简单配置"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="NVIDIA-Spectrum-SN4700-交换机介绍与简单配置"><a href="#NVIDIA-Spectrum-SN4700-交换机介绍与简单配置" class="headerlink" title="NVIDIA Spectrum SN4700 交换机介绍与简单配置"></a>NVIDIA Spectrum SN4700 交换机介绍与简单配置</h1><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>本文档介绍了 NVIDIA Spectrum SN4700 交换机的基本概念、功能以及配置方法。NVIDIA Spectrum SN4700 交换机是一个开源网络操作系统，专为数据中心和企业网络设计，支持多种硬件平台和丰富的网络功能。</p>
+<hr>
+<h3 id="2-SN4700-规格摘要"><a href="#2-SN4700-规格摘要" class="headerlink" title="2. SN4700 规格摘要"></a>2. SN4700 规格摘要</h3><p><img src="https://docscontent.nvidia.com/dims4/default/9450568/2147483647/strip/true/crop/1558x325%2B0%2B0/resize/1440x300%21/quality/90/?url=https://k3-prod-nvidia-docs.s3.us-west-2.amazonaws.com/brightspot/confluence/0000018e-7f7a-d6f5-a5bf-7ffae0050000/images/download/attachments/2538860697/image2022-3-23_11-26-3-version-1-modificationdate-1648060292117-api-v2.png" alt="Image"></p>
+<hr>
+<h3 id="1-基本定位／产品概况"><a href="#1-基本定位／产品概况" class="headerlink" title="1. 基本定位／产品概况"></a>1. 基本定位／产品概况</h3><ul>
+<li>SN4700 是 Spectrum-3（SN4000 系列）中的高端交换机型号，定位为 Spine &#x2F; Super-Spine 层使用。 </li>
+<li>提供 1U 机架高度、高密度端口、高性能吞吐能力。</li>
+<li>支持开放网络操作系统（如 ONYX、Cumulus Linux、SONiC、DENT）并支持开放以太网架构。</li>
+</ul>
+<hr>
+<h3 id="2-核心规格摘要"><a href="#2-核心规格摘要" class="headerlink" title="2. 核心规格摘要"></a>2. 核心规格摘要</h3><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>规格或范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最大端口速率（每端口）</td>
+<td>支持从 1 GbE 到 400 GbE 。</td>
+</tr>
+<tr>
+<td>端口类型</td>
+<td>QSFP-DD 形式（32 个 400 GbE 端口满配） 。</td>
+</tr>
+<tr>
+<td>切换容量（Switching Capacity）</td>
+<td>12.8 Tb&#x2F;s 双向吞吐（即 SN4700 标称值） 。</td>
+</tr>
+<tr>
+<td>数据包处理能力</td>
+<td>8.4 Bpps（十亿包&#x2F;秒） 。</td>
+</tr>
+<tr>
+<td>机箱尺寸</td>
+<td>高 44 mm × 宽 428 mm × 深 568.5 mm（约 1.72″ × 16.85″ × 22.3″） 。</td>
+</tr>
+<tr>
+<td>重量</td>
+<td>约 11.6 kg。</td>
+</tr>
+<tr>
+<td>操作环境温度</td>
+<td>0 °C ~ 35 °C（工作状态） 。</td>
+</tr>
+<tr>
+<td>功耗</td>
+<td>典型功耗约 630 W（使用被动线缆时） 。</td>
+</tr>
+<tr>
+<td>冗余电源与风扇</td>
+<td>支持热插拔冗余电源 (2×，1+1 冗余)；风扇为热插拔、冗余设计。</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="2-1-主要功能特点"><a href="#2-1-主要功能特点" class="headerlink" title="2.1 主要功能特点"></a>2.1 主要功能特点</h4><ul>
+<li>支持高度灵活的端口速率组合，从 1 GbE 到 400 GbE，可适应异构服务器&#x2F;存储环境。 </li>
+<li>内置可视化与遥测功能，如 “What Just Happened” (WJH) 遥测、硬件加速队列深度直方图、In-band 网络遥测 (INT) 支持。 </li>
+<li>完整支持 L2&#x2F;L3 转发、Overlay 网络 (如 VXLAN)、隧道、IPv6、Segment Routing 等高阶网络功能。 </li>
+<li>共享大容量包缓冲 (例如 64 MB 缓冲) 支撑高突发负载而维持低延迟性能。</li>
+</ul>
+<hr>
+<h3 id="3-初始化配置步骤-Sonic-OS"><a href="#3-初始化配置步骤-Sonic-OS" class="headerlink" title="3. 初始化配置步骤(Sonic OS)"></a>3. 初始化配置步骤(Sonic OS)</h3><hr>
+<h4 id="3-1-连接到交换机"><a href="#3-1-连接到交换机" class="headerlink" title="3.1 连接到交换机"></a>3.1 连接到交换机</h4><ol>
+<li>使用控制台电缆连接到交换机的控制台端口。</li>
+<li>使用终端仿真程序（如 PuTTY 或 Tera Term）连接到交换机，设置波特率为 9600。</li>
+<li>登录到交换机，默认用户名和密码通常为 <code>admin</code>和<code>password</code>。</li>
+</ol>
+<hr>
+<h4 id="3-2-生成基本配置"><a href="#3-2-生成基本配置" class="headerlink" title="3.2 生成基本配置"></a>3.2 生成基本配置</h4><ol>
+<li>获取<code>platform</code>信息<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ show platform summary</span><br></pre></td></tr></table></figure>
+通常可以在结果里面看到类似<strong>Platform: x86_64-xxxxx-r0</strong>的信息, 例如：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ show platform summary</span><br><span class="line">x86_64-mlnx_msn4700-r0</span><br></pre></td></tr></table></figure></li>
+<li>查找支持的配置模板<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> /usr/share/sonic/device/&lt;platform&gt;</span><br><span class="line">$ <span class="built_in">ls</span> /usr/share/sonic/device/&lt;platform&gt;/&lt;config_templates&gt;/</span><br></pre></td></tr></table></figure>
+通常可以看到类似<strong>厂商-交换机型号-模式</strong>的文件夹和<strong>port_config.ini</strong>的文件。<br>例如:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> /usr/share/sonic/device/x86_64-mlnx_msn4700-r0</span><br><span class="line">Mellanox-SN4700-A96C8V8 </span><br><span class="line">Mellanox-SN4700-C128</span><br><span class="line">Mellanox-SN4700-O8C48</span><br><span class="line">Mellanox-SN4700-V48C32</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">ls</span> /usr/share/sonic/device/x86_64-mlnx_msn4700-r0/Mellanox-SN4700-V48C32/</span><br><span class="line">port_config.ini</span><br></pre></td></tr></table></figure></li>
+<li>生成基本配置文件(以<code>Mellanox-SN4700-V48C32</code>为例)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sonic-cfggen -H -k x86_64-mlnx_msn4700-r0 -p /usr/share/sonic/device/x86_64-mlnx_msn4700-r0/Mellanox-SN4700-V48C32/port_config.ini --print-data &gt; /etc/sonic/config_db_temp.json</span><br><span class="line"></span><br><span class="line">$ sudo vi /etc/sonic/config_db_temp.json <span class="comment"># modify value of hwsku to &quot;Mellanox-SN4700-V48C32&quot;</span></span><br><span class="line"></span><br><span class="line">$ sudo <span class="built_in">cp</span> /etc/sonic/config_db_temp.json /etc/sonic/config_db.json</span><br></pre></td></tr></table></figure></li>
+<li>保存配置并重启交换机<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo config save -y -f</span><br><span class="line">$ sudo reboot</span><br></pre></td></tr></table></figure></li>
+<li>验证端口状态 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ show interfaces status</span><br><span class="line">Interface            Lanes    Speed    MTU    FEC    Alias    Vlan    Oper    Admin             Type    Asym PFC</span><br><span class="line">-----------  ---------------  -------  -----  -----  -------  ------  ------  -------  ---------------  ----------</span><br><span class="line">Ethernet0          0,1,2,3     200G   9100    N/A    etp1a   trunk    down       up              N/A         N/A</span><br><span class="line">Ethernet4          4,5,6,7     200G   9100    N/A    etp1b   trunk    down       up              N/A         N/A</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h4 id="3-3-配置-VLAN-并启用所有以太网接口"><a href="#3-3-配置-VLAN-并启用所有以太网接口" class="headerlink" title="3.3 配置 VLAN 并启用所有以太网接口"></a>3.3 配置 VLAN 并启用所有以太网接口</h4><ol>
+<li>创建 VLAN 1000 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo config vlan add 1000 <span class="comment"># 创建 VLAN 1000</span></span><br></pre></td></tr></table></figure></li>
+<li>将所有以太网接口添加到该 VLAN并启用接口 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启用所有以太网接口并将其添加到 VLAN 1000</span></span><br><span class="line">$ <span class="keyword">for</span> intf <span class="keyword">in</span> $(show interface status | awk <span class="string">&#x27;NR&gt;2 &#123;print $1&#125;&#x27;</span> | grep -v Ethernet248); <span class="keyword">do</span></span><br><span class="line">    sudo config vlan member add 1000 <span class="variable">$intf</span> -u</span><br><span class="line">    sudo config interface startup <span class="variable">$intf</span></span><br><span class="line"><span class="keyword">done</span> </span><br></pre></td></tr></table></figure></li>
+<li>保存配置并验证VLAN配置 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo config save -y -f <span class="comment"># 保存配置</span></span><br><span class="line">$ sudo config reload -y <span class="comment"># 重新加载配置</span></span><br><span class="line">$ show vlan brief <span class="comment"># 验证 VLAN 配置</span></span><br></pre></td></tr></table></figure></li>
+<li>查看interfaces状态 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ show interfaces status</span><br><span class="line">Interface            Lanes    Speed    MTU    FEC    Alias    Vlan    Oper    Admin             Type    Asym PFC</span><br><span class="line">-----------  ---------------  -------  -----  -----  -------  ------  ------  -------  ---------------  ----------</span><br><span class="line">Ethernet0          0,1,2,3     200G   9100    N/A    etp1a   trunk    down       up              N/A         N/A</span><br><span class="line">Ethernet4          4,5,6,7     200G   9100    N/A    etp1b   trunk    down       up              N/A         N/A</span><br><span class="line">....</span><br><span class="line"></span><br><span class="line">Ethernet72      72,73,74,75     200G   9100    N/A   etp10a   trunk      up       up  QSFP28 or later         N/A</span><br></pre></td></tr></table></figure></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.franktest.net">Frank</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.franktest.net/2025/10/27/sonic_switch_introduction_and_config/">https://blog.franktest.net/2025/10/27/sonic_switch_introduction_and_config/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.franktest.net" target="_blank">FrankTest</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Switches/">Switches</a><a class="post-meta__tags" href="/tags/Networking/">Networking</a><a class="post-meta__tags" href="/tags/Sonic-OS/">Sonic OS</a></div><div class="post_share"><div class="social-share" data-image="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/10/22/powershell_module_installation/" title="PowerShell 模块安装与源配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">PowerShell 模块安装与源配置</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Frank</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">53</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Frank's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NVIDIA-Spectrum-SN4700-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E4%BB%8B%E7%BB%8D%E4%B8%8E%E7%AE%80%E5%8D%95%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">NVIDIA Spectrum SN4700 交换机介绍与简单配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.0.1.</span> <span class="toc-text">1. 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-SN4700-%E8%A7%84%E6%A0%BC%E6%91%98%E8%A6%81"><span class="toc-number">1.0.2.</span> <span class="toc-text">2. SN4700 规格摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%BD%8D%EF%BC%8F%E4%BA%A7%E5%93%81%E6%A6%82%E5%86%B5"><span class="toc-number">1.0.3.</span> <span class="toc-text">1. 基本定位／产品概况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A0%B8%E5%BF%83%E8%A7%84%E6%A0%BC%E6%91%98%E8%A6%81"><span class="toc-number">1.0.4.</span> <span class="toc-text">2. 核心规格摘要</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E7%89%B9%E7%82%B9"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">2.1 主要功能特点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4-Sonic-OS"><span class="toc-number">1.0.5.</span> <span class="toc-text">3. 初始化配置步骤(Sonic OS)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E8%BF%9E%E6%8E%A5%E5%88%B0%E4%BA%A4%E6%8D%A2%E6%9C%BA"><span class="toc-number">1.0.5.1.</span> <span class="toc-text">3.1 连接到交换机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E7%94%9F%E6%88%90%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-number">1.0.5.2.</span> <span class="toc-text">3.2 生成基本配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E9%85%8D%E7%BD%AE-VLAN-%E5%B9%B6%E5%90%AF%E7%94%A8%E6%89%80%E6%9C%89%E4%BB%A5%E5%A4%AA%E7%BD%91%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.0.5.3.</span> <span class="toc-text">3.3 配置 VLAN 并启用所有以太网接口</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/27/sonic_switch_introduction_and_config/" title="NVIDIA Spectrum SN4700 交换机介绍与简单配置">NVIDIA Spectrum SN4700 交换机介绍与简单配置</a><time datetime="2025-10-27T16:00:00.000Z" title="发表于 2025-10-28 00:00:00">2025-10-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/22/powershell_module_installation/" title="PowerShell 模块安装与源配置">PowerShell 模块安装与源配置</a><time datetime="2025-10-22T16:00:00.000Z" title="发表于 2025-10-23 00:00:00">2025-10-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/20/window_chipsec_installation_and_execution/" title="Chipsec在Windows上的安装与执行">Chipsec在Windows上的安装与执行</a><time datetime="2025-10-20T16:00:00.000Z" title="发表于 2025-10-21 00:00:00">2025-10-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/22/linux_write_iso_to_usb_disk/" title="Linux 下将 ISO 写入 USB 磁盘">Linux 下将 ISO 写入 USB 磁盘</a><time datetime="2025-09-22T16:00:00.000Z" title="发表于 2025-09-23 00:00:00">2025-09-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/18/quick_guide_for_sedutil/" title="sedutil 编译与使用指南 (Draft)">sedutil 编译与使用指南 (Draft)</a><time datetime="2025-09-18T16:00:00.000Z" title="发表于 2025-09-19 00:00:00">2025-09-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Frank</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://blog.franktest.net/2025/10/27/sonic_switch_introduction_and_config/'
+    this.page.identifier = '/2025/10/27/sonic_switch_introduction_and_config/'
+    this.page.title = 'NVIDIA Spectrum SN4700 交换机介绍与简单配置'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://frank-reoyq9vbgl.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=frank-reoyq9vbgl&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.14.0-b3"></script></div></div></body></html>
