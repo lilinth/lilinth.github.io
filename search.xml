@@ -13,9 +13,11 @@
       
       <categories>
           
+          <category> Hardware </category>
+          
           <category> Networking </category>
           
-          <category> Tool </category>
+          <category> Switches </category>
           
       </categories>
       
@@ -44,9 +46,11 @@
       
       <categories>
           
-          <category> PowerShell </category>
+          <category> Operation System </category>
           
-          <category> Tool </category>
+          <category> Windows </category>
+          
+          <category> PowerShell </category>
           
       </categories>
       
@@ -75,9 +79,11 @@
       
       <categories>
           
-          <category> Security </category>
+          <category> Operation System </category>
           
-          <category> Tool </category>
+          <category> Windows </category>
+          
+          <category> Testing </category>
           
       </categories>
       
@@ -104,9 +110,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -136,6 +144,8 @@
       
       
       <categories>
+          
+          <category> Operation System </category>
           
           <category> Linux </category>
           
@@ -168,9 +178,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -199,9 +211,11 @@
       
       <categories>
           
+          <category> Hardware </category>
+          
           <category> NVME </category>
           
-          <category> Encryption </category>
+          <category> Test </category>
           
       </categories>
       
@@ -212,9 +226,11 @@
             
             <tag> Tool </tag>
             
+            <tag> Test </tag>
+            
             <tag> NVME </tag>
             
-            <tag> 测试 </tag>
+            <tag> Encryption </tag>
             
         </tags>
       
@@ -232,11 +248,13 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Windows </category>
           
-          <category> Tool </category>
+          <category> Network </category>
           
-          <category> PXE </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -261,9 +279,9 @@
       
       <categories>
           
-          <category> NVME </category>
-          
           <category> Hardware </category>
+          
+          <category> NVME </category>
           
       </categories>
       
@@ -290,9 +308,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Windows </category>
           
-          <category> Test </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -321,11 +341,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
-          
-          <category> SSH </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -350,9 +370,9 @@
       
       <categories>
           
-          <category> RTC </category>
-          
           <category> Hardware </category>
+          
+          <category> RTC </category>
           
       </categories>
       
@@ -377,9 +397,11 @@
       
       <categories>
           
-          <category> Network </category>
+          <category> Operation System </category>
           
-          <category> Proxy </category>
+          <category> Linux </category>
+          
+          <category> Configuration </category>
           
       </categories>
       
@@ -390,9 +412,13 @@
             
             <tag> Tool </tag>
             
+            <tag> Test </tag>
+            
             <tag> Windows </tag>
             
-            <tag> 测试 </tag>
+            <tag> Proxy </tag>
+            
+            <tag> RDP </tag>
             
         </tags>
       
@@ -410,9 +436,9 @@
       
       <categories>
           
-          <category> Network </category>
-          
           <category> Hardware </category>
+          
+          <category> Network </category>
           
           <category> Test </category>
           
@@ -441,9 +467,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Windows </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -472,11 +500,13 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Windows </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
-          <category> Test </category>
+          <category> Testing </category>
           
       </categories>
       
@@ -505,11 +535,13 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Windows </category>
           
-          <category> Tool </category>
+          <category> Network </category>
           
-          <category> PXE </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -538,9 +570,9 @@
       
       <categories>
           
-          <category> CPU </category>
-          
           <category> Hardware </category>
+          
+          <category> CPU </category>
           
       </categories>
       
@@ -569,11 +601,13 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
-          <category> Remote Access </category>
+          <category> Network </category>
           
       </categories>
       
@@ -600,11 +634,13 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
-          
           <category> Network </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -635,9 +671,11 @@
       
       <categories>
           
-          <category> BASH </category>
+          <category> Operation System </category>
           
-          <category> Command-line </category>
+          <category> Linux </category>
+          
+          <category> BASH </category>
           
       </categories>
       
@@ -666,9 +704,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -697,7 +737,9 @@
       
       <categories>
           
-          <category> RHEL </category>
+          <category> Operation System </category>
+          
+          <category> Linux </category>
           
           <category> Kernel </category>
           
@@ -736,9 +778,9 @@
       
       <categories>
           
-          <category> Linux </category>
-          
           <category> Hardware </category>
+          
+          <category> PCI </category>
           
       </categories>
       
@@ -767,9 +809,9 @@
       
       <categories>
           
-          <category> Linux </category>
+          <category> hardware </category>
           
-          <category> Tool </category>
+          <category> Security </category>
           
           <category> TPM </category>
           
@@ -802,11 +844,13 @@
       
       <categories>
           
-          <category> Linux </category>
-          
-          <category> Tool </category>
+          <category> Hardware </category>
           
           <category> Network </category>
+          
+          <category> Switch </category>
+          
+          <category> Configuration </category>
           
       </categories>
       
@@ -835,9 +879,9 @@
       
       <categories>
           
-          <category> Linux </category>
-          
           <category> Hardware </category>
+          
+          <category> PCI </category>
           
       </categories>
       
@@ -866,11 +910,13 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
-          
           <category> Network </category>
+          
+          <category> Configuration </category>
           
       </categories>
       
@@ -901,9 +947,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Command-line </category>
+          <category> BASH </category>
           
       </categories>
       
@@ -928,9 +976,9 @@
       
       <categories>
           
-          <category> Memory </category>
-          
           <category> Hardware </category>
+          
+          <category> Memory </category>
           
       </categories>
       
@@ -961,9 +1009,13 @@
       
       <categories>
           
-          <category> RHEL </category>
+          <category> Operation System </category>
+          
+          <category> Linux </category>
           
           <category> Kernel </category>
+          
+          <category> Configuration </category>
           
       </categories>
       
@@ -998,7 +1050,7 @@
           
           <category> Security </category>
           
-          <category> Encryption </category>
+          <category> Certificate </category>
           
       </categories>
       
@@ -1026,6 +1078,8 @@
       
       
       <categories>
+          
+          <category> Hardware </category>
           
           <category> Storage </category>
           
@@ -1058,11 +1112,13 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
-          <category> VM </category>
+          <category> Virtualization </category>
           
       </categories>
       
@@ -1093,11 +1149,13 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
-          <category> PF </category>
+          <category> Virtualization </category>
           
       </categories>
       
@@ -1128,9 +1186,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
           <category> Virtualization </category>
           
@@ -1163,9 +1223,9 @@
       
       <categories>
           
-          <category> Linux </category>
+          <category> Operation System </category>
           
-          <category> Tool </category>
+          <category> Linux </category>
           
           <category> Test </category>
           
@@ -1196,9 +1256,9 @@
       
       <categories>
           
-          <category> Linux </category>
+          <category> Operation System </category>
           
-          <category> Tool </category>
+          <category> Linux </category>
           
           <category> Test </category>
           
@@ -1229,7 +1289,17 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
+          <category> Linux </category>
+          
+          <category> Windows </category>
+          
           <category> Network </category>
+          
+          <category> Network </category>
+          
+          <category> Configuration </category>
           
           <category> Configuration </category>
           
@@ -1259,6 +1329,8 @@
       
       
       <categories>
+          
+          <category> Hardware </category>
           
           <category> Network </category>
           
@@ -1291,9 +1363,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -1322,9 +1396,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Power Management </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -1349,11 +1425,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Hardware </category>
-          
-          <category> Serial </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -1382,9 +1458,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
           <category> Network </category>
           
@@ -1417,7 +1495,9 @@
       
       <categories>
           
-          <category> System </category>
+          <category> Operation System </category>
+          
+          <category> Linux </category>
           
           <category> Configuration </category>
           
@@ -1447,6 +1527,10 @@
       
       
       <categories>
+          
+          <category> Operation System </category>
+          
+          <category> Linux </category>
           
           <category> Network </category>
           
@@ -1479,9 +1563,11 @@
       
       <categories>
           
-          <category> Network </category>
+          <category> Operation System </category>
           
-          <category> Proxy </category>
+          <category> Linux </category>
+          
+          <category> Configuration </category>
           
       </categories>
       
@@ -1510,9 +1596,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
+          <category> Configuration </category>
           
       </categories>
       
@@ -1545,9 +1633,9 @@
       
       <categories>
           
-          <category> CPU </category>
-          
           <category> Hardware </category>
+          
+          <category> CPU </category>
           
           <category> Test </category>
           
@@ -1578,9 +1666,9 @@
       
       <categories>
           
-          <category> Linux </category>
+          <category> Hardware </category>
           
-          <category> Tool </category>
+          <category> Memory </category>
           
           <category> Test </category>
           
@@ -1613,11 +1701,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Tool </category>
-          
-          <category> Test </category>
+          <category> Testing </category>
           
       </categories>
       
@@ -1648,9 +1736,11 @@
       
       <categories>
           
+          <category> Operation System </category>
+          
           <category> Linux </category>
           
-          <category> Command-line </category>
+          <category> BASH </category>
           
       </categories>
       
@@ -1675,9 +1765,11 @@
       
       <categories>
           
-          <category> VM </category>
+          <category> Operation System </category>
           
           <category> Linux </category>
+          
+          <category> Virtualization </category>
           
       </categories>
       
@@ -1704,7 +1796,9 @@
       
       <categories>
           
-          <category> System </category>
+          <category> Operation System </category>
+          
+          <category> Linux </category>
           
           <category> Configuration </category>
           
