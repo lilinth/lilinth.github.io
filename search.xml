@@ -13,7 +13,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Networking </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -42,7 +44,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> PowerShell </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -71,7 +75,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Security </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -98,7 +104,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -129,7 +137,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -158,7 +168,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -187,7 +199,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> NVME </category>
+          
+          <category> Encryption </category>
           
       </categories>
       
@@ -198,9 +212,9 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
-            
             <tag> NVME </tag>
+            
+            <tag> 测试 </tag>
             
         </tags>
       
@@ -218,7 +232,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Windows </category>
+          
+          <category> Tool </category>
+          
+          <category> PXE </category>
           
       </categories>
       
@@ -243,7 +261,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> NVME </category>
+          
+          <category> Hardware </category>
           
       </categories>
       
@@ -270,7 +290,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Windows </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -279,7 +301,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
             <tag> Windows </tag>
             
@@ -299,7 +321,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> SSH </category>
           
       </categories>
       
@@ -324,7 +350,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> RTC </category>
+          
+          <category> Hardware </category>
           
       </categories>
       
@@ -349,7 +377,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Network </category>
+          
+          <category> Proxy </category>
           
       </categories>
       
@@ -360,9 +390,9 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
-            
             <tag> Windows </tag>
+            
+            <tag> 测试 </tag>
             
         </tags>
       
@@ -380,14 +410,18 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Network </category>
+          
+          <category> Hardware </category>
+          
+          <category> Test </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
             <tag> InfiniBand </tag>
             
@@ -407,7 +441,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Windows </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -416,9 +452,9 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
-            
             <tag> Windows </tag>
+            
+            <tag> 测试 </tag>
             
         </tags>
       
@@ -436,7 +472,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Windows </category>
+          
+          <category> Tool </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -445,9 +485,9 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
-            
             <tag> Windows </tag>
+            
+            <tag> 测试 </tag>
             
         </tags>
       
@@ -465,7 +505,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Windows </category>
+          
+          <category> Tool </category>
+          
+          <category> PXE </category>
           
       </categories>
       
@@ -494,7 +538,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> CPU </category>
+          
+          <category> Hardware </category>
           
       </categories>
       
@@ -523,7 +569,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Remote Access </category>
           
       </categories>
       
@@ -550,7 +600,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Network </category>
           
       </categories>
       
@@ -561,7 +615,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
             <tag> Nmap </tag>
             
@@ -581,7 +635,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> BASH </category>
+          
+          <category> Command-line </category>
           
       </categories>
       
@@ -610,7 +666,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -639,7 +697,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> RHEL </category>
+          
+          <category> Kernel </category>
+          
+          <category> Serial </category>
           
       </categories>
       
@@ -650,9 +712,9 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
-            
             <tag> Serial </tag>
+            
+            <tag> 测试 </tag>
             
             <tag> RHEL </tag>
             
@@ -674,7 +736,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Hardware </category>
           
       </categories>
       
@@ -703,7 +767,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> TPM </category>
           
       </categories>
       
@@ -714,7 +782,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
             <tag> TPM </tag>
             
@@ -734,7 +802,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Network </category>
           
       </categories>
       
@@ -763,7 +835,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Hardware </category>
           
       </categories>
       
@@ -792,7 +866,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Network </category>
           
       </categories>
       
@@ -823,7 +901,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Command-line </category>
           
       </categories>
       
@@ -848,7 +928,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Memory </category>
+          
+          <category> Hardware </category>
           
       </categories>
       
@@ -879,7 +961,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> RHEL </category>
+          
+          <category> Kernel </category>
           
       </categories>
       
@@ -890,7 +974,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
             <tag> RHEL </tag>
             
@@ -912,7 +996,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Security </category>
+          
+          <category> Encryption </category>
           
       </categories>
       
@@ -941,7 +1027,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Storage </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -952,7 +1040,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> FIO </tag>
             
         </tags>
       
@@ -970,7 +1058,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> VM </category>
           
       </categories>
       
@@ -981,9 +1073,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
-            
-            <tag> 虚拟机 </tag>
+            <tag> Test </tag>
             
             <tag> VM </tag>
             
@@ -1003,7 +1093,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> PF </category>
           
       </categories>
       
@@ -1014,7 +1108,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
             <tag> PF </tag>
             
@@ -1034,7 +1128,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Virtualization </category>
           
       </categories>
       
@@ -1045,7 +1143,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
             <tag> SR-IOV </tag>
             
@@ -1065,7 +1163,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -1094,7 +1196,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -1105,7 +1211,7 @@
             
             <tag> Tool </tag>
             
-            <tag> stress </tag>
+            <tag> Stress </tag>
             
         </tags>
       
@@ -1123,7 +1229,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Network </category>
+          
+          <category> Configuration </category>
           
       </categories>
       
@@ -1152,7 +1260,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Network </category>
+          
+          <category> Storage </category>
           
       </categories>
       
@@ -1181,7 +1291,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -1210,7 +1322,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Power Management </category>
           
       </categories>
       
@@ -1235,7 +1349,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Hardware </category>
+          
+          <category> Serial </category>
           
       </categories>
       
@@ -1264,7 +1382,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Network </category>
           
       </categories>
       
@@ -1275,7 +1397,9 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
+            
+            <tag> RHEL9 </tag>
             
         </tags>
       
@@ -1293,7 +1417,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> System </category>
+          
+          <category> Configuration </category>
           
       </categories>
       
@@ -1304,7 +1430,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
         </tags>
       
@@ -1322,7 +1448,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Network </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -1351,7 +1479,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Network </category>
+          
+          <category> Proxy </category>
           
       </categories>
       
@@ -1362,7 +1492,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
         </tags>
       
@@ -1380,7 +1510,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
           
       </categories>
       
@@ -1391,7 +1523,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
             <tag> RHEL </tag>
             
@@ -1413,7 +1545,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> CPU </category>
+          
+          <category> Hardware </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -1424,7 +1560,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
         </tags>
       
@@ -1442,7 +1578,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -1473,7 +1613,11 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Tool </category>
+          
+          <category> Test </category>
           
       </categories>
       
@@ -1484,7 +1628,7 @@
             
             <tag> Tool </tag>
             
-            <tag> 测试 </tag>
+            <tag> Test </tag>
             
             <tag> Stressapptest </tag>
             
@@ -1504,7 +1648,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> Linux </category>
+          
+          <category> Command-line </category>
           
       </categories>
       
@@ -1529,7 +1675,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> VM </category>
+          
+          <category> Linux </category>
           
       </categories>
       
@@ -1538,7 +1686,7 @@
             
             <tag> Linux </tag>
             
-            <tag> 虚拟机 </tag>
+            <tag> VM </tag>
             
         </tags>
       
@@ -1556,7 +1704,9 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> System </category>
+          
+          <category> Configuration </category>
           
       </categories>
       

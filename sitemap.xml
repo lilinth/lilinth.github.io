@@ -20,15 +20,6 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/index.html</loc>
-    
-    <lastmod>2025-10-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.franktest.net/google292c3b305482dc52.html</loc>
     
     <lastmod>2025-10-29</lastmod>
@@ -48,6 +39,15 @@
   
   <url>
     <loc>https://blog.franktest.net/link/index.html</loc>
+    
+    <lastmod>2025-10-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/index.html</loc>
     
     <lastmod>2025-10-29</lastmod>
     
@@ -574,7 +574,7 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/%E6%B5%8B%E8%AF%95/</loc>
+    <loc>https://blog.franktest.net/tags/Test/</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -588,14 +588,14 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/Network/</loc>
+    <loc>https://blog.franktest.net/tags/Windows/</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/Windows/</loc>
+    <loc>https://blog.franktest.net/tags/Network/</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -651,7 +651,7 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
+    <loc>https://blog.franktest.net/tags/VM/</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -700,6 +700,13 @@
   </url>
   
   <url>
+    <loc>https://blog.franktest.net/tags/%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.franktest.net/tags/RHEL/</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -708,6 +715,13 @@
   
   <url>
     <loc>https://blog.franktest.net/tags/Kernel/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/tags/FIO/</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -826,13 +840,6 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/VM/</loc>
-    <lastmod>2025-10-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.franktest.net/tags/PF/</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -903,7 +910,7 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/tags/stress/</loc>
+    <loc>https://blog.franktest.net/tags/Stress/</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -933,7 +940,385 @@
 
   
   <url>
+    <loc>https://blog.franktest.net/categories/CPU/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Security/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Windows/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Network/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/CPU/Hardware/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/NVME/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Security/Encryption/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.franktest.net/categories/%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Windows/Test/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/RTC/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/VM/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Network/Configuration/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Windows/Tool/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/CPU/Hardware/Test/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Network/Storage/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/BASH/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Hardware/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/System/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/RHEL/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/NVME/Hardware/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Storage/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Network/Proxy/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Network/Hardware/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Network/Test/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Command-line/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Tool/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Power-Management/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Memory/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/RTC/Hardware/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/VM/Linux/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/NVME/Encryption/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Windows/Tool/PXE/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/PowerShell/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/BASH/Command-line/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Hardware/Serial/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/System/Configuration/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Networking/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/RHEL/Kernel/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Security/Tool/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Storage/Test/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Windows/Tool/Test/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Network/Hardware/Test/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Tool/Network/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Memory/Hardware/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Tool/Test/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/PowerShell/Tool/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Tool/VM/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Tool/PF/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Tool/Virtualization/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Tool/Remote-Access/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Networking/Tool/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Tool/SSH/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/RHEL/Kernel/Serial/</loc>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.franktest.net/categories/Linux/Tool/TPM/</loc>
     <lastmod>2025-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
