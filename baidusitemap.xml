@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2025-10-29</lastmod>
+    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
+    <lastmod>2025-11-27</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2025-10-29</lastmod>
+    <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
+    <lastmod>2025-11-27</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2025/10/30/download_sharepoint_stream_video/</loc>
+    <lastmod>2025-10-30</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2025/10/27/sonic_switch_introduction_and_config/</loc>
@@ -26,10 +30,6 @@
   </url>
   <url>
     <loc>https://blog.franktest.net/2025/09/18/quick_guide_for_sedutil/</loc>
-    <lastmod>2025-09-18</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.franktest.net/2025/09/18/sed_pba_image_complie/</loc>
     <lastmod>2025-09-18</lastmod>
   </url>
   <url>
@@ -137,11 +137,11 @@
     <lastmod>2024-08-20</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/07/03/ARM_FFTs_test/</loc>
+    <loc>https://blog.franktest.net/2024/08/14/Digital_Certificate_SOP/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/Digital_Certificate_SOP/</loc>
+    <loc>https://blog.franktest.net/2024/07/03/ARM_FFTs_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
@@ -169,11 +169,11 @@
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/07/03/stressapptest_test/</loc>
+    <loc>https://blog.franktest.net/2024/08/14/stress_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/stress_test/</loc>
+    <loc>https://blog.franktest.net/2024/07/03/stressapptest_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>

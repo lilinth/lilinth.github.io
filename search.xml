@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>下载 SharePoint 上的 Stream 视频</title>
+      <link href="/2025/10/30/download_sharepoint_stream_video/"/>
+      <url>/2025/10/30/download_sharepoint_stream_video/</url>
+      
+        <content type="html"><![CDATA[<h1 id="下载-SharePoint-上的-Stream-视频"><a href="#下载-SharePoint-上的-Stream-视频" class="headerlink" title="下载 SharePoint 上的 Stream 视频"></a>下载 SharePoint 上的 Stream 视频</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在开始之前，请确保你已经安装了以下工具：</p><ul><li><a href="https://ytdl-org.github.io/youtube-dl/index.html">youtube-dl</a>：一个命令行程序，用于从各种网站下载视频。</li></ul><h2 id="开始抓取视频"><a href="#开始抓取视频" class="headerlink" title="开始抓取视频"></a>开始抓取视频</h2><ol><li>打开你的浏览器，导航到包含你想下载的 Stream 视频的 SharePoint 页面。</li><li>右键点击页面并选择“检查”或按 <code>F12</code> 打开开发者工具。</li><li>切换到“网络”（Network）选项卡，筛选关键字<code>videomanifest</code>。</li><li>刷新页面并播放视频，查找网络选项卡中的视频流链接。</li><li>右键点击视频流链接并选择“复制链接地址”。</li><li>截取复制的链接，确保它以 <code>https:\\</code>开头并以 <code>dash</code> 结尾（忽略<code>dash</code>后面的内容）。</li><li>复制处理好的视频流链接并使用 <code>youtube-dl</code> 下载视频：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./yt-dlp <span class="string">&quot;&lt;视频流链接&gt;&quot;</span> -o <span class="string">&quot;video.mp4&quot;</span> -N 8 <span class="comment">#Linux Shell 示例</span></span><br></pre></td></tr></table></figure></li><li>等待下载完成后，你将在当前目录下找到名为 <code>video.mp4</code> 的视频文件。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Software </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Software </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>NVIDIA Spectrum SN4700 交换机介绍与简单配置</title>
       <link href="/2025/10/27/sonic_switch_introduction_and_config/"/>
       <url>/2025/10/27/sonic_switch_introduction_and_config/</url>
@@ -169,39 +194,6 @@
     
     
     <entry>
-      <title>PBA image 编译与使用指南 (Draft)</title>
-      <link href="/2025/09/18/sed_pba_image_complie/"/>
-      <url>/2025/09/18/sed_pba_image_complie/</url>
-      
-        <content type="html"><![CDATA[<h1 id="PBA-image-编译与使用指南"><a href="#PBA-image-编译与使用指南" class="headerlink" title="PBA image 编译与使用指南"></a>PBA image 编译与使用指南</h1><p><code>PBA image</code> 是 <code>sedutil</code> 工具的一部分，用于在自加密驱动器（SED）上实现预启动身份验证。本文将介绍如何在 Linux 系统上编译和使用 <code>PBA image</code>。</p><hr><h2 id="✅-1-环境准备"><a href="#✅-1-环境准备" class="headerlink" title="✅ 1. 环境准备"></a>✅ 1. 环境准备</h2><p>在开始之前，请确保你的系统满足以下要求：</p><ol><li>确保你的系统支持 SED，并且你有一个兼容的自加密驱动器。</li><li>建议在虚拟机或测试环境中进行操作，以避免对生产系统造成影响。</li><li>确保你有管理员权限（root）来执行相关命令。</li><li>备份重要数据，以防操作过程中出现问题。</li><li>了解 SED 的基本概念和工作原理。</li><li>阅读 <code>sedutil</code> 的官方文档和使用指南。</li><li>确保你的系统时间和日期设置正确，以避免 SSL 证书验证问题。</li><li>如果你使用的是非 Debian&#x2F;Ubuntu 系统，请根据你的发行版安装相应的依赖项。</li><li>确保你的系统有足够的磁盘空间来编译和安装 <code>sedutil</code>。</li></ol><h2 id="✅-2-编译-PBA-image"><a href="#✅-2-编译-PBA-image" class="headerlink" title="✅ 2. 编译 PBA image"></a>✅ 2. 编译 PBA image</h2><p>由于sedutil自带的PBA image编译环境比较陈旧，这里使用另外的PBA构建环境<code>sedunlocksrv-pba</code>。</p><ol><li><p>克隆 <code>sedunlocksrv-pba</code> 的源码仓库：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Jip-Hop/sedunlocksrv-pba.git</span><br><span class="line"><span class="built_in">cd</span> sedunlocksrv-pba</span><br></pre></td></tr></table></figure></li><li><p>安装<code>sedunlocksrv-pba</code>的依赖：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install cpio curl dosfstools dropbear fdisk git golang-go grub-efi-amd64-bin grub-efi-ia32-bin grub-pc-bin grub2-common libarchive-tools rsync squashfs-tools udev wget xorriso</span><br></pre></td></tr></table></figure></li><li><p>编译 PBA image：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./build.sh</span><br></pre></td></tr></table></figure></li><li><p>编译完成后，生成的 PBA image 位于相同的目录下，<code>sedunlocksrv-pba.img</code>。</p></li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> Operation System </category>
-          
-          <category> Linux </category>
-          
-          <category> Configuration </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> Tool </tag>
-            
-            <tag> PBA image </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>NVME 加密(Self-Encrypting Drives, TCG Opal / Enterprise / ISE / etc)相关介绍 (Draft)</title>
       <link href="/2025/09/16/nmve_encryption/"/>
       <url>/2025/09/16/nmve_encryption/</url>
@@ -253,8 +245,6 @@
           <category> Windows </category>
           
           <category> Network </category>
-          
-          <category> Configuration </category>
           
       </categories>
       
@@ -506,8 +496,6 @@
           
           <category> Configuration </category>
           
-          <category> Testing </category>
-          
       </categories>
       
       
@@ -538,8 +526,6 @@
           <category> Operation System </category>
           
           <category> Windows </category>
-          
-          <category> Network </category>
           
           <category> Configuration </category>
           
