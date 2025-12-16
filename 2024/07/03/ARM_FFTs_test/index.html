@@ -10,8 +10,8 @@
 <meta property="article:modified_time" content="2024-08-14T16:00:00.000Z">
 <meta property="article:author" content="Frank">
 <meta property="article:tag" content="Linux">
-<meta property="article:tag" content="Test">
 <meta property="article:tag" content="Tool">
+<meta property="article:tag" content="Test">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.franktest.net/2024/07/03/ARM_FFTs_test/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
       const saveToLocal = {
@@ -177,7 +177,7 @@
   isHighlightShrink: false,
   isToc: true,
   postUpdate: '2024-08-15 00:00:00'
-}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">56</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">46</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-03T16:00:00.000Z" title="发表于 2024-07-04 00:00:00">2024-07-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T16:00:00.000Z" title="更新于 2024-08-15 00:00:00">2024-08-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hardware/">Hardware</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hardware/CPU/">CPU</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hardware/CPU/Test/">Test</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="在-ARM-平台上安装、编译和运行-Mlucas-并进行-FFTs-测试"><a href="#在-ARM-平台上安装、编译和运行-Mlucas-并进行-FFTs-测试" class="headerlink" title="在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试"></a>在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h2><p>Mlucas 是一个用 C 编写的开源软件，专门用于多平台架构的高性能梅森数素性测试。在 ARM 平台上，由于 prime95&#x2F;mprime 仅支持 x86 架构，Mlucas 成为理想的替代方案。详细介绍了如何在 ARM 平台上安装、编译并运行 Mlucas，包括对各类参数的深入介绍与示例，并结合硬件资源优化进行了详细的配置步骤。</p>
+}</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">56</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">46</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-03T16:00:00.000Z" title="发表于 2024-07-04 00:00:00">2024-07-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T16:00:00.000Z" title="更新于 2024-08-15 00:00:00">2024-08-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hardware/">Hardware</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hardware/CPU/">CPU</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hardware/CPU/Test/">Test</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="在-ARM-平台上安装、编译和运行-Mlucas-并进行-FFTs-测试"><a href="#在-ARM-平台上安装、编译和运行-Mlucas-并进行-FFTs-测试" class="headerlink" title="在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试"></a>在 ARM 平台上安装、编译和运行 Mlucas 并进行 FFTs 测试</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h2><p>Mlucas 是一个用 C 编写的开源软件，专门用于多平台架构的高性能梅森数素性测试。在 ARM 平台上，由于 prime95&#x2F;mprime 仅支持 x86 架构，Mlucas 成为理想的替代方案。详细介绍了如何在 ARM 平台上安装、编译并运行 Mlucas，包括对各类参数的深入介绍与示例，并结合硬件资源优化进行了详细的配置步骤。</p>
 <h2 id="范围"><a href="#范围" class="headerlink" title="范围"></a><strong>范围</strong></h2><p>适用于希望在 ARM 平台上执行 FFTs 测试并优化硬件性能的技术人员。本文主要针对运行 Debian 系统的 ARM64 设备，但同样适用于其他 Linux 发行版，步骤可能略有不同。</p>
 <h2 id="职责"><a href="#职责" class="headerlink" title="职责"></a><strong>职责</strong></h2><ul>
 <li><strong>系统管理员</strong>：确保 ARM 平台上所需的软件和库均已正确安装，具备系统管理权限。</li>
@@ -191,95 +191,67 @@
 </ul>
 <h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a><strong>过程</strong></h2><h3 id="1-系统环境准备"><a href="#1-系统环境准备" class="headerlink" title="1. 系统环境准备"></a>1. <strong>系统环境准备</strong></h3><p>1.1 <strong>更新系统软件包列表</strong></p>
 <ul>
-<li>在进行软件安装前，先确保系统软件包是最新的。</li>
+<li>在进行软件安装前，先确保系统软件包是最新的。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get upgrade</span><br></pre></td></tr></table></figure>
-
 <p>1.2 <strong>安装必要的依赖包</strong></p>
 <ul>
 <li><p><strong>Debian</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install build-essential libgmp-dev libhwloc-dev git clang</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential libgmp-dev libhwloc-dev git clang</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>RHEL9</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> dnf group install <span class="string">&quot;Development Tools&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> dnf install gmp-devel hwloc-devel clang git</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo dnf group install <span class="string">&quot;Development Tools&quot;</span></span><br><span class="line">sudo dnf install gmp-devel hwloc-devel clang git</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="2-下载和准备-Mlucas"><a href="#2-下载和准备-Mlucas" class="headerlink" title="2. 下载和准备 Mlucas"></a>2. <strong>下载和准备 Mlucas</strong></h3><p>2.1 <strong>从 GitHub 克隆 Mlucas 源码</strong></p>
 <ul>
-<li>使用以下命令克隆 Mlucas 项目到本地目录。也可以从 <a target="_blank" rel="noopener" href="https://github.com/primesearch/Mlucas/releases">Release 页面</a> 下载源码包。</li>
+<li>使用以下命令克隆 Mlucas 项目到本地目录。也可以从 <a target="_blank" rel="noopener" href="https://github.com/primesearch/Mlucas/releases">Release 页面</a> 下载源码包。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/primesearch/Mlucas.git</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/primesearch/Mlucas.git</span><br></pre></td></tr></table></figure>
-
 <p>2.2 <strong>进入 Mlucas 项目目录</strong><br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> Mlucas</span><br></pre></td></tr></table></figure></p>
 <h3 id="3-编译-Mlucas"><a href="#3-编译-Mlucas" class="headerlink" title="3. 编译 Mlucas"></a>3. <strong>编译 Mlucas</strong></h3><p>3.1 <strong>设置编译器</strong></p>
 <ul>
-<li>将编译器设置为 <code>clang</code> 以优化编译过程。</li>
+<li>将编译器设置为 <code>clang</code> 以优化编译过程。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CC=clang</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CC=clang</span><br></pre></td></tr></table></figure>
-
 <p>3.2 <strong>使用 makemake.sh 脚本编译 Mlucas</strong></p>
 <ul>
-<li>执行 <code>makemake.sh</code> 脚本，确保启用 <code>hwloc</code> 支持，以优化 CPU 绑定和内存访问性能。</li>
+<li>执行 <code>makemake.sh</code> 脚本，确保启用 <code>hwloc</code> 支持，以优化 CPU 绑定和内存访问性能。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash makemake.sh use_hwloc</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash makemake.sh use_hwloc</span><br></pre></td></tr></table></figure>
-
 <p>3.3 <strong>确认编译成功</strong></p>
 <ul>
-<li>编译完成后，编译生成的可执行文件将位于 <code>obj</code> 目录中。使用以下命令查看生成的文件：</li>
-</ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> obj</span><br></pre></td></tr></table></figure>
-<ul>
+<li>编译完成后，编译生成的可执行文件将位于 <code>obj</code> 目录中。使用以下命令查看生成的文件：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> obj</span><br></pre></td></tr></table></figure></li>
 <li>生成的文件名可能会因编译选项的不同而变化，如 <code>Mlucas</code>.</li>
 </ul>
 <h3 id="4-性能调优：为您的机器进行优化"><a href="#4-性能调优：为您的机器进行优化" class="headerlink" title="4. 性能调优：为您的机器进行优化"></a>4. <strong>性能调优：为您的机器进行优化</strong></h3><p><strong>STEP 2 − PERFORMANCE-TUNE FOR YOUR MACHINE</strong></p>
 <p>在 Mlucas 编译完成后，重要的是对软件进行调优，以便充分利用您的硬件资源。这一步骤涉及运行一系列测试，以确定适合您机器的最佳 FFT 长度和 CPU 绑定配置。</p>
 <p>4.1 <strong>运行自检</strong></p>
 <ul>
-<li>自检测试将评估您的硬件性能，并生成配置文件，帮助确定适合的 FFT 长度和其他参数。运行以下命令：</li>
-</ul>
+<li><p>自检测试将评估您的硬件性能，并生成配置文件，帮助确定适合的 FFT 长度和其他参数。运行以下命令：</p>
    <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./Mlucas -s</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>该命令将测试多个 FFT 长度和 CPU 配置，以确定最佳配置。测试结果将存储在生成的日志文件中。</li>
+</li>
+<li><p>该命令将测试多个 FFT 长度和 CPU 配置，以确定最佳配置。测试结果将存储在生成的日志文件中。</p>
+</li>
 </ul>
 <p>4.2 <strong>分析自检结果</strong></p>
 <ul>
-<li>自检完成后，打开并分析生成的日志文件（通常是 <code>mlucas.cfg</code> 或其他输出文件），查看不同 FFT 长度下的性能表现。</li>
-</ul>
+<li><p>自检完成后，打开并分析生成的日志文件（通常是 <code>mlucas.cfg</code> 或其他输出文件），查看不同 FFT 长度下的性能表现。</p>
    <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> mlucas.cfg</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>该文件会列出每个 FFT 长度的平均迭代时间。较短的时间意味着更优的性能。选择那些具有最短迭代时间的 FFT 长度和配置。</li>
+</li>
+<li><p>该文件会列出每个 FFT 长度的平均迭代时间。较短的时间意味着更优的性能。选择那些具有最短迭代时间的 FFT 长度和配置。</p>
+</li>
 </ul>
 <p>4.3 <strong>配置 Mlucas</strong></p>
 <ul>
-<li>根据自检结果，手动编辑 <code>mlucas.cfg</code> 文件，以使用最佳配置进行实际测试。例如，设置合适的 FFT 长度和 CPU 绑定。</li>
+<li>根据自检结果，手动编辑 <code>mlucas.cfg</code> 文件，以使用最佳配置进行实际测试。例如，设置合适的 FFT 长度和 CPU 绑定。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano mlucas.cfg</span><br></pre></td></tr></table></figure></li>
+<li>在配置文件中指定最佳 FFT 长度和 CPU 核心分配，如：   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FFTlength=2048K</span><br><span class="line">CPU=0-7</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano mlucas.cfg</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在配置文件中指定最佳 FFT 长度和 CPU 核心分配，如：</li>
-</ul>
-   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FFTlength=2048K</span><br><span class="line">CPU=0-7</span><br></pre></td></tr></table></figure>
-
 <p>4.4 <strong>再次测试并验证</strong></p>
 <ul>
-<li>使用优化后的配置重新运行 Mlucas，并通过日志文件验证性能是否有所提升。</li>
+<li>使用优化后的配置重新运行 Mlucas，并通过日志文件验证性能是否有所提升。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./Mlucas -s m -logfile optimized_test.log</span><br></pre></td></tr></table></figure></li>
+<li>实时查看日志文件以确认测试正在按预期的配置进行：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f optimized_test.log</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./Mlucas -s m -logfile optimized_test.log</span><br></pre></td></tr></table></figure>
-<ul>
-<li>实时查看日志文件以确认测试正在按预期的配置进行：</li>
-</ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f optimized_test.log</span><br></pre></td></tr></table></figure>
-
 <h3 id="5-Mlucas-参数设置与执行-FFTs-测试"><a href="#5-Mlucas-参数设置与执行-FFTs-测试" class="headerlink" title="5. Mlucas 参数设置与执行 FFTs 测试"></a>5. <strong>Mlucas 参数设置与执行 FFTs 测试</strong></h3><p>5.1 <strong>获取系统的 CPU 信息</strong></p>
 <ul>
-<li>在执行测试之前，获取并了解测试机器的 CPU 配置情况。</li>
+<li>在执行测试之前，获取并了解测试机器的 CPU 配置情况。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lscpu</span><br></pre></td></tr></table></figure></li>
+<li>例如，输出结果可能为：   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CPU(s):              32</span><br><span class="line">Thread(s) per core:  1</span><br><span class="line">NUMA node0 CPU(s):   0-15</span><br><span class="line">NUMA node1 CPU(s):   16-31</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lscpu</span><br></pre></td></tr></table></figure>
-<ul>
-<li>例如，输出结果可能为：</li>
-</ul>
-   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CPU(s):              32</span><br><span class="line">Thread(s) per core:  1</span><br><span class="line">NUMA node0 CPU(s):   0-15</span><br><span class="line">NUMA node1 CPU(s):   16-31</span><br></pre></td></tr></table></figure>
-
 <p>5.2 <strong>Mlucas 常用参数介绍</strong></p>
 <ul>
 <li><code>-s</code>：指定自检或特定素性测试模式。常见值包括：<ul>
@@ -301,10 +273,8 @@
 </ul>
 <p>5.4 <strong>监控测试进度</strong></p>
 <ul>
-<li>Mlucas 运行过程中会生成日志文件，可以使用以下命令实时查看日志以监控测试进度和性能表现：</li>
+<li>Mlucas 运行过程中会生成日志文件，可以使用以下命令实时查看日志以监控测试进度和性能表现：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f mlucas.log</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f mlucas.log</span><br></pre></td></tr></table></figure>
-
 <p>5.5 <strong>常见优化建议</strong></p>
 <ul>
 <li><strong>调整 FFT 长度</strong>：根据硬件配置和测试目标，选择适合的 FFT 长度。较大的 FFT 长度通常适用于处理更大的数字，但可能会增加计算时间。</li>
@@ -332,21 +302,16 @@
 </ul>
 <p>7.3 <strong>执行脚本</strong></p>
 <ul>
-<li>在终端中执行脚本，传入所需的 FFT 模式（如 <code>small</code> 或 <code>large</code>）。</li>
+<li>在终端中执行脚本，传入所需的 FFT 模式（如 <code>small</code> 或 <code>large</code>）。   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash run_mlucas.sh small</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash run_mlucas.sh small</span><br></pre></td></tr></table></figure>
-
 <p>7.4 <strong>监控日志</strong></p>
 <ul>
-<li>脚本将测试日志记录在每个核心组的 <code>test.log</code> 文件中，可以通过以下命令实时监控日志：</li>
+<li>脚本将测试日志记录在每个核心组的 <code>test.log</code> 文件中，可以通过以下命令实时监控日志：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /Mlucas/runset/run0/test0.<span class="built_in">log</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /Mlucas/runset/run0/test0.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
-
 <p>7.5 <strong>停止测试</strong></p>
 <ul>
-<li>如果需要终止测试，可以使用以下命令终止所有正在运行的 Mlucas 实例：</li>
+<li>如果需要终止测试，可以使用以下命令终止所有正在运行的 Mlucas 实例：   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -x Mlucas</span><br></pre></td></tr></table></figure></li>
 </ul>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -x Mlucas</span><br></pre></td></tr></table></figure>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h2><ul>
 <li><a target="_blank" rel="noopener" href="https://www.mersenneforum.org/mayer/README.html">Mlucas README</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/primesearch/Mlucas">Mlucas GitHub Repository</a></li>

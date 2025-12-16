@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
+    <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
     
     <lastmod>2025-12-16</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
+    <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
     
     <lastmod>2025-12-16</lastmod>
     
@@ -735,6 +735,13 @@
   </url>
   
   <url>
+    <loc>https://blog.franktest.net/tags/template/</loc>
+    <lastmod>2025-12-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.franktest.net/tags/Proxy/</loc>
     <lastmod>2025-12-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -743,13 +750,6 @@
   
   <url>
     <loc>https://blog.franktest.net/tags/RDP/</loc>
-    <lastmod>2025-12-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.franktest.net/tags/template/</loc>
     <lastmod>2025-12-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
