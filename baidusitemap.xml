@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.franktest.net/2026/01/22/network_optical_vs_electrical_port/</loc>
+    <lastmod>+022026-01-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2026/01/22/pcb_vs_pcba/</loc>
+    <lastmod>+022026-01-22</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2026/01/22/rdimm_vs_3ds_rdimm/</loc>
+    <lastmod>+022026-01-22</lastmod>
+  </url>
+  <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2025-12-16</lastmod>
+    <lastmod>2026-01-23</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2025-12-16</lastmod>
+    <lastmod>2026-01-23</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2025/10/30/download_sharepoint_stream_video/</loc>
@@ -109,15 +121,15 @@
     <lastmod>2024-11-07</lastmod>
   </url>
   <url>
+    <loc>https://blog.franktest.net/2024/10/31/nvidia_switch_quick_start/</loc>
+    <lastmod>2024-10-31</lastmod>
+  </url>
+  <url>
     <loc>https://blog.franktest.net/2024/10/31/pcie_aer/</loc>
     <lastmod>2024-10-31</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/10/31/proxy_server_setup/</loc>
-    <lastmod>2024-10-31</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.franktest.net/2024/10/31/nvidia_switch_quick_start/</loc>
     <lastmod>2024-10-31</lastmod>
   </url>
   <url>
@@ -169,11 +181,11 @@
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/stress_test/</loc>
+    <loc>https://blog.franktest.net/2024/07/03/stressapptest_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/07/03/stressapptest_test/</loc>
+    <loc>https://blog.franktest.net/2024/08/14/stress_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>

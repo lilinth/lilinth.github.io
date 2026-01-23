@@ -4,6 +4,83 @@
   
     
     <entry>
+      <title>光口 vs 电口：区别与联系</title>
+      <link href="/2026/01/22/network_optical_vs_electrical_port/"/>
+      <url>/2026/01/22/network_optical_vs_electrical_port/</url>
+      
+        <content type="html"><![CDATA[<h1 id="光口-vs-电口：区别与联系"><a href="#光口-vs-电口：区别与联系" class="headerlink" title="光口 vs 电口：区别与联系"></a>光口 vs 电口：区别与联系</h1><p>光口和电口本质上都是<strong>网络接口</strong>，区别主要在<strong>传输介质、距离、速率、抗干扰能力和使用场景</strong>上.</p><hr><h2 id="一、最核心的区别"><a href="#一、最核心的区别" class="headerlink" title="一、最核心的区别"></a>一、最核心的区别</h2><table><thead><tr><th>对比项</th><th>光口（光纤口）</th><th>电口（RJ45 网口）</th></tr></thead><tbody><tr><td>传输介质</td><td>光纤（玻璃&#x2F;塑料）</td><td>网线（双绞线）</td></tr><tr><td>传输信号</td><td>光信号</td><td>电信号</td></tr><tr><td>常见接口</td><td>SFP &#x2F; SFP+ &#x2F; QSFP</td><td>RJ45</td></tr><tr><td>是否需要模块</td><td>需要光模块</td><td>不需要</td></tr><tr><td>抗干扰能力</td><td><strong>极强</strong></td><td>一般</td></tr><tr><td>成本</td><td>较高</td><td>低</td></tr></tbody></table><hr><h2 id="二、传输距离"><a href="#二、传输距离" class="headerlink" title="二、传输距离"></a>二、传输距离</h2><p>这是两者<strong>差距最大</strong>的地方：</p><h3 id="电口"><a href="#电口" class="headerlink" title="电口"></a>电口</h3><ul><li>常见：<strong>100 米以内</strong></li><li>超过 100 米基本不稳定</li><li>受线材质量影响很大（超五类、六类）</li></ul><h3 id="光口"><a href="#光口" class="headerlink" title="光口"></a>光口</h3><ul><li><p>几百米到几十公里不等</p></li><li><p>取决于光模块：</p><ul><li>多模：300m &#x2F; 550m</li><li>单模：10km &#x2F; 20km &#x2F; 40km &#x2F; 80km</li></ul></li></ul><p>👉 <strong>长距离必选光口</strong></p><hr><h2 id="三、速率对比"><a href="#三、速率对比" class="headerlink" title="三、速率对比"></a>三、速率对比</h2><table><thead><tr><th>速率</th><th>电口</th><th>光口</th></tr></thead><tbody><tr><td>1G</td><td>✔ 常见</td><td>✔ 常见</td></tr><tr><td>10G</td><td>✔（Cat6A 起）</td><td>✔ 非常常见</td></tr><tr><td>25G &#x2F; 40G</td><td>✘ 基本不支持</td><td>✔</td></tr><tr><td>100G+</td><td>✘</td><td>✔</td></tr></tbody></table><p>👉 <strong>高速网络几乎全是光口</strong></p><hr><h2 id="四、稳定性与抗干扰"><a href="#四、稳定性与抗干扰" class="headerlink" title="四、稳定性与抗干扰"></a>四、稳定性与抗干扰</h2><h3 id="光口-1"><a href="#光口-1" class="headerlink" title="光口"></a>光口</h3><ul><li><p>不怕电磁干扰</p></li><li><p>不受雷击、电压波动影响</p></li><li><p>适合：</p><ul><li>机房</li><li>工厂</li><li>室外</li><li>跨楼宇</li></ul></li></ul><h3 id="电口-1"><a href="#电口-1" class="headerlink" title="电口"></a>电口</h3><ul><li>容易受干扰</li><li>雷击风险更高</li><li>接地不良容易出问题</li></ul><hr><h2 id="五、部署和维护"><a href="#五、部署和维护" class="headerlink" title="五、部署和维护"></a>五、部署和维护</h2><h3 id="电口优点"><a href="#电口优点" class="headerlink" title="电口优点"></a>电口优点</h3><ul><li>即插即用</li><li>成本低</li><li>家用 &#x2F; 小型办公最方便</li></ul><h3 id="光口缺点"><a href="#光口缺点" class="headerlink" title="光口缺点"></a>光口缺点</h3><ul><li>需要光模块</li><li>需要光纤施工</li><li>对弯折、清洁有要求</li></ul><hr><h2 id="六、典型使用场景"><a href="#六、典型使用场景" class="headerlink" title="六、典型使用场景"></a>六、典型使用场景</h2><h3 id="用电口的场景"><a href="#用电口的场景" class="headerlink" title="用电口的场景"></a>用电口的场景</h3><ul><li>家庭宽带</li><li>办公电脑</li><li>普通服务器管理口</li><li>距离短、速率要求不高</li></ul><h3 id="用光口的场景"><a href="#用光口的场景" class="headerlink" title="用光口的场景"></a>用光口的场景</h3><ul><li>交换机之间互联</li><li>服务器上行</li><li>核心&#x2F;汇聚层网络</li><li>跨楼、跨园区</li><li>数据中心</li></ul><hr><h2 id="七、常见问题"><a href="#七、常见问题" class="headerlink" title="七、常见问题"></a>七、常见问题</h2><h3 id="光口可以直接接电口吗？"><a href="#光口可以直接接电口吗？" class="headerlink" title="光口可以直接接电口吗？"></a>光口可以直接接电口吗？</h3><p>不可以。光口和电口使用不同的传输介质和信号类型，必须通过<strong>光电转换设备</strong>（如媒体转换器）才能互联。</p><h3 id="电口专指RJ45？"><a href="#电口专指RJ45？" class="headerlink" title="电口专指RJ45？"></a>电口专指RJ45？</h3><p>在网络设备语境里：是的，基本上就是指 RJ45。<br>行业里的默认约定<br>在交换机、服务器、网卡、方案文档里：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">电口 = RJ45 铜缆以太网口</span><br><span class="line">光口 = SFP / QSFP 等可插模块口</span><br></pre></td></tr></table></figure><p>这是一个约定俗成的说法。</p><h3 id="DAC是电口吗？"><a href="#DAC是电口吗？" class="headerlink" title="DAC是电口吗？"></a>DAC是电口吗？</h3><p>不是。<br>DAC 不算电口，也不算光口，它是直连铜缆（Direct Attach Copper），属于一种特殊的高速互联方式。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DAC = 插光口的铜线，不是 RJ45 电口</span><br></pre></td></tr></table></figure><p>DAC 到底是什么？</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">接口形态：SFP+ / QSFP+ / QSFP28</span><br><span class="line"></span><br><span class="line">传输介质：铜线</span><br><span class="line"></span><br><span class="line">信号类型：高速差分电信号</span><br><span class="line"></span><br><span class="line">是否需要模块：不需要（线缆和模块是一体的）</span><br></pre></td></tr></table></figure><p>👉 物理上插在“光口”里，但走的是电信号</p><h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><blockquote><p><strong>电口 &#x3D; 便宜、方便、近距离</strong></p><p><strong>光口 &#x3D; 高速、稳定、远距离</strong></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hardware </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hardware </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PCB vs PCBA：区别与联系</title>
+      <link href="/2026/01/22/pcb_vs_pcba/"/>
+      <url>/2026/01/22/pcb_vs_pcba/</url>
+      
+        <content type="html"><![CDATA[<h1 id="PCB-vs-PCBA：区别与联系"><a href="#PCB-vs-PCBA：区别与联系" class="headerlink" title="PCB vs PCBA：区别与联系"></a>PCB vs PCBA：区别与联系</h1><p>在电子硬件里，<strong>PCB</strong> 和 <strong>PCBA</strong> 是两个非常常见、但含义不同的概念，可以理解为“<strong>板子</strong>”和“<strong>装好东西的板子</strong>”。</p><hr><h2 id="一、PCB（Printed-Circuit-Board，印刷电路板）"><a href="#一、PCB（Printed-Circuit-Board，印刷电路板）" class="headerlink" title="一、PCB（Printed Circuit Board，印刷电路板）"></a>一、PCB（Printed Circuit Board，印刷电路板）</h2><p><strong>是什么：</strong><br>👉 <strong>裸板</strong>，只有电路，没有电子元器件。</p><p><strong>包含的内容：</strong></p><ul><li>基材（FR-4、铝基板等）</li><li>铜箔走线</li><li>焊盘、过孔</li><li>阻焊层、丝印层</li></ul><p><strong>不包含：</strong></p><ul><li>电阻、电容、芯片、接口等元器件</li></ul><p><strong>用途：</strong></p><ul><li>作为电子元器件的载体</li><li>提供电气连接和机械支撑</li></ul><p>📌 可以理解为：</p><blockquote><p><strong>只有“路”，没有“人”和“车”的城市地图</strong></p></blockquote><hr><h2 id="二、PCBA（Printed-Circuit-Board-Assembly，电路板组装）"><a href="#二、PCBA（Printed-Circuit-Board-Assembly，电路板组装）" class="headerlink" title="二、PCBA（Printed Circuit Board Assembly，电路板组装）"></a>二、PCBA（Printed Circuit Board Assembly，电路板组装）</h2><p><strong>是什么：</strong><br>👉 <strong>已经焊接并装配好元器件的 PCB</strong></p><p><strong>在 PCB 的基础上多了：</strong></p><ul><li>电阻、电容、电感</li><li>IC 芯片（CPU、MCU、存储）</li><li>接插件（USB、RJ45、PCIe）</li><li>其他功能器件</li></ul><p><strong>生产过程一般包括：</strong></p><ol><li>PCB 制板</li><li>SMT 贴片（回流焊）</li><li>DIP 插件（波峰焊&#x2F;手焊）</li><li>测试（ICT &#x2F; FCT &#x2F; 功能测试）</li></ol><p>📌 可以理解为：</p><blockquote><p><strong>城市里已经有人、有车、能正常运转了</strong></p></blockquote><hr><h2 id="三、PCB-vs-PCBA-对比"><a href="#三、PCB-vs-PCBA-对比" class="headerlink" title="三、PCB vs PCBA 对比"></a>三、PCB vs PCBA 对比</h2><table><thead><tr><th>项目</th><th>PCB</th><th>PCBA</th></tr></thead><tbody><tr><td>是否有元器件</td><td>❌ 没有</td><td>✅ 有</td></tr><tr><td>是否可直接工作</td><td>❌ 不行</td><td>✅ 可以</td></tr><tr><td>所处阶段</td><td>设计&#x2F;制造</td><td>装配完成</td></tr><tr><td>成本</td><td>较低</td><td>更高</td></tr></tbody></table><hr><h2 id="四、实际工作中怎么用这两个词"><a href="#四、实际工作中怎么用这两个词" class="headerlink" title="四、实际工作中怎么用这两个词"></a>四、实际工作中怎么用这两个词</h2><ul><li><strong>买板子</strong><br>👉 “我们先下单做一批 <strong>PCB</strong>”</li><li><strong>调试&#x2F;测试&#x2F;交付</strong><br>👉 “这批 <strong>PCBA</strong> 已经可以上电测试了”</li><li><strong>质量问题</strong><br>👉 PCB 问题：断线、短路、层压问题<br>👉 PCBA 问题：虚焊、少件、错件、偏移</li></ul><hr><h2 id="五、一句话记忆法"><a href="#五、一句话记忆法" class="headerlink" title="五、一句话记忆法"></a>五、一句话记忆法</h2><ul><li><strong>PCB &#x3D; 空板</strong></li><li><strong>PCBA &#x3D; 装好料、能用的板</strong></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hardware </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hardware </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>RDIMM vs 3DS RDIMM：区别与联系</title>
+      <link href="/2026/01/22/rdimm_vs_3ds_rdimm/"/>
+      <url>/2026/01/22/rdimm_vs_3ds_rdimm/</url>
+      
+        <content type="html"><![CDATA[<h1 id="RDIMM-vs-3DS-RDIMM：区别与联系"><a href="#RDIMM-vs-3DS-RDIMM：区别与联系" class="headerlink" title="RDIMM vs 3DS RDIMM：区别与联系"></a>RDIMM vs 3DS RDIMM：区别与联系</h1><hr><h2 id="一、RDIMM（Registered-DIMM）"><a href="#一、RDIMM（Registered-DIMM）" class="headerlink" title="一、RDIMM（Registered DIMM）"></a>一、RDIMM（Registered DIMM）</h2><p><strong>核心特点</strong></p><ul><li>带 <strong>寄存器（Register &#x2F; Buffer）</strong></li><li>CPU 看到的是“寄存器”，不是直接连到 DRAM 颗粒</li><li>可以 <strong>降低内存控制器负载</strong>，提升稳定性</li></ul><p><strong>优点</strong></p><ul><li>支持更大容量（相对 UDIMM）</li><li>稳定性好，适合服务器 &#x2F; 工作站</li><li>成本相对 3DS RDIMM 低</li></ul><p><strong>缺点</strong></p><ul><li>延迟比 UDIMM 略高</li><li>单条容量有限（常见 16GB &#x2F; 32GB &#x2F; 64GB）</li></ul><p><strong>典型应用</strong></p><ul><li>普通服务器</li><li>数据库、中小规模虚拟化</li><li>企业级应用</li></ul><hr><h2 id="二、3DS-RDIMM（3D-Stacked-RDIMM）"><a href="#二、3DS-RDIMM（3D-Stacked-RDIMM）" class="headerlink" title="二、3DS RDIMM（3D Stacked RDIMM）"></a>二、3DS RDIMM（3D Stacked RDIMM）</h2><p><strong>3DS &#x3D; 三维堆叠（3D Stacking）</strong></p><p><strong>核心特点</strong></p><ul><li>在 <strong>一颗 DRAM 封装里堆叠多层 DRAM Die</strong></li><li>通过 TSV（硅通孔）技术连接</li><li>外部看起来“Rank 数少”，但<strong>实际容量非常大</strong></li></ul><p><strong>优点</strong></p><ul><li><strong>单条容量极大</strong>（64GB &#x2F; 128GB &#x2F; 256GB 甚至更高）</li><li>在不增加内存通道数的情况下提升总内存</li><li>对 CPU 内存控制器更友好（表面 rank 更少）</li></ul><p><strong>缺点</strong></p><ul><li>价格明显更高</li><li>对 <strong>主板和 CPU 支持要求严格</strong></li><li>功耗和散热要求更高</li></ul><p><strong>典型应用</strong></p><ul><li><p>内存密集型场景</p><ul><li>大规模虚拟化</li><li>SAP HANA</li><li>内存数据库</li><li>AI &#x2F; 大数据分析</li></ul></li></ul><hr><h2 id="三、核心差异对比"><a href="#三、核心差异对比" class="headerlink" title="三、核心差异对比"></a>三、核心差异对比</h2><table><thead><tr><th>项目</th><th>RDIMM</th><th>3DS RDIMM</th></tr></thead><tbody><tr><td>是否带寄存器</td><td>✅</td><td>✅</td></tr><tr><td>DRAM 组织方式</td><td>平面</td><td><strong>3D 堆叠</strong></td></tr><tr><td>单条容量</td><td>中等</td><td><strong>极大</strong></td></tr><tr><td>Rank 数</td><td>真实 Rank</td><td><strong>逻辑 Rank 少，物理 Die 多</strong></td></tr><tr><td>成本</td><td>较低</td><td><strong>高</strong></td></tr><tr><td>兼容性</td><td>好</td><td><strong>依赖平台支持</strong></td></tr></tbody></table><hr><h2 id="四、选型建议"><a href="#四、选型建议" class="headerlink" title="四、选型建议"></a>四、选型建议</h2><p><strong>选 RDIMM，如果：</strong></p><ul><li>单机内存 ≤ 512GB &#x2F; 1TB</li><li>追求性价比</li><li>普通服务器用途</li></ul><p><strong>选 3DS RDIMM，如果：</strong></p><ul><li>单机内存要上 <strong>1TB+</strong></li><li>CPU 插槽 &#x2F; 内存通道数量受限</li><li>明确工作负载是内存瓶颈</li></ul><hr><h2 id="五、需要注意的点-⚠️"><a href="#五、需要注意的点-⚠️" class="headerlink" title="五、需要注意的点 ⚠️"></a>五、需要注意的点 ⚠️</h2><ol><li><strong>不是所有 CPU 都支持 3DS RDIMM</strong><br>👉 一定要查 CPU Memory QVL</li><li><strong>RDIMM 和 3DS RDIMM 不能混插</strong></li><li>BIOS 需要较新版本才能识别大容量 3DS</li><li>频率可能会被自动降档</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hardware </category>
+          
+          <category> Memory </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hardware </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>下载 SharePoint 上的 Stream 视频</title>
       <link href="/2025/10/30/download_sharepoint_stream_video/"/>
       <url>/2025/10/30/download_sharepoint_stream_video/</url>
@@ -514,37 +591,6 @@
     
     
     <entry>
-      <title>Intel和AMD服务器处理器路线图</title>
-      <link href="/2025/06/03/amd_intel_processor_roadmap/"/>
-      <url>/2025/06/03/amd_intel_processor_roadmap/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Intel和AMD服务器处理器路线图"><a href="#Intel和AMD服务器处理器路线图" class="headerlink" title="Intel和AMD服务器处理器路线图"></a>Intel和AMD服务器处理器路线图</h1><p>英特尔（Intel）和超威（AMD）服务器处理器路线图，涵盖2010年至2025年间的关键产品、技术演进以及对比分析。</p><hr><h2 id="🧩-英特尔-Xeon-处理器路线图（2010–2025）"><a href="#🧩-英特尔-Xeon-处理器路线图（2010–2025）" class="headerlink" title="🧩 英特尔 Xeon 处理器路线图（2010–2025）"></a>🧩 英特尔 Xeon 处理器路线图（2010–2025）</h2><table><thead><tr><th>年份</th><th>架构代号</th><th>制程工艺</th><th>核心数</th><th>插槽&#x2F;平台</th><th>主要特性</th><th></th></tr></thead><tbody><tr><td>2010</td><td>Westmere-EP</td><td>32nm</td><td>6</td><td>LGA 1366</td><td>基于 Nehalem 架构，支持超线程和 Turbo Boost 技术。</td><td></td></tr><tr><td>2011</td><td>Sandy Bridge-EP</td><td>32nm</td><td>8</td><td>LGA 2011</td><td>引入 AVX 指令集，提升浮点性能。</td><td></td></tr><tr><td>2012</td><td>Ivy Bridge-EP</td><td>22nm</td><td>12</td><td>LGA 2011</td><td>首次采用 3D 晶体管技术，提升能效比。</td><td></td></tr><tr><td>2014</td><td>Haswell-EP</td><td>22nm</td><td>18</td><td>LGA 2011-v3</td><td>引入 AVX2 指令集，提升整数和浮点性能。</td><td></td></tr><tr><td>2015</td><td>Broadwell-EP</td><td>14nm</td><td>22</td><td>LGA 2011-v3</td><td>制程升级至 14nm，提升能效和性能。</td><td></td></tr><tr><td>2017</td><td>Skylake-SP</td><td>14nm</td><td>28</td><td>LGA 3647</td><td>引入 Xeon Scalable 命名，支持 AVX-512 指令集。</td><td></td></tr><tr><td>2019</td><td>Cascade Lake-SP</td><td>14nm</td><td>28</td><td>LGA 3647</td><td>支持 Optane DC 持久内存，提升内存容量和带宽。</td><td></td></tr><tr><td>2020</td><td>Cooper Lake</td><td>14nm</td><td>28</td><td>LGA 4189</td><td>首次支持 bfloat16 指令，优化 AI 性能。</td><td></td></tr><tr><td>2021</td><td>Ice Lake-SP</td><td>10nm</td><td>40</td><td>LGA 4189</td><td>首次采用 10nm 制程，支持 PCIe 4.0 和 DDR4。</td><td></td></tr><tr><td>2022</td><td>Sapphire Rapids</td><td>Intel 7</td><td>60</td><td>LGA 4677</td><td>引入模块化设计，支持 DDR5 和 PCIe 5.0。</td><td></td></tr><tr><td>2023</td><td>Emerald Rapids</td><td>Intel 7</td><td>64</td><td>LGA 4677</td><td>增加 L3 缓存，提升能效比，兼容 LGA 4677 插槽。</td><td></td></tr><tr><td>2024</td><td>Sierra Forest (E-Core)</td><td>Intel 3</td><td>144–288</td><td>LGA 7529</td><td>首款纯 E-Core 设计，面向云计算，支持 DDR5 和 PCIe 5.0。</td><td></td></tr><tr><td>2024</td><td>Granite Rapids (P-Core)</td><td>Intel 3</td><td>128</td><td>LGA 7529</td><td>基于 P-Core 设计，面向高性能计算，支持 DDR5-8800。</td><td></td></tr><tr><td>2025</td><td>Clearwater Forest (E-Core)</td><td>Intel 18A</td><td>待定</td><td>LGA 7529</td><td>采用 RibbonFET 晶体管技术，进一步提升能效和核心密度。</td><td></td></tr><tr><td>2025</td><td>Diamond Rapids (P-Core)</td><td>Intel 18A</td><td>待定</td><td>LGA 9324</td><td>预计采用 Panther Cove-X 架构，支持 APX 指令集，提升 IPC 性能。</td><td></td></tr></tbody></table><hr><h2 id="🧩-AMD-EPYC-处理器路线图（2010–2025）"><a href="#🧩-AMD-EPYC-处理器路线图（2010–2025）" class="headerlink" title="🧩 AMD EPYC 处理器路线图（2010–2025）"></a>🧩 AMD EPYC 处理器路线图（2010–2025）</h2><h3 id="2010-2016"><a href="#2010-2016" class="headerlink" title="2010-2016"></a>2010-2016</h3><hr><table><thead><tr><th>年份</th><th>架构代号</th><th>制程</th><th>核心数</th><th>主要特性</th></tr></thead><tbody><tr><td>2010</td><td>Magny-Cours</td><td>45nm</td><td>8–12</td><td>基于 K10 架构，支持 DDR3 内存，采用 Socket G34 插槽。</td></tr><tr><td>2011</td><td>Interlagos</td><td>32nm</td><td>8–16</td><td>首次引入 Bulldozer 架构，支持 AVX 指令集，提升浮点性能。</td></tr><tr><td>2012</td><td>Abu Dhabi</td><td>32nm</td><td>8–16</td><td>基于 Piledriver 架构，优化能效比，提升时钟频率。</td></tr><tr><td>2014</td><td>Warsaw</td><td>32nm</td><td>8–16</td><td>针对 2P&#x2F;4P 服务器优化，提升性能和能效。</td></tr><tr><td>2016</td><td>Opteron A1100</td><td>28nm</td><td>4–8</td><td>基于 ARM Cortex-A57 架构，首款 ARM 架构的 Opteron 处理器。</td></tr></tbody></table><h3 id="2017-2025"><a href="#2017-2025" class="headerlink" title="2017-2025"></a>2017-2025</h3><hr><table><thead><tr><th>年份</th><th>架构代号</th><th>制程工艺</th><th>核心数</th><th>插槽&#x2F;平台</th><th>主要特性</th><th></th></tr></thead><tbody><tr><td>2017</td><td>Naples</td><td>14nm</td><td>32</td><td>SP3</td><td>首款 EPYC 处理器，基于 Zen 架构，支持 8 通道 DDR4 内存和 128 条 PCIe 3.0 通道。</td><td></td></tr><tr><td>2019</td><td>Rome</td><td>7nm</td><td>64</td><td>SP3</td><td>基于 Zen 2 架构，采用 Chiplet 设计，支持 PCIe 4.0，提升内存带宽和 I&#x2F;O 性能。</td><td></td></tr><tr><td>2021</td><td>Milan</td><td>7nm</td><td>64</td><td>SP3</td><td>基于 Zen 3 架构，提升每核心性能，优化缓存架构。</td><td></td></tr><tr><td>2022</td><td>Milan-X</td><td>7nm</td><td>64</td><td>SP3</td><td>在 Milan 基础上引入 3D V-Cache 技术，L3 缓存高达 768MB，提升特定工作负载性能。</td><td></td></tr><tr><td>2022</td><td>Genoa</td><td>5nm</td><td>96</td><td>SP5</td><td>基于 Zen 4 架构，支持 DDR5 内存和 PCIe 5.0，采用 SP5 插槽。</td><td></td></tr><tr><td>2023</td><td>Bergamo (Zen 4c)</td><td>5nm</td><td>128</td><td>SP5</td><td>基于 Zen 4c 架构，针对云计算优化，提升核心密度和能效比。</td><td></td></tr><tr><td>2023</td><td>Siena</td><td>5nm</td><td>16–64</td><td>SP6</td><td>面向边缘计算和电信市场，优化功耗和成本，采用 SP6 插槽。</td><td></td></tr><tr><td>2024</td><td>Turin</td><td>4nm&#x2F;3nm</td><td>192</td><td>SP5</td><td>基于 Zen 5 架构，支持 DDR5 和 PCIe 5.0，进一步提升性能和能效。</td><td></td></tr><tr><td>2025</td><td>Venice (Zen 6&#x2F;6c)</td><td>3nm&#x2F;2nm</td><td>96–256</td><td>SP7&#x2F;SP8</td><td>基于 Zen 6 架构，采用先进封装技术，支持更高核心数和缓存容量，预计在 2026 年发布。</td><td></td></tr></tbody></table><hr><h2 id="⚔️-技术对比分析（Intel-vs-AMD）"><a href="#⚔️-技术对比分析（Intel-vs-AMD）" class="headerlink" title="⚔️ 技术对比分析（Intel vs AMD）"></a>⚔️ 技术对比分析（Intel vs AMD）</h2><h3 id="核心数与架构"><a href="#核心数与架构" class="headerlink" title="核心数与架构"></a>核心数与架构</h3><ul><li><p><strong>Intel</strong>：通过引入 E-Core（如 Sierra Forest）和 P-Core（如 Granite Rapids）架构，实现了核心数的显著提升，Sierra Forest 高达 288 核心，Granite Rapids 达到 128 核心。</p></li><li><p><strong>AMD</strong>：采用 Chiplet 设计和 Zen 架构的持续优化，核心数从 Naples 的 32 核心提升至 Venice 的最高 256 核心，特别是在 Bergamo 和 Turin 中展现出高核心密度的优势。</p></li></ul><h3 id="制程工艺"><a href="#制程工艺" class="headerlink" title="制程工艺"></a>制程工艺</h3><ul><li><p><strong>Intel</strong>：从 32nm 逐步过渡到 Intel 18A 制程，计划在 2025 年的 Clearwater Forest 和 Diamond Rapids 中采用。</p></li><li><p><strong>AMD</strong>：依赖台积电（TSMC）的先进制程，从 14nm 过渡到 2nm，预计在 Venice 中采用，提升晶体管密度和能效比。</p></li></ul><h3 id="平台与内存支持"><a href="#平台与内存支持" class="headerlink" title="平台与内存支持"></a>平台与内存支持</h3><ul><li><p><strong>Intel</strong>：从 LGA 1366 过渡到 LGA 9324，支持 DDR5 内存和 PCIe 5.0&#x2F;5.0+，提升内存带宽和 I&#x2F;O 性能。</p></li><li><p><strong>AMD</strong>：从 SP3 过渡到 SP7&#x2F;SP8，支持 DDR5 内存和 PCIe 5.0，进一步提升内存带宽和 I&#x2F;O 性能。</p></li></ul><h3 id="能效与性能优化"><a href="#能效与性能优化" class="headerlink" title="能效与性能优化"></a>能效与性能优化</h3><ul><li><p><strong>Intel</strong>：通过引入 E-Core 架构（如 Sierra Forest）和先进制程，提升性能每瓦比，特别适用于云计算和高密度部署。</p></li><li><p><strong>AMD</strong>：通过 Zen 架构的持续优化和 3D V-Cache 技术，提升每核心性能和缓存容量，适用于高性能计算和数据密集型工作负载。</p></li></ul><hr><h2 id="📊-总结对比表"><a href="#📊-总结对比表" class="headerlink" title="📊 总结对比表"></a>📊 总结对比表</h2><table><thead><tr><th>项目</th><th>Intel Xeon 系列</th><th>AMD EPYC 系列</th><th></th></tr></thead><tbody><tr><td>架构</td><td>P-Core &#x2F; E-Core 分离设计</td><td>Zen 系列架构（Zen 至 Zen 6）</td><td></td></tr><tr><td>核心数范围</td><td>6 – 288</td><td>8 – 256</td><td></td></tr><tr><td>制程工艺</td><td>32nm → Intel 18A</td><td>14nm → TSMC 2nm</td><td></td></tr><tr><td>插槽平台</td><td>LGA 1366 → LGA 9324</td><td>SP3 → SP7&#x2F;SP8</td><td></td></tr><tr><td>内存支持</td><td>DDR3 → DDR5</td><td>DDR4 → DDR5</td><td></td></tr><tr><td>PCIe 支持</td><td>PCIe 3.0 → PCIe 5.0</td><td>PCIe 3.0 → PCIe 5.0</td><td></td></tr><tr><td>能效优化</td><td>引入 E-Core 架构，提升性能每瓦比</td><td>Zen 架构优化，采用 3D V-Cache 技术</td><td></td></tr><tr><td>代表产品</td><td>Sierra Forest, Granite Rapids</td><td>Bergamo, Turin, Venice</td><td></td></tr></tbody></table><hr>]]></content>
-      
-      
-      <categories>
-          
-          <category> Hardware </category>
-          
-          <category> CPU </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> CPU </tag>
-            
-            <tag> Intel </tag>
-            
-            <tag> AMD </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Windows PXE 自动化部署环境搭建</title>
       <link href="/2025/06/03/Windows_PXE_environment/"/>
       <url>/2025/06/03/Windows_PXE_environment/</url>
@@ -570,6 +616,37 @@
             <tag> PXE </tag>
             
             <tag> DHCP </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Intel和AMD服务器处理器路线图</title>
+      <link href="/2025/06/03/amd_intel_processor_roadmap/"/>
+      <url>/2025/06/03/amd_intel_processor_roadmap/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Intel和AMD服务器处理器路线图"><a href="#Intel和AMD服务器处理器路线图" class="headerlink" title="Intel和AMD服务器处理器路线图"></a>Intel和AMD服务器处理器路线图</h1><p>英特尔（Intel）和超威（AMD）服务器处理器路线图，涵盖2010年至2025年间的关键产品、技术演进以及对比分析。</p><hr><h2 id="🧩-英特尔-Xeon-处理器路线图（2010–2025）"><a href="#🧩-英特尔-Xeon-处理器路线图（2010–2025）" class="headerlink" title="🧩 英特尔 Xeon 处理器路线图（2010–2025）"></a>🧩 英特尔 Xeon 处理器路线图（2010–2025）</h2><table><thead><tr><th>年份</th><th>架构代号</th><th>制程工艺</th><th>核心数</th><th>插槽&#x2F;平台</th><th>主要特性</th><th></th></tr></thead><tbody><tr><td>2010</td><td>Westmere-EP</td><td>32nm</td><td>6</td><td>LGA 1366</td><td>基于 Nehalem 架构，支持超线程和 Turbo Boost 技术。</td><td></td></tr><tr><td>2011</td><td>Sandy Bridge-EP</td><td>32nm</td><td>8</td><td>LGA 2011</td><td>引入 AVX 指令集，提升浮点性能。</td><td></td></tr><tr><td>2012</td><td>Ivy Bridge-EP</td><td>22nm</td><td>12</td><td>LGA 2011</td><td>首次采用 3D 晶体管技术，提升能效比。</td><td></td></tr><tr><td>2014</td><td>Haswell-EP</td><td>22nm</td><td>18</td><td>LGA 2011-v3</td><td>引入 AVX2 指令集，提升整数和浮点性能。</td><td></td></tr><tr><td>2015</td><td>Broadwell-EP</td><td>14nm</td><td>22</td><td>LGA 2011-v3</td><td>制程升级至 14nm，提升能效和性能。</td><td></td></tr><tr><td>2017</td><td>Skylake-SP</td><td>14nm</td><td>28</td><td>LGA 3647</td><td>引入 Xeon Scalable 命名，支持 AVX-512 指令集。</td><td></td></tr><tr><td>2019</td><td>Cascade Lake-SP</td><td>14nm</td><td>28</td><td>LGA 3647</td><td>支持 Optane DC 持久内存，提升内存容量和带宽。</td><td></td></tr><tr><td>2020</td><td>Cooper Lake</td><td>14nm</td><td>28</td><td>LGA 4189</td><td>首次支持 bfloat16 指令，优化 AI 性能。</td><td></td></tr><tr><td>2021</td><td>Ice Lake-SP</td><td>10nm</td><td>40</td><td>LGA 4189</td><td>首次采用 10nm 制程，支持 PCIe 4.0 和 DDR4。</td><td></td></tr><tr><td>2022</td><td>Sapphire Rapids</td><td>Intel 7</td><td>60</td><td>LGA 4677</td><td>引入模块化设计，支持 DDR5 和 PCIe 5.0。</td><td></td></tr><tr><td>2023</td><td>Emerald Rapids</td><td>Intel 7</td><td>64</td><td>LGA 4677</td><td>增加 L3 缓存，提升能效比，兼容 LGA 4677 插槽。</td><td></td></tr><tr><td>2024</td><td>Sierra Forest (E-Core)</td><td>Intel 3</td><td>144–288</td><td>LGA 7529</td><td>首款纯 E-Core 设计，面向云计算，支持 DDR5 和 PCIe 5.0。</td><td></td></tr><tr><td>2024</td><td>Granite Rapids (P-Core)</td><td>Intel 3</td><td>128</td><td>LGA 7529</td><td>基于 P-Core 设计，面向高性能计算，支持 DDR5-8800。</td><td></td></tr><tr><td>2025</td><td>Clearwater Forest (E-Core)</td><td>Intel 18A</td><td>待定</td><td>LGA 7529</td><td>采用 RibbonFET 晶体管技术，进一步提升能效和核心密度。</td><td></td></tr><tr><td>2025</td><td>Diamond Rapids (P-Core)</td><td>Intel 18A</td><td>待定</td><td>LGA 9324</td><td>预计采用 Panther Cove-X 架构，支持 APX 指令集，提升 IPC 性能。</td><td></td></tr></tbody></table><hr><h2 id="🧩-AMD-EPYC-处理器路线图（2010–2025）"><a href="#🧩-AMD-EPYC-处理器路线图（2010–2025）" class="headerlink" title="🧩 AMD EPYC 处理器路线图（2010–2025）"></a>🧩 AMD EPYC 处理器路线图（2010–2025）</h2><h3 id="2010-2016"><a href="#2010-2016" class="headerlink" title="2010-2016"></a>2010-2016</h3><hr><table><thead><tr><th>年份</th><th>架构代号</th><th>制程</th><th>核心数</th><th>主要特性</th></tr></thead><tbody><tr><td>2010</td><td>Magny-Cours</td><td>45nm</td><td>8–12</td><td>基于 K10 架构，支持 DDR3 内存，采用 Socket G34 插槽。</td></tr><tr><td>2011</td><td>Interlagos</td><td>32nm</td><td>8–16</td><td>首次引入 Bulldozer 架构，支持 AVX 指令集，提升浮点性能。</td></tr><tr><td>2012</td><td>Abu Dhabi</td><td>32nm</td><td>8–16</td><td>基于 Piledriver 架构，优化能效比，提升时钟频率。</td></tr><tr><td>2014</td><td>Warsaw</td><td>32nm</td><td>8–16</td><td>针对 2P&#x2F;4P 服务器优化，提升性能和能效。</td></tr><tr><td>2016</td><td>Opteron A1100</td><td>28nm</td><td>4–8</td><td>基于 ARM Cortex-A57 架构，首款 ARM 架构的 Opteron 处理器。</td></tr></tbody></table><h3 id="2017-2025"><a href="#2017-2025" class="headerlink" title="2017-2025"></a>2017-2025</h3><hr><table><thead><tr><th>年份</th><th>架构代号</th><th>制程工艺</th><th>核心数</th><th>插槽&#x2F;平台</th><th>主要特性</th><th></th></tr></thead><tbody><tr><td>2017</td><td>Naples</td><td>14nm</td><td>32</td><td>SP3</td><td>首款 EPYC 处理器，基于 Zen 架构，支持 8 通道 DDR4 内存和 128 条 PCIe 3.0 通道。</td><td></td></tr><tr><td>2019</td><td>Rome</td><td>7nm</td><td>64</td><td>SP3</td><td>基于 Zen 2 架构，采用 Chiplet 设计，支持 PCIe 4.0，提升内存带宽和 I&#x2F;O 性能。</td><td></td></tr><tr><td>2021</td><td>Milan</td><td>7nm</td><td>64</td><td>SP3</td><td>基于 Zen 3 架构，提升每核心性能，优化缓存架构。</td><td></td></tr><tr><td>2022</td><td>Milan-X</td><td>7nm</td><td>64</td><td>SP3</td><td>在 Milan 基础上引入 3D V-Cache 技术，L3 缓存高达 768MB，提升特定工作负载性能。</td><td></td></tr><tr><td>2022</td><td>Genoa</td><td>5nm</td><td>96</td><td>SP5</td><td>基于 Zen 4 架构，支持 DDR5 内存和 PCIe 5.0，采用 SP5 插槽。</td><td></td></tr><tr><td>2023</td><td>Bergamo (Zen 4c)</td><td>5nm</td><td>128</td><td>SP5</td><td>基于 Zen 4c 架构，针对云计算优化，提升核心密度和能效比。</td><td></td></tr><tr><td>2023</td><td>Siena</td><td>5nm</td><td>16–64</td><td>SP6</td><td>面向边缘计算和电信市场，优化功耗和成本，采用 SP6 插槽。</td><td></td></tr><tr><td>2024</td><td>Turin</td><td>4nm&#x2F;3nm</td><td>192</td><td>SP5</td><td>基于 Zen 5 架构，支持 DDR5 和 PCIe 5.0，进一步提升性能和能效。</td><td></td></tr><tr><td>2025</td><td>Venice (Zen 6&#x2F;6c)</td><td>3nm&#x2F;2nm</td><td>96–256</td><td>SP7&#x2F;SP8</td><td>基于 Zen 6 架构，采用先进封装技术，支持更高核心数和缓存容量，预计在 2026 年发布。</td><td></td></tr></tbody></table><hr><h2 id="⚔️-技术对比分析（Intel-vs-AMD）"><a href="#⚔️-技术对比分析（Intel-vs-AMD）" class="headerlink" title="⚔️ 技术对比分析（Intel vs AMD）"></a>⚔️ 技术对比分析（Intel vs AMD）</h2><h3 id="核心数与架构"><a href="#核心数与架构" class="headerlink" title="核心数与架构"></a>核心数与架构</h3><ul><li><p><strong>Intel</strong>：通过引入 E-Core（如 Sierra Forest）和 P-Core（如 Granite Rapids）架构，实现了核心数的显著提升，Sierra Forest 高达 288 核心，Granite Rapids 达到 128 核心。</p></li><li><p><strong>AMD</strong>：采用 Chiplet 设计和 Zen 架构的持续优化，核心数从 Naples 的 32 核心提升至 Venice 的最高 256 核心，特别是在 Bergamo 和 Turin 中展现出高核心密度的优势。</p></li></ul><h3 id="制程工艺"><a href="#制程工艺" class="headerlink" title="制程工艺"></a>制程工艺</h3><ul><li><p><strong>Intel</strong>：从 32nm 逐步过渡到 Intel 18A 制程，计划在 2025 年的 Clearwater Forest 和 Diamond Rapids 中采用。</p></li><li><p><strong>AMD</strong>：依赖台积电（TSMC）的先进制程，从 14nm 过渡到 2nm，预计在 Venice 中采用，提升晶体管密度和能效比。</p></li></ul><h3 id="平台与内存支持"><a href="#平台与内存支持" class="headerlink" title="平台与内存支持"></a>平台与内存支持</h3><ul><li><p><strong>Intel</strong>：从 LGA 1366 过渡到 LGA 9324，支持 DDR5 内存和 PCIe 5.0&#x2F;5.0+，提升内存带宽和 I&#x2F;O 性能。</p></li><li><p><strong>AMD</strong>：从 SP3 过渡到 SP7&#x2F;SP8，支持 DDR5 内存和 PCIe 5.0，进一步提升内存带宽和 I&#x2F;O 性能。</p></li></ul><h3 id="能效与性能优化"><a href="#能效与性能优化" class="headerlink" title="能效与性能优化"></a>能效与性能优化</h3><ul><li><p><strong>Intel</strong>：通过引入 E-Core 架构（如 Sierra Forest）和先进制程，提升性能每瓦比，特别适用于云计算和高密度部署。</p></li><li><p><strong>AMD</strong>：通过 Zen 架构的持续优化和 3D V-Cache 技术，提升每核心性能和缓存容量，适用于高性能计算和数据密集型工作负载。</p></li></ul><hr><h2 id="📊-总结对比表"><a href="#📊-总结对比表" class="headerlink" title="📊 总结对比表"></a>📊 总结对比表</h2><table><thead><tr><th>项目</th><th>Intel Xeon 系列</th><th>AMD EPYC 系列</th><th></th></tr></thead><tbody><tr><td>架构</td><td>P-Core &#x2F; E-Core 分离设计</td><td>Zen 系列架构（Zen 至 Zen 6）</td><td></td></tr><tr><td>核心数范围</td><td>6 – 288</td><td>8 – 256</td><td></td></tr><tr><td>制程工艺</td><td>32nm → Intel 18A</td><td>14nm → TSMC 2nm</td><td></td></tr><tr><td>插槽平台</td><td>LGA 1366 → LGA 9324</td><td>SP3 → SP7&#x2F;SP8</td><td></td></tr><tr><td>内存支持</td><td>DDR3 → DDR5</td><td>DDR4 → DDR5</td><td></td></tr><tr><td>PCIe 支持</td><td>PCIe 3.0 → PCIe 5.0</td><td>PCIe 3.0 → PCIe 5.0</td><td></td></tr><tr><td>能效优化</td><td>引入 E-Core 架构，提升性能每瓦比</td><td>Zen 架构优化，采用 3D V-Cache 技术</td><td></td></tr><tr><td>代表产品</td><td>Sierra Forest, Granite Rapids</td><td>Bergamo, Turin, Venice</td><td></td></tr></tbody></table><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hardware </category>
+          
+          <category> CPU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CPU </tag>
+            
+            <tag> Intel </tag>
+            
+            <tag> AMD </tag>
             
         </tags>
       
@@ -821,6 +898,41 @@
     
     
     <entry>
+      <title>NVIDIA 交换机快速配置 - Cumulus Linux</title>
+      <link href="/2024/10/31/nvidia_switch_quick_start/"/>
+      <url>/2024/10/31/nvidia_switch_quick_start/</url>
+      
+        <content type="html"><![CDATA[<h1 id="NVIDIA-交换机快速配置-Cumulus-Linux"><a href="#NVIDIA-交换机快速配置-Cumulus-Linux" class="headerlink" title="NVIDIA 交换机快速配置 - Cumulus Linux"></a>NVIDIA 交换机快速配置 - Cumulus Linux</h1><ol><li><p><strong>设置接口到桥接域</strong>：</p><ul><li>查看端口</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Brctl show</span><br></pre></td></tr></table></figure><ul><li>查看交接机端口</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net show interface all</span><br></pre></td></tr></table></figure><ul><li>将接口 <code>swp1</code> 到 <code>swp3</code> 添加到桥接域 <code>br_default</code> 中。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> interface swp1-3 bridge domain br_default</span><br></pre></td></tr></table></figure></li><li><p><strong>设置桥接域中的VLAN</strong>：</p><ul><li>为桥接域 <code>br_default</code> 配置 VLAN 10 和 VLAN 20。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> bridge domain br_default vlan 10,20</span><br></pre></td></tr></table></figure></li><li><p><strong>设置无标签VLAN（untagged VLAN）</strong>：</p><ul><li>将 VLAN 1 设为无标签 VLAN，适用于默认VLAN不打标签的情况。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> bridge domain br_default untagged 1</span><br></pre></td></tr></table></figure></li><li><p><strong>为单个接口设置VLAN</strong>：</p><ul><li>将接口 <code>swp3</code> 添加到桥接域 <code>br_default</code> 中，并指定为 VLAN 20。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> interface swp3 bridge domain br_default vlan 20</span><br></pre></td></tr></table></figure></li><li><p><strong>应用并保存配置</strong>：</p><ul><li>应用以上配置，确保配置生效。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nv config apply</span><br><span class="line">nv config save</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hardware </category>
+          
+          <category> Network </category>
+          
+          <category> Switch </category>
+          
+          <category> Configuration </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> CumulusLinux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PCIe高级错误报告</title>
       <link href="/2024/10/31/pcie_aer/"/>
       <url>/2024/10/31/pcie_aer/</url>
@@ -881,41 +993,6 @@
             <tag> Proxy </tag>
             
             <tag> Squid </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>NVIDIA 交换机快速配置 - Cumulus Linux</title>
-      <link href="/2024/10/31/nvidia_switch_quick_start/"/>
-      <url>/2024/10/31/nvidia_switch_quick_start/</url>
-      
-        <content type="html"><![CDATA[<h1 id="NVIDIA-交换机快速配置-Cumulus-Linux"><a href="#NVIDIA-交换机快速配置-Cumulus-Linux" class="headerlink" title="NVIDIA 交换机快速配置 - Cumulus Linux"></a>NVIDIA 交换机快速配置 - Cumulus Linux</h1><ol><li><p><strong>设置接口到桥接域</strong>：</p><ul><li>查看端口</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Brctl show</span><br></pre></td></tr></table></figure><ul><li>查看交接机端口</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net show interface all</span><br></pre></td></tr></table></figure><ul><li>将接口 <code>swp1</code> 到 <code>swp3</code> 添加到桥接域 <code>br_default</code> 中。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> interface swp1-3 bridge domain br_default</span><br></pre></td></tr></table></figure></li><li><p><strong>设置桥接域中的VLAN</strong>：</p><ul><li>为桥接域 <code>br_default</code> 配置 VLAN 10 和 VLAN 20。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> bridge domain br_default vlan 10,20</span><br></pre></td></tr></table></figure></li><li><p><strong>设置无标签VLAN（untagged VLAN）</strong>：</p><ul><li>将 VLAN 1 设为无标签 VLAN，适用于默认VLAN不打标签的情况。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> bridge domain br_default untagged 1</span><br></pre></td></tr></table></figure></li><li><p><strong>为单个接口设置VLAN</strong>：</p><ul><li>将接口 <code>swp3</code> 添加到桥接域 <code>br_default</code> 中，并指定为 VLAN 20。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> interface swp3 bridge domain br_default vlan 20</span><br></pre></td></tr></table></figure></li><li><p><strong>应用并保存配置</strong>：</p><ul><li>应用以上配置，确保配置生效。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nv config apply</span><br><span class="line">nv config save</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> Hardware </category>
-          
-          <category> Network </category>
-          
-          <category> Switch </category>
-          
-          <category> Configuration </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> Tool </tag>
-            
-            <tag> CumulusLinux </tag>
             
         </tags>
       
