@@ -14,11 +14,15 @@
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2026-03-02</lastmod>
+    <lastmod>2026-03-03</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2026-03-02</lastmod>
+    <lastmod>2026-03-03</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2026/03/01/mlnx_cx6_cx7_driver_install/</loc>
+    <lastmod>2026-03-01</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2026/01/26/linux_disk_partition_operations/</loc>
@@ -39,10 +43,6 @@
   <url>
     <loc>https://blog.franktest.net/2025/10/22/powershell_module_installation/</loc>
     <lastmod>2025-10-22</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.franktest.net/2026/03/01/mlnx_cx6_cx7_driver_install/</loc>
-    <lastmod>2025-10-20</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2025/10/20/window_chipsec_installation_and_execution/</loc>
