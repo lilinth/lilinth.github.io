@@ -14,11 +14,15 @@
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-06-29</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
-    <lastmod>2026-04-13</lastmod>
+    <lastmod>2026-06-29</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2026/06/25/tpm_ca_verification/</loc>
+    <lastmod>2026-06-25</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2026/04/12/cx7_400g_network_sriov_test/</loc>
@@ -177,11 +181,15 @@
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
+    <loc>https://blog.franktest.net/2024/08/14/fio_test/</loc>
+    <lastmod>2024-08-14</lastmod>
+  </url>
+  <url>
     <loc>https://blog.franktest.net/2024/07/21/iperf_network_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/fio_test/</loc>
+    <loc>https://blog.franktest.net/2024/08/14/rhel9.4_arm_vm/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
@@ -193,19 +201,15 @@
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/stress_test/</loc>
-    <lastmod>2024-08-14</lastmod>
-  </url>
-  <url>
     <loc>https://blog.franktest.net/2024/08/14/stress-ng_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/07/03/stressapptest_test/</loc>
+    <loc>https://blog.franktest.net/2024/08/14/stress_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/rhel9.4_arm_vm/</loc>
+    <loc>https://blog.franktest.net/2024/07/03/stressapptest_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
