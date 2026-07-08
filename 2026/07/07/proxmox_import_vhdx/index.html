@@ -1,0 +1,444 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Proxmox 导入 VHDX | FrankTest</title><meta name="author" content="Frank"><meta name="copyright" content="Frank"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Proxmox 导入 VHDXProxmox 支持导入 VHDX，但无法在创建 VM 时直接选择 VHDX 格式，需先转换为 Proxmox 支持的磁盘格式（raw 或 qcow2）。  TL;DR  推荐直接用 qm importdisk，会根据存储类型自动转换（local → qcow2，local-lvm → raw）。 大文件转换务必加 -p 看进度。 来自 Hyper-V 的 VHDX">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Proxmox 导入 VHDX">
+<meta property="og:url" content="https://blog.franktest.net/2026/07/07/proxmox_import_vhdx/index.html">
+<meta property="og:site_name" content="FrankTest">
+<meta property="og:description" content="Proxmox 导入 VHDXProxmox 支持导入 VHDX，但无法在创建 VM 时直接选择 VHDX 格式，需先转换为 Proxmox 支持的磁盘格式（raw 或 qcow2）。  TL;DR  推荐直接用 qm importdisk，会根据存储类型自动转换（local → qcow2，local-lvm → raw）。 大文件转换务必加 -p 看进度。 来自 Hyper-V 的 VHDX">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp">
+<meta property="article:published_time" content="2026-07-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-07T16:00:00.000Z">
+<meta property="article:author" content="Frank">
+<meta property="article:tag" content="Hyper-V">
+<meta property="article:tag" content="Proxmox">
+<meta property="article:tag" content="VHDX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.franktest.net/2026/07/07/proxmox_import_vhdx/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.14.0-b3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>(()=>{
+      const saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+      
+      window.btf = {
+        saveToLocal: saveToLocal,
+        getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = url
+          script.async = true
+          script.onerror = reject
+          script.onload = script.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            script.onload = script.onreadystatechange = null
+            resolve()
+          }
+
+          Object.keys(attr).forEach(key => {
+            script.setAttribute(key, attr[key])
+          })
+
+          document.head.appendChild(script)
+        }),
+
+        getCSS: (url, id = false) => new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+          link.rel = 'stylesheet'
+          link.href = url
+          if (id) link.id = id
+          link.onerror = reject
+          link.onload = link.onreadystatechange = function() {
+            const loadState = this.readyState
+            if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+            link.onload = link.onreadystatechange = null
+            resolve()
+          }
+          document.head.appendChild(link)
+        }),
+
+        addGlobalFn: (key, fn, name = false, parent = window) => {
+          const pjaxEnable = false
+          if (!pjaxEnable && key.startsWith('pjax')) return
+
+          const globalFn = parent.globalFn || {}
+          const keyObj = globalFn[key] || {}
+    
+          if (name && keyObj[name]) return
+    
+          name = name || Object.keys(keyObj).length
+          keyObj[name] = fn
+          globalFn[key] = keyObj
+          parent.globalFn = globalFn
+        }
+      }
+    
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+      
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })()</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Proxmox 导入 VHDX',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-07-08 00:00:00'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">68</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">68</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="FrankTest"><span class="site-name">FrankTest</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Proxmox 导入 VHDX</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-07T16:00:00.000Z" title="发表于 2026-07-08 00:00:00">2026-07-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-07-07T16:00:00.000Z" title="更新于 2026-07-08 00:00:00">2026-07-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Software/">Software</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Software/Proxmox/">Proxmox</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Proxmox 导入 VHDX"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Proxmox-导入-VHDX"><a href="#Proxmox-导入-VHDX" class="headerlink" title="Proxmox 导入 VHDX"></a>Proxmox 导入 VHDX</h1><p>Proxmox 支持导入 <strong>VHDX</strong>，但无法在创建 VM 时直接选择 VHDX 格式，需先转换为 Proxmox 支持的磁盘格式（raw 或 qcow2）。</p>
+<blockquote>
+<p><strong>TL;DR</strong></p>
+<ul>
+<li>推荐直接用 <code>qm importdisk</code>，会根据存储类型自动转换（local → qcow2，local-lvm → raw）。</li>
+<li>大文件转换务必加 <code>-p</code> 看进度。</li>
+<li>来自 Hyper-V 的 VHDX 必须先删检查点、卸载 Hyper-V 集成服务，否则导入后启动会出问题。</li>
+</ul>
+</blockquote>
+<h2 id="导入前准备"><a href="#导入前准备" class="headerlink" title="导入前准备"></a>导入前准备</h2><p>导入前先确认 VHDX 状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查完整性（修复/报错后不要继续）</span></span><br><span class="line">qemu-img check windows.vhdx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看虚拟大小、格式、是否有检查点</span></span><br><span class="line">qemu-img info windows.vhdx</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果 VHDX 有 Hyper-V 检查点（checkpoint&#x2F;snapshot），必须先在 Hyper-V 里合并或删除，否则只会导入父盘。</p>
+</blockquote>
+<h2 id="方法一：qm-importdisk（推荐，PVE-7-8）"><a href="#方法一：qm-importdisk（推荐，PVE-7-8）" class="headerlink" title="方法一：qm importdisk（推荐，PVE 7&#x2F;8）"></a>方法一：qm importdisk（推荐，PVE 7&#x2F;8）</h2><p>假设：</p>
+<ul>
+<li>VM ID：<code>100</code></li>
+<li>VHDX 文件：<code>/root/windows.vhdx</code></li>
+<li>存储：<code>local-lvm</code></li>
+</ul>
+<h3 id="1-创建一个空-VM"><a href="#1-创建一个空-VM" class="headerlink" title="1. 创建一个空 VM"></a>1. 创建一个空 VM</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">qm create 100 \</span><br><span class="line">  --name Windows \</span><br><span class="line">  --memory 8192 \</span><br><span class="line">  --cores 4 \</span><br><span class="line">  --net0 virtio,bridge=vmbr0</span><br></pre></td></tr></table></figure>
+
+<p><strong>先不要创建硬盘。</strong></p>
+<h3 id="2-导入-VHDX"><a href="#2-导入-VHDX" class="headerlink" title="2. 导入 VHDX"></a>2. 导入 VHDX</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm importdisk 100 /root/windows.vhdx local-lvm</span><br></pre></td></tr></table></figure>
+
+<p><code>qm importdisk</code> 走的是 Proxmox Storage API，底层会调用 <code>qemu-img convert</code>，转换行为取决于目标存储：</p>
+<table>
+<thead>
+<tr>
+<th>目标存储</th>
+<th>目标格式</th>
+<th>文件位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>local</code></td>
+<td>qcow2</td>
+<td><code>/var/lib/vz/images/100/...</code></td>
+</tr>
+<tr>
+<td><code>local-lvm</code></td>
+<td>raw</td>
+<td><code>/dev/pve/vm-100-disk-0</code></td>
+</tr>
+<tr>
+<td>其他存储</td>
+<td>由插件决定</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p>完成后会提示类似：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Successfully imported disk as unused0</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-挂载硬盘"><a href="#3-挂载硬盘" class="headerlink" title="3. 挂载硬盘"></a>3. 挂载硬盘</h3><p>Web UI 路径：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">VM</span><br><span class="line"> └── Hardware</span><br><span class="line">      └── Unused Disk 0</span><br><span class="line">           → Edit</span><br><span class="line">           → Bus/Device：VirtIO SCSI/SATA</span><br></pre></td></tr></table></figure>
+
+<p>或者命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm config 100</span><br></pre></td></tr></table></figure>
+
+<p>看到类似：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unused0: local-lvm:vm-100-disk-0</span><br></pre></td></tr></table></figure>
+
+<p>挂载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qm <span class="built_in">set</span> 100 --scsi0 local-lvm:vm-100-disk-0</span><br><span class="line">qm <span class="built_in">set</span> 100 --scsihw virtio-scsi-single</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-设置启动盘"><a href="#4-设置启动盘" class="headerlink" title="4. 设置启动盘"></a>4. 设置启动盘</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm <span class="built_in">set</span> 100 --boot order=scsi0</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二：先转换再导入"><a href="#方法二：先转换再导入" class="headerlink" title="方法二：先转换再导入"></a>方法二：先转换再导入</h2><p>如果 <code>qm importdisk</code> 不支持你的 VHDX（例如某些老旧或损坏格式），可手动转换：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert -p -f vhdx -O qcow2 windows.vhdx windows.qcow2</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">qemu-img convert -p -f vhdx -O raw    windows.vhdx windows.raw</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>-p</code> 显示转换进度，大文件必备。</p>
+</blockquote>
+<p>再导入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm importdisk 100 windows.qcow2 local-lvm</span><br></pre></td></tr></table></figure>
+
+<h2 id="不同存储类型下的差异"><a href="#不同存储类型下的差异" class="headerlink" title="不同存储类型下的差异"></a>不同存储类型下的差异</h2><table>
+<thead>
+<tr>
+<th>存储</th>
+<th>格式</th>
+<th>导入命令</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>local</code>（目录）</td>
+<td>qcow2</td>
+<td><code>qm importdisk 100 windows.vhdx local</code></td>
+<td>生成 <code>vm-100-disk-0.qcow2</code></td>
+</tr>
+<tr>
+<td><code>local-lvm</code>（默认）</td>
+<td>raw</td>
+<td><code>qm importdisk 100 windows.vhdx local-lvm</code></td>
+<td>落在 <code>/dev/pve/vm-100-disk-0</code></td>
+</tr>
+<tr>
+<td><code>ceph</code> &#x2F; <code>nfs</code> 等</td>
+<td>由插件</td>
+<td><code>qm importdisk 100 windows.vhdx &lt;storage&gt;</code></td>
+<td>视存储后端而定</td>
+</tr>
+</tbody></table>
+<h2 id="Hyper-V-的-Windows-迁移注意事项"><a href="#Hyper-V-的-Windows-迁移注意事项" class="headerlink" title="Hyper-V 的 Windows 迁移注意事项"></a>Hyper-V 的 Windows 迁移注意事项</h2><p>这是最容易踩坑的部分。</p>
+<h3 id="0-导入前的清理"><a href="#0-导入前的清理" class="headerlink" title="0. 导入前的清理"></a>0. 导入前的清理</h3><ol>
+<li><strong>删除所有 Hyper-V 检查点</strong>，合并到父盘。</li>
+<li><strong>卸载 Hyper-V Integration Services</strong>（控制面板 → 程序 → 卸载），避免和 VirtIO 冲突。</li>
+<li><strong>关闭 Windows</strong>，导出 VHDX（不要导出运行中的虚机）。</li>
+</ol>
+<h3 id="1-选择-BIOS-模式"><a href="#1-选择-BIOS-模式" class="headerlink" title="1. 选择 BIOS 模式"></a>1. 选择 BIOS 模式</h3><table>
+<thead>
+<tr>
+<th>源虚机</th>
+<th>PVE BIOS</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Generation 2</strong></td>
+<td>OVMF (UEFI)</td>
+<td>Proxmox 会自动创建 EFI Disk</td>
+</tr>
+<tr>
+<td><strong>Generation 1</strong></td>
+<td>SeaBIOS</td>
+<td>传统 BIOS</td>
+</tr>
+</tbody></table>
+<p>如果源虚机是 GPT 分区 + UEFI，必须用 OVMF；否则启动会卡在 <code>No bootable device</code>。</p>
+<h3 id="2-磁盘控制器与-VirtIO-驱动"><a href="#2-磁盘控制器与-VirtIO-驱动" class="headerlink" title="2. 磁盘控制器与 VirtIO 驱动"></a>2. 磁盘控制器与 VirtIO 驱动</h3><p>初次启动<strong>务必先用 SATA 或 LSI 530&#x2F;501 SCSI</strong>，不要直接用 VirtIO。</p>
+<p>原因是 Windows 默认没有 VirtIO 磁盘&#x2F;网卡驱动，直接挂 VirtIO 会出现：</p>
+<ul>
+<li><code>INACCESSIBLE BOOT DEVICE</code> 蓝屏</li>
+<li>启动卡住看不到磁盘</li>
+</ul>
+<p><strong>正确流程</strong>：</p>
+<ol>
+<li>先用 IDE&#x2F;SATA 启动进入系统。</li>
+<li>挂载 VirtIO ISO：<code>virtio-win-XX.iso</code>（Proxmox 主机已有，也可下载最新版）。</li>
+<li>打开设备管理器，对带黄色叹号的设备「更新驱动」指向 ISO。</li>
+<li>重启关机 → 把磁盘改到 VirtIO SCSI &#x2F; 网卡改到 VirtIO。</li>
+<li>再次启动，享受性能提升。</li>
+</ol>
+<h3 id="3-Secure-Boot"><a href="#3-Secure-Boot" class="headerlink" title="3. Secure Boot"></a>3. Secure Boot</h3><p>如果启用 Secure Boot，需使用签名版的 VirtIO 驱动（<code>viostor</code> &#x2F; <code>NetKVM</code> 在较新版本已签名）。最省事的做法是先关闭 Secure Boot 装好驱动，再按需开启。</p>
+<h3 id="4-验证-VirtIO-驱动已安装"><a href="#4-验证-VirtIO-驱动已安装" class="headerlink" title="4. 验证 VirtIO 驱动已安装"></a>4. 验证 VirtIO 驱动已安装</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-WindowsDriver</span> <span class="literal">-Online</span> <span class="literal">-DriverClass</span> DiskDrive</span><br><span class="line"><span class="built_in">Get-WindowsDriver</span> <span class="literal">-Online</span> <span class="literal">-DriverClass</span> Net</span><br></pre></td></tr></table></figure>
+
+<p>应该能看到 <code>vioscsi</code>、<code>viostor</code>、<code>NetKVM</code>。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="qm-importdisk-报-I-O-error"><a href="#qm-importdisk-报-I-O-error" class="headerlink" title="qm importdisk 报 I&#x2F;O error"></a><code>qm importdisk</code> 报 I&#x2F;O error</h3><p>通常是 VHDX 文件损坏或带检查点。先 <code>qemu-img check windows.vhdx</code> 排查。</p>
+<h3 id="磁盘在-Web-UI-显示但启动找不到"><a href="#磁盘在-Web-UI-显示但启动找不到" class="headerlink" title="磁盘在 Web UI 显示但启动找不到"></a>磁盘在 Web UI 显示但启动找不到</h3><ul>
+<li>检查 BIOS 模式是否匹配（UEFI ↔ Legacy）。</li>
+<li><code>qm config 100</code> 看 <code>--boot order</code> 是否正确。</li>
+<li>OVMF 下确认 EFI Disk 已创建并被识别。</li>
+</ul>
+<h3 id="启动后蓝屏-INACCESSIBLE-BOOT-DEVICE"><a href="#启动后蓝屏-INACCESSIBLE-BOOT-DEVICE" class="headerlink" title="启动后蓝屏 INACCESSIBLE BOOT DEVICE"></a>启动后蓝屏 <code>INACCESSIBLE BOOT DEVICE</code></h3><p>未装 VirtIO 驱动却用了 VirtIO 磁盘控制器。切回 SATA&#x2F;IDE 启动再补驱动。</p>
+<h3 id="磁盘没出现在-Unused-Disk"><a href="#磁盘没出现在-Unused-Disk" class="headerlink" title="磁盘没出现在 Unused Disk"></a>磁盘没出现在 Unused Disk</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qm rescan 100</span><br></pre></td></tr></table></figure>
+
+<p>或在 Web UI 刷新。LVM-Thin 下偶尔需要 <code>lvscan</code>。</p>
+<h3 id="导入后磁盘空间「变大」"><a href="#导入后磁盘空间「变大」" class="headerlink" title="导入后磁盘空间「变大」"></a>导入后磁盘空间「变大」</h3><p>VHDX 是稀疏格式，导入到 LVM-Thin (raw) 后会按虚拟大小占用。如果空间紧张，导入后可在 Windows 内压缩卷或扩容到合适大小。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.franktest.net">Frank</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.franktest.net/2026/07/07/proxmox_import_vhdx/">https://blog.franktest.net/2026/07/07/proxmox_import_vhdx/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.franktest.net" target="_blank">FrankTest</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Proxmox/">Proxmox</a><a class="post-meta__tags" href="/tags/VHDX/">VHDX</a><a class="post-meta__tags" href="/tags/Hyper-V/">Hyper-V</a></div><div class="post_share"><div class="social-share" data-image="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2026/07/07/Schneider_apc_pdu_password_recovery/" title="Schneider APC PDU 密码重置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Schneider APC PDU 密码重置</div></div></a></div><div class="next-post pull-right"><a href="/2026/06/25/tpm_ca_verification/" title="TPM EK Certificate CA Validation"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TPM EK Certificate CA Validation</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://lilinth.github.io/picx-images-hosting/IMG_3119.7ljwz5axp7.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Frank</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">68</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">68</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">53</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Frank's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Proxmox-%E5%AF%BC%E5%85%A5-VHDX"><span class="toc-number">1.</span> <span class="toc-text">Proxmox 导入 VHDX</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E5%89%8D%E5%87%86%E5%A4%87"><span class="toc-number">1.1.</span> <span class="toc-text">导入前准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9Aqm-importdisk%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%8CPVE-7-8%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">方法一：qm importdisk（推荐，PVE 7&#x2F;8）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%A9%BA-VM"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 创建一个空 VM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AF%BC%E5%85%A5-VHDX"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 导入 VHDX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8C%82%E8%BD%BD%E7%A1%AC%E7%9B%98"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 挂载硬盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AE%BE%E7%BD%AE%E5%90%AF%E5%8A%A8%E7%9B%98"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. 设置启动盘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%85%88%E8%BD%AC%E6%8D%A2%E5%86%8D%E5%AF%BC%E5%85%A5"><span class="toc-number">1.3.</span> <span class="toc-text">方法二：先转换再导入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B%E4%B8%8B%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="toc-number">1.4.</span> <span class="toc-text">不同存储类型下的差异</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hyper-V-%E7%9A%84-Windows-%E8%BF%81%E7%A7%BB%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.5.</span> <span class="toc-text">Hyper-V 的 Windows 迁移注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E5%AF%BC%E5%85%A5%E5%89%8D%E7%9A%84%E6%B8%85%E7%90%86"><span class="toc-number">1.5.1.</span> <span class="toc-text">0. 导入前的清理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%80%89%E6%8B%A9-BIOS-%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.5.2.</span> <span class="toc-text">1. 选择 BIOS 模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%A3%81%E7%9B%98%E6%8E%A7%E5%88%B6%E5%99%A8%E4%B8%8E-VirtIO-%E9%A9%B1%E5%8A%A8"><span class="toc-number">1.5.3.</span> <span class="toc-text">2. 磁盘控制器与 VirtIO 驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Secure-Boot"><span class="toc-number">1.5.4.</span> <span class="toc-text">3. Secure Boot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%AA%8C%E8%AF%81-VirtIO-%E9%A9%B1%E5%8A%A8%E5%B7%B2%E5%AE%89%E8%A3%85"><span class="toc-number">1.5.5.</span> <span class="toc-text">4. 验证 VirtIO 驱动已安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">1.6.</span> <span class="toc-text">常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#qm-importdisk-%E6%8A%A5-I-O-error"><span class="toc-number">1.6.1.</span> <span class="toc-text">qm importdisk 报 I&#x2F;O error</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%9C%A8-Web-UI-%E6%98%BE%E7%A4%BA%E4%BD%86%E5%90%AF%E5%8A%A8%E6%89%BE%E4%B8%8D%E5%88%B0"><span class="toc-number">1.6.2.</span> <span class="toc-text">磁盘在 Web UI 显示但启动找不到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E5%90%8E%E8%93%9D%E5%B1%8F-INACCESSIBLE-BOOT-DEVICE"><span class="toc-number">1.6.3.</span> <span class="toc-text">启动后蓝屏 INACCESSIBLE BOOT DEVICE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E6%B2%A1%E5%87%BA%E7%8E%B0%E5%9C%A8-Unused-Disk"><span class="toc-number">1.6.4.</span> <span class="toc-text">磁盘没出现在 Unused Disk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E5%90%8E%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E3%80%8C%E5%8F%98%E5%A4%A7%E3%80%8D"><span class="toc-number">1.6.5.</span> <span class="toc-text">导入后磁盘空间「变大」</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/07/Schneider_apc_pdu_password_recovery/" title="Schneider APC PDU 密码重置">Schneider APC PDU 密码重置</a><time datetime="2026-07-07T16:00:00.000Z" title="发表于 2026-07-08 00:00:00">2026-07-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/07/07/proxmox_import_vhdx/" title="Proxmox 导入 VHDX">Proxmox 导入 VHDX</a><time datetime="2026-07-07T16:00:00.000Z" title="发表于 2026-07-08 00:00:00">2026-07-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/06/25/tpm_ca_verification/" title="TPM EK Certificate CA Validation">TPM EK Certificate CA Validation</a><time datetime="2026-06-25T16:00:00.000Z" title="发表于 2026-06-26 00:00:00">2026-06-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/12/cx7_400g_network_sriov_test/" title="CX7 400G 网络 SR-IOV 虚拟机测试优化">CX7 400G 网络 SR-IOV 虚拟机测试优化</a><time datetime="2026-04-12T16:00:00.000Z" title="发表于 2026-04-13 00:00:00">2026-04-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/12/switch_cx7_ib_eth_mode/" title="NVIDIA ConnectX-7 网卡从 InfiniBand (IB) 切换到 Ethernet (ETH)">NVIDIA ConnectX-7 网卡从 InfiniBand (IB) 切换到 Ethernet (ETH)</a><time datetime="2026-03-12T16:00:00.000Z" title="发表于 2026-03-13 00:00:00">2026-03-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Frank</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.14.0-b3"></script><script src="/js/main.js?v=4.14.0-b3"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.35/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = (ele) => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from(ele).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+    
+    codeMermaidEle.forEach(ele => {
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.innerHTML = `<pre class="mermaid-src" hidden>${ele.textContent}</pre>`
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+  
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'https://blog.franktest.net/2026/07/07/proxmox_import_vhdx/'
+    this.page.identifier = '/2026/07/07/proxmox_import_vhdx/'
+    this.page.title = 'Proxmox 导入 VHDX'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://frank-reoyq9vbgl.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=frank-reoyq9vbgl&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Disqus' === 'Disqus' || !false) {
+    if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.14.0-b3"></script></div></div></body></html>
