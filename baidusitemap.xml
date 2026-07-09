@@ -14,10 +14,18 @@
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/post_template/</loc>
-    <lastmod>2026-07-08</lastmod>
+    <lastmod>2026-07-09</lastmod>
   </url>
   <url>
     <loc>https://blog.franktest.net/2024/06/30/hello-world/</loc>
+    <lastmod>2026-07-09</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2026/07/08/trenchboot_amd_skinit_validation/</loc>
+    <lastmod>2026-07-08</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2026/07/08/windows_ssh_corrupted_mac_on_input_error/</loc>
     <lastmod>2026-07-08</lastmod>
   </url>
   <url>
@@ -153,11 +161,11 @@
     <lastmod>2024-11-07</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/10/31/nvidia_switch_quick_start/</loc>
+    <loc>https://blog.franktest.net/2024/10/31/pcie_aer/</loc>
     <lastmod>2024-10-31</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/10/31/pcie_aer/</loc>
+    <loc>https://blog.franktest.net/2024/10/31/nvidia_switch_quick_start/</loc>
     <lastmod>2024-10-31</lastmod>
   </url>
   <url>
@@ -201,15 +209,15 @@
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/rhel9.4_mlx_pf/</loc>
-    <lastmod>2024-08-14</lastmod>
-  </url>
-  <url>
     <loc>https://blog.franktest.net/2024/08/14/rhel9.4_mlx_sriov_vf/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/08/14/stress-ng_test/</loc>
+    <loc>https://blog.franktest.net/2024/08/14/rhel9.4_mlx_pf/</loc>
+    <lastmod>2024-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.franktest.net/2024/07/03/stressapptest_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
@@ -217,7 +225,7 @@
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
-    <loc>https://blog.franktest.net/2024/07/03/stressapptest_test/</loc>
+    <loc>https://blog.franktest.net/2024/08/14/stress-ng_test/</loc>
     <lastmod>2024-08-14</lastmod>
   </url>
   <url>
