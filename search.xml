@@ -1193,6 +1193,41 @@
     
     
     <entry>
+      <title>NVIDIA 交换机快速配置 - Cumulus Linux</title>
+      <link href="/2024/10/31/nvidia_switch_quick_start/"/>
+      <url>/2024/10/31/nvidia_switch_quick_start/</url>
+      
+        <content type="html"><![CDATA[<h1 id="NVIDIA-交换机快速配置-Cumulus-Linux"><a href="#NVIDIA-交换机快速配置-Cumulus-Linux" class="headerlink" title="NVIDIA 交换机快速配置 - Cumulus Linux"></a>NVIDIA 交换机快速配置 - Cumulus Linux</h1><ol><li><p><strong>串口连接</strong></p><ul><li>首先在设备管理器查询对应串口，例如COM3</li><li>使用串口连接软件进行连接，例如putty, 波特率使用9</li></ul></li><li><p><strong>设置接口到桥接域</strong>：</p><ul><li>查看端口</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brctl show</span><br></pre></td></tr></table></figure><ul><li>查看交接机端口</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net show interface all</span><br></pre></td></tr></table></figure><ul><li>将接口 <code>swp1</code> 到 <code>swp3</code> 添加到桥接域 <code>br_default</code> 中。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> interface swp1-3 bridge domain br_default</span><br></pre></td></tr></table></figure></li><li><p><strong>设置桥接域中的VLAN</strong>：</p><ul><li>为桥接域 <code>br_default</code> 配置 VLAN 10 和 VLAN 20。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> bridge domain br_default vlan 10,20</span><br></pre></td></tr></table></figure></li><li><p><strong>设置无标签VLAN（untagged VLAN）</strong>：</p><ul><li>将 VLAN 1 设为无标签 VLAN，适用于默认VLAN不打标签的情况。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> bridge domain br_default untagged 1</span><br></pre></td></tr></table></figure></li><li><p><strong>为单个接口设置VLAN</strong>：</p><ul><li>将接口 <code>swp3</code> 添加到桥接域 <code>br_default</code> 中，并指定为 VLAN 20。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> interface swp3 bridge domain br_default vlan 20</span><br></pre></td></tr></table></figure></li><li><p><strong>应用并保存配置</strong>：</p><ul><li>应用以上配置，确保配置生效。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nv config apply</span><br><span class="line">nv config save</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hardware </category>
+          
+          <category> Network </category>
+          
+          <category> Switch </category>
+          
+          <category> Configuration </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> CumulusLinux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PCIe高级错误报告</title>
       <link href="/2024/10/31/pcie_aer/"/>
       <url>/2024/10/31/pcie_aer/</url>
@@ -1253,41 +1288,6 @@
             <tag> Proxy </tag>
             
             <tag> Squid </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>NVIDIA 交换机快速配置 - Cumulus Linux</title>
-      <link href="/2024/10/31/nvidia_switch_quick_start/"/>
-      <url>/2024/10/31/nvidia_switch_quick_start/</url>
-      
-        <content type="html"><![CDATA[<h1 id="NVIDIA-交换机快速配置-Cumulus-Linux"><a href="#NVIDIA-交换机快速配置-Cumulus-Linux" class="headerlink" title="NVIDIA 交换机快速配置 - Cumulus Linux"></a>NVIDIA 交换机快速配置 - Cumulus Linux</h1><ol><li><p><strong>设置接口到桥接域</strong>：</p><ul><li>查看端口</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Brctl show</span><br></pre></td></tr></table></figure><ul><li>查看交接机端口</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net show interface all</span><br></pre></td></tr></table></figure><ul><li>将接口 <code>swp1</code> 到 <code>swp3</code> 添加到桥接域 <code>br_default</code> 中。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> interface swp1-3 bridge domain br_default</span><br></pre></td></tr></table></figure></li><li><p><strong>设置桥接域中的VLAN</strong>：</p><ul><li>为桥接域 <code>br_default</code> 配置 VLAN 10 和 VLAN 20。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> bridge domain br_default vlan 10,20</span><br></pre></td></tr></table></figure></li><li><p><strong>设置无标签VLAN（untagged VLAN）</strong>：</p><ul><li>将 VLAN 1 设为无标签 VLAN，适用于默认VLAN不打标签的情况。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> bridge domain br_default untagged 1</span><br></pre></td></tr></table></figure></li><li><p><strong>为单个接口设置VLAN</strong>：</p><ul><li>将接口 <code>swp3</code> 添加到桥接域 <code>br_default</code> 中，并指定为 VLAN 20。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nv <span class="built_in">set</span> interface swp3 bridge domain br_default vlan 20</span><br></pre></td></tr></table></figure></li><li><p><strong>应用并保存配置</strong>：</p><ul><li>应用以上配置，确保配置生效。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nv config apply</span><br><span class="line">nv config save</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> Hardware </category>
-          
-          <category> Network </category>
-          
-          <category> Switch </category>
-          
-          <category> Configuration </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> Tool </tag>
-            
-            <tag> CumulusLinux </tag>
             
         </tags>
       
@@ -1572,39 +1572,6 @@
     
     
     <entry>
-      <title>使用 `stress` 进行系统压力测试</title>
-      <link href="/2024/08/14/stress_test/"/>
-      <url>/2024/08/14/stress_test/</url>
-      
-        <content type="html"><![CDATA[<h1 id="使用-stress-进行系统压力测试"><a href="#使用-stress-进行系统压力测试" class="headerlink" title="使用 stress 进行系统压力测试"></a>使用 <code>stress</code> 进行系统压力测试</h1><hr><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h4><p><code>stress</code> 是一个简单但功能强大的工具，用于对系统的 CPU、内存、I&#x2F;O 和磁盘进行压力测试。通过施加高负荷，它可以帮助识别系统在极端条件下的稳定性问题。详细介绍了在 Linux 系统上安装、配置并运行 <code>stress</code> 工具的过程，以进行全面的系统压力测试。</p><h4 id="范围"><a href="#范围" class="headerlink" title="范围"></a><strong>范围</strong></h4><p>适用于需要验证系统硬件和软件稳定性的技术人员，尤其是在测试 CPU、内存、I&#x2F;O 和磁盘性能时使用。</p><h4 id="职责"><a href="#职责" class="headerlink" title="职责"></a><strong>职责</strong></h4><ul><li><strong>系统管理员</strong>：确保系统已正确安装所有必需的依赖包，并具备执行测试所需的权限。</li><li><strong>操作员</strong>：按照本 SOP 正确执行 <code>stress</code> 工具，确保测试顺利进行。</li></ul><h4 id="要求"><a href="#要求" class="headerlink" title="要求"></a><strong>要求</strong></h4><ul><li>运行 Linux 操作系统的设备。</li><li>基本的命令行操作知识。</li><li>具备 sudo 或 root 权限。</li><li>有效的互联网连接以下载必要的软件包和工具。</li></ul><h4 id="过程"><a href="#过程" class="headerlink" title="过程"></a><strong>过程</strong></h4><h5 id="1-系统环境准备"><a href="#1-系统环境准备" class="headerlink" title="1. 系统环境准备"></a>1. <strong>系统环境准备</strong></h5><p>1.1 <strong>更新系统软件包列表</strong></p><ul><li>在进行软件安装前，先确保系统软件包是最新的。</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get upgrade</span><br></pre></td></tr></table></figure><p>1.2 <strong>安装 Stress 工具</strong></p><ul><li><p><strong>在 Debian&#x2F;Ubuntu 系统上使用 <code>apt</code> 安装 <code>stress</code>：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install stress</span><br></pre></td></tr></table></figure></li><li><p><strong>在 RHEL&#x2F;CentOS 系统上使用 <code>yum</code> 安装 <code>stress</code>：</strong></p><ul><li>首先，启用 EPEL 仓库（如果尚未启用）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install epel-release</span><br></pre></td></tr></table></figure></li><li>然后安装 <code>stress</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install stress</span><br></pre></td></tr></table></figure></li></ul></li></ul><h5 id="2-配置与运行-stress"><a href="#2-配置与运行-stress" class="headerlink" title="2. 配置与运行 stress"></a>2. <strong>配置与运行 <code>stress</code></strong></h5><p>2.1 <strong>运行 CPU 压力测试</strong></p><ul><li>使用 <code>stress</code> 工具对 CPU 进行压力测试。例如，以下命令将启动 4 个 CPU 工作线程，并使其各自运行 300 秒：</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stress --cpu 4 --<span class="built_in">timeout</span> 300</span><br></pre></td></tr></table></figure><ul><li>解释：<ul><li><code>--cpu 4</code>：启动 4 个 CPU 工作线程。</li><li><code>--timeout 300</code>：测试持续 300 秒（5 分钟）。</li></ul></li></ul><p>2.2 <strong>运行内存压力测试</strong></p><ul><li>对系统内存进行压力测试。例如，以下命令将启动 2 个内存工作线程，每个分配 256MB 内存，并使其各自运行 300 秒：</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stress --vm 2 --vm-bytes 256M --<span class="built_in">timeout</span> 300</span><br></pre></td></tr></table></figure><ul><li>解释：<ul><li><code>--vm 2</code>：启动 2 个内存工作线程。</li><li><code>--vm-bytes 256M</code>：每个线程分配 256MB 内存。</li><li><code>--timeout 300</code>：测试持续 300 秒（5 分钟）。</li></ul></li></ul><p>2.3 <strong>运行 I&#x2F;O 压力测试</strong></p><ul><li>对系统的 I&#x2F;O 操作进行压力测试。例如，以下命令将启动 4 个 I&#x2F;O 工作线程，并使其各自运行 300 秒：</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stress --io 4 --<span class="built_in">timeout</span> 300</span><br></pre></td></tr></table></figure><ul><li>解释：<ul><li><code>--io 4</code>：启动 4 个 I&#x2F;O 工作线程。</li><li><code>--timeout 300</code>：测试持续 300 秒（5 分钟）。</li></ul></li></ul><p>2.4 <strong>运行磁盘压力测试</strong></p><ul><li>对系统磁盘进行压力测试。例如，以下命令将启动 4 个磁盘工作线程，每个线程执行 10MB 的写操作，并持续运行 300 秒：</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stress --hdd 4 --hdd-bytes 10M --<span class="built_in">timeout</span> 300</span><br></pre></td></tr></table></figure><ul><li>解释：<ul><li><code>--hdd 4</code>：启动 4 个磁盘工作线程。</li><li><code>--hdd-bytes 10M</code>：每个线程执行 10MB 的写操作。</li><li><code>--timeout 300</code>：测试持续 300 秒（5 分钟）。</li></ul></li></ul><h5 id="3-监控与分析测试结果"><a href="#3-监控与分析测试结果" class="headerlink" title="3. 监控与分析测试结果"></a>3. <strong>监控与分析测试结果</strong></h5><p>3.1 <strong>监控测试进度</strong></p><ul><li>在测试过程中，可以在终端查看 <code>stress</code> 输出，监控测试的进展情况。</li></ul><p>3.2 <strong>分析测试结果</strong></p><ul><li><code>stress</code> 工具本身不会生成详细的测试报告，但可以通过系统日志和资源监控工具（如 <code>htop</code> 或 <code>dstat</code>）来分析系统在压力测试下的表现。</li></ul><h5 id="4-优化与维护"><a href="#4-优化与维护" class="headerlink" title="4. 优化与维护"></a>4. <strong>优化与维护</strong></h5><p>4.1 <strong>定期测试</strong></p><ul><li>建议定期运行 <code>stress</code> 工具，特别是在系统进行重大变更（如硬件升级或系统更新）之后，以确保系统的持续稳定性。</li></ul><p>4.2 <strong>调整参数</strong></p><ul><li>根据系统的具体需求和测试目标，调整 <code>stress</code> 的参数，以便更好地检测系统潜在问题。</li></ul><h5 id="5-常见问题与故障排除"><a href="#5-常见问题与故障排除" class="headerlink" title="5. 常见问题与故障排除"></a>5. <strong>常见问题与故障排除</strong></h5><p>5.1 <strong>测试失败或系统崩溃</strong></p><ul><li>如果在测试过程中系统崩溃或测试失败，请检查系统日志以确定故障原因。可能需要降低测试负荷，或排查硬件问题。</li></ul><p>5.2 <strong>系统资源不足</strong></p><ul><li>如果在测试过程中出现内存或 CPU 资源不足的错误，考虑减少分配给测试的资源量，或调整系统配置。</li></ul><h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h4><ul><li><a href="https://github.com/stress-ng/stress-ng">Stress GitHub Repository</a></li><li><a href="https://linux.die.net/man/1/stress">Linux Performance Tools</a></li><li><a href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Basics</a></li></ul><hr><p>本 SOP 提供了使用 <code>stress</code> 工具进行系统压力测试的详细步骤，旨在帮助用户识别和解决潜在的系统稳定性问题。通过这些测试，您可以确保系统在高负荷下的性能表现，并及时采取措施修复可能的故障。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Operation System </category>
-          
-          <category> Linux </category>
-          
-          <category> Test </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Linux </tag>
-            
-            <tag> Tool </tag>
-            
-            <tag> Stress </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>使用 `stress-ng` 进行系统压力测试</title>
       <link href="/2024/08/14/stress-ng_test/"/>
       <url>/2024/08/14/stress-ng_test/</url>
@@ -1638,6 +1605,39 @@
     
     
     <entry>
+      <title>使用 `stress` 进行系统压力测试</title>
+      <link href="/2024/08/14/stress_test/"/>
+      <url>/2024/08/14/stress_test/</url>
+      
+        <content type="html"><![CDATA[<h1 id="使用-stress-进行系统压力测试"><a href="#使用-stress-进行系统压力测试" class="headerlink" title="使用 stress 进行系统压力测试"></a>使用 <code>stress</code> 进行系统压力测试</h1><hr><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a><strong>概述</strong></h4><p><code>stress</code> 是一个简单但功能强大的工具，用于对系统的 CPU、内存、I&#x2F;O 和磁盘进行压力测试。通过施加高负荷，它可以帮助识别系统在极端条件下的稳定性问题。详细介绍了在 Linux 系统上安装、配置并运行 <code>stress</code> 工具的过程，以进行全面的系统压力测试。</p><h4 id="范围"><a href="#范围" class="headerlink" title="范围"></a><strong>范围</strong></h4><p>适用于需要验证系统硬件和软件稳定性的技术人员，尤其是在测试 CPU、内存、I&#x2F;O 和磁盘性能时使用。</p><h4 id="职责"><a href="#职责" class="headerlink" title="职责"></a><strong>职责</strong></h4><ul><li><strong>系统管理员</strong>：确保系统已正确安装所有必需的依赖包，并具备执行测试所需的权限。</li><li><strong>操作员</strong>：按照本 SOP 正确执行 <code>stress</code> 工具，确保测试顺利进行。</li></ul><h4 id="要求"><a href="#要求" class="headerlink" title="要求"></a><strong>要求</strong></h4><ul><li>运行 Linux 操作系统的设备。</li><li>基本的命令行操作知识。</li><li>具备 sudo 或 root 权限。</li><li>有效的互联网连接以下载必要的软件包和工具。</li></ul><h4 id="过程"><a href="#过程" class="headerlink" title="过程"></a><strong>过程</strong></h4><h5 id="1-系统环境准备"><a href="#1-系统环境准备" class="headerlink" title="1. 系统环境准备"></a>1. <strong>系统环境准备</strong></h5><p>1.1 <strong>更新系统软件包列表</strong></p><ul><li>在进行软件安装前，先确保系统软件包是最新的。</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get upgrade</span><br></pre></td></tr></table></figure><p>1.2 <strong>安装 Stress 工具</strong></p><ul><li><p><strong>在 Debian&#x2F;Ubuntu 系统上使用 <code>apt</code> 安装 <code>stress</code>：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install stress</span><br></pre></td></tr></table></figure></li><li><p><strong>在 RHEL&#x2F;CentOS 系统上使用 <code>yum</code> 安装 <code>stress</code>：</strong></p><ul><li>首先，启用 EPEL 仓库（如果尚未启用）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install epel-release</span><br></pre></td></tr></table></figure></li><li>然后安装 <code>stress</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install stress</span><br></pre></td></tr></table></figure></li></ul></li></ul><h5 id="2-配置与运行-stress"><a href="#2-配置与运行-stress" class="headerlink" title="2. 配置与运行 stress"></a>2. <strong>配置与运行 <code>stress</code></strong></h5><p>2.1 <strong>运行 CPU 压力测试</strong></p><ul><li>使用 <code>stress</code> 工具对 CPU 进行压力测试。例如，以下命令将启动 4 个 CPU 工作线程，并使其各自运行 300 秒：</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stress --cpu 4 --<span class="built_in">timeout</span> 300</span><br></pre></td></tr></table></figure><ul><li>解释：<ul><li><code>--cpu 4</code>：启动 4 个 CPU 工作线程。</li><li><code>--timeout 300</code>：测试持续 300 秒（5 分钟）。</li></ul></li></ul><p>2.2 <strong>运行内存压力测试</strong></p><ul><li>对系统内存进行压力测试。例如，以下命令将启动 2 个内存工作线程，每个分配 256MB 内存，并使其各自运行 300 秒：</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stress --vm 2 --vm-bytes 256M --<span class="built_in">timeout</span> 300</span><br></pre></td></tr></table></figure><ul><li>解释：<ul><li><code>--vm 2</code>：启动 2 个内存工作线程。</li><li><code>--vm-bytes 256M</code>：每个线程分配 256MB 内存。</li><li><code>--timeout 300</code>：测试持续 300 秒（5 分钟）。</li></ul></li></ul><p>2.3 <strong>运行 I&#x2F;O 压力测试</strong></p><ul><li>对系统的 I&#x2F;O 操作进行压力测试。例如，以下命令将启动 4 个 I&#x2F;O 工作线程，并使其各自运行 300 秒：</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stress --io 4 --<span class="built_in">timeout</span> 300</span><br></pre></td></tr></table></figure><ul><li>解释：<ul><li><code>--io 4</code>：启动 4 个 I&#x2F;O 工作线程。</li><li><code>--timeout 300</code>：测试持续 300 秒（5 分钟）。</li></ul></li></ul><p>2.4 <strong>运行磁盘压力测试</strong></p><ul><li>对系统磁盘进行压力测试。例如，以下命令将启动 4 个磁盘工作线程，每个线程执行 10MB 的写操作，并持续运行 300 秒：</li></ul>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stress --hdd 4 --hdd-bytes 10M --<span class="built_in">timeout</span> 300</span><br></pre></td></tr></table></figure><ul><li>解释：<ul><li><code>--hdd 4</code>：启动 4 个磁盘工作线程。</li><li><code>--hdd-bytes 10M</code>：每个线程执行 10MB 的写操作。</li><li><code>--timeout 300</code>：测试持续 300 秒（5 分钟）。</li></ul></li></ul><h5 id="3-监控与分析测试结果"><a href="#3-监控与分析测试结果" class="headerlink" title="3. 监控与分析测试结果"></a>3. <strong>监控与分析测试结果</strong></h5><p>3.1 <strong>监控测试进度</strong></p><ul><li>在测试过程中，可以在终端查看 <code>stress</code> 输出，监控测试的进展情况。</li></ul><p>3.2 <strong>分析测试结果</strong></p><ul><li><code>stress</code> 工具本身不会生成详细的测试报告，但可以通过系统日志和资源监控工具（如 <code>htop</code> 或 <code>dstat</code>）来分析系统在压力测试下的表现。</li></ul><h5 id="4-优化与维护"><a href="#4-优化与维护" class="headerlink" title="4. 优化与维护"></a>4. <strong>优化与维护</strong></h5><p>4.1 <strong>定期测试</strong></p><ul><li>建议定期运行 <code>stress</code> 工具，特别是在系统进行重大变更（如硬件升级或系统更新）之后，以确保系统的持续稳定性。</li></ul><p>4.2 <strong>调整参数</strong></p><ul><li>根据系统的具体需求和测试目标，调整 <code>stress</code> 的参数，以便更好地检测系统潜在问题。</li></ul><h5 id="5-常见问题与故障排除"><a href="#5-常见问题与故障排除" class="headerlink" title="5. 常见问题与故障排除"></a>5. <strong>常见问题与故障排除</strong></h5><p>5.1 <strong>测试失败或系统崩溃</strong></p><ul><li>如果在测试过程中系统崩溃或测试失败，请检查系统日志以确定故障原因。可能需要降低测试负荷，或排查硬件问题。</li></ul><p>5.2 <strong>系统资源不足</strong></p><ul><li>如果在测试过程中出现内存或 CPU 资源不足的错误，考虑减少分配给测试的资源量，或调整系统配置。</li></ul><h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a><strong>参考文献</strong></h4><ul><li><a href="https://github.com/stress-ng/stress-ng">Stress GitHub Repository</a></li><li><a href="https://linux.die.net/man/1/stress">Linux Performance Tools</a></li><li><a href="https://linuxconfig.org/bash-scripting-tutorial-for-beginners">Bash Scripting Basics</a></li></ul><hr><p>本 SOP 提供了使用 <code>stress</code> 工具进行系统压力测试的详细步骤，旨在帮助用户识别和解决潜在的系统稳定性问题。通过这些测试，您可以确保系统在高负荷下的性能表现，并及时采取措施修复可能的故障。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Operation System </category>
+          
+          <category> Linux </category>
+          
+          <category> Test </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Tool </tag>
+            
+            <tag> Stress </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>IPv4 和 IPv6 路由管理</title>
       <link href="/2024/08/07/IPv4_and_IPv6_Routing_Tutorial/"/>
       <url>/2024/08/07/IPv4_and_IPv6_Routing_Tutorial/</url>
@@ -1649,9 +1649,9 @@
           
           <category> Operation System </category>
           
-          <category> Windows </category>
-          
           <category> Linux </category>
+          
+          <category> Windows </category>
           
           <category> Network </category>
           
@@ -2145,25 +2145,6 @@
     
     
     <entry>
-      <title>Hello World!</title>
-      <link href="/2024/06/30/hello-world/"/>
-      <url>/2024/06/30/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> template </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>禁用 Debian 系统的屏幕锁定和自动睡眠</title>
       <link href="/2024/06/30/disable_screen_lock_and_sleep/"/>
       <url>/2024/06/30/disable_screen_lock_and_sleep/</url>
@@ -2185,6 +2166,25 @@
         <tags>
             
             <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World!</title>
+      <link href="/2024/06/30/hello-world/"/>
+      <url>/2024/06/30/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> template </tag>
             
         </tags>
       
